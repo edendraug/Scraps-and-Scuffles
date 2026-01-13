@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=3 format=3 uid="uid://bvwo1kc0nij5b"]
+
+[ext_resource type="Script" uid="uid://dj07g4dseo2ah" path="res://Resources/BuildingData.gd" id="1_cds47"]
+[ext_resource type="Resource" uid="uid://dkg175n163saw" path="res://Resources/Crafting Items/rsc_wood.tres" id="1_mbhay"]
+
+[resource]
+script = ExtResource("1_cds47")
+object_name = "Tree"
+object_description = "An innocent tree. There's a lot of meat in there!"
+health = 2
+object_type = 0
+drop_resource = ExtResource("1_mbhay")
+drop_amount = 6
+metadata/_custom_type_script = "uid://dj07g4dseo2ah"

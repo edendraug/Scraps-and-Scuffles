@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ResourceData" load_steps=4 format=3 uid="uid://dkg175n163saw"]
+
+[ext_resource type="Script" uid="uid://bu4ofekvbqa31" path="res://Resources/ResourceData.gd" id="1_b41y8"]
+[ext_resource type="Texture2D" uid="uid://cxiammc8yfqhx" path="res://Assets/Temp/Wood.png" id="1_dhbvb"]
+[ext_resource type="PackedScene" uid="uid://wolw0keos1kq" path="res://Scenes/ResourcePickup.tscn" id="2_dhbvb"]
+
+[resource]
+script = ExtResource("1_b41y8")
+display_name = "Wood"
+display_description = "A useful component."
+pickup_scene = ExtResource("2_dhbvb")
+icon = ExtResource("1_dhbvb")
+metadata/_custom_type_script = "uid://bu4ofekvbqa31"

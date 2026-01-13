@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=3 format=3 uid="uid://ipi8qomlvpvc"]
+
+[ext_resource type="Resource" uid="uid://7arqepfd7k24" path="res://Resources/Crafting Items/rsc_stone.tres" id="1_hv65t"]
+[ext_resource type="Script" uid="uid://dj07g4dseo2ah" path="res://Resources/BuildingData.gd" id="2_3aefx"]
+
+[resource]
+script = ExtResource("2_3aefx")
+object_name = "Rock"
+object_description = "A simple rock. It seems happy."
+health = 5
+object_type = 0
+drop_resource = ExtResource("1_hv65t")
+drop_amount = 5
+metadata/_custom_type_script = "uid://dj07g4dseo2ah"

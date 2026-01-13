@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=3 format=3 uid="uid://bvfbe0y1heavc"]
+
+[ext_resource type="Resource" uid="uid://c2k8os6u6va37" path="res://Resources/Crafting Items/rsc_energy.tres" id="1_psfpn"]
+[ext_resource type="Script" uid="uid://dj07g4dseo2ah" path="res://Resources/BuildingData.gd" id="2_11lwg"]
+
+[resource]
+script = ExtResource("2_11lwg")
+object_name = "Energy Ball"
+object_description = "Brimming with potential!"
+health = 1
+object_type = 0
+drop_resource = ExtResource("1_psfpn")
+drop_amount = 1
+metadata/_custom_type_script = "uid://dj07g4dseo2ah"
