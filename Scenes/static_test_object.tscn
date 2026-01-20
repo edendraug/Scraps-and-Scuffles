@@ -20,5 +20,4 @@ grow_vertical = 2
 color = Color(0.629675, 0.629675, 0.629675, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_njtuo")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0qepwm2ley1o"]
+
+[ext_resource type="Script" uid="uid://dpbom2b6ylvgf" path="res://Scripts/Building/PlacedBuilding.gd" id="1_25bx6"]
+
+[node name="PlacedBuilding" type="StaticBody2D"]
+script = ExtResource("1_25bx6")
+metadata/_custom_type_script = "uid://dpbom2b6ylvgf"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

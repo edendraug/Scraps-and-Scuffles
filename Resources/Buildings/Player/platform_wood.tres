@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://cbn8l0nvukslt"]
+
+[ext_resource type="Script" uid="uid://dj07g4dseo2ah" path="res://Scripts/Building/BuildingData.gd" id="1_jvadl"]
+[ext_resource type="PackedScene" uid="uid://cif3yos5p7qxb" path="res://Scenes/Buildings/Player/platform_wood.tscn" id="1_mbypd"]
+[ext_resource type="Texture2D" uid="uid://cv3wqmib4lnwc" path="res://Assets/Temp/6x1 WoodenPlatform.png" id="2_mbypd"]
+
+[resource]
+script = ExtResource("1_jvadl")
+building_name = "Wooden Platform"
+building_type = 0
+building_scene = ExtResource("1_mbypd")
+icon = ExtResource("2_mbypd")
+is_natural_building = false
+drop_resources_on_destroy = true
+grid_width = 1
+grid_height = 6
+grid_pattern = Array[PackedByteArray]([])
+wood_cost = 6
+stone_cost = 0
+energy_cost = 0
+max_health = 8
+can_rotate = true
+metadata/_custom_type_script = "uid://dj07g4dseo2ah"

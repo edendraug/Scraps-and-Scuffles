@@ -1,13 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2qhnnqa03y08"]
+[gd_scene load_steps=13 format=3 uid="uid://d2qhnnqa03y08"]
 
 [ext_resource type="PackedScene" uid="uid://bj30cbosvrssh" path="res://Scenes/static_test_object.tscn" id="1_pa5vy"]
-[ext_resource type="PackedScene" uid="uid://b7cooyoqod2np" path="res://Scenes/Player.tscn" id="1_qrlst"]
 [ext_resource type="PackedScene" uid="uid://1epvep0gnru2" path="res://Scenes/Game_Manager.tscn" id="1_r1y6g"]
-[ext_resource type="PackedScene" uid="uid://ck8wlgovos7y6" path="res://Scenes/test_object.tscn" id="3_pa5vy"]
-[ext_resource type="Resource" uid="uid://bvwo1kc0nij5b" path="res://Resources/Buildings/bld_tree.tres" id="4_bvrs0"]
-[ext_resource type="Resource" uid="uid://ipi8qomlvpvc" path="res://Resources/Buildings/bld_rock.tres" id="5_2d5t7"]
-[ext_resource type="Resource" uid="uid://bvfbe0y1heavc" path="res://Resources/Buildings/bld_energyball.tres" id="6_2ni6k"]
-[ext_resource type="PackedScene" uid="uid://wolw0keos1kq" path="res://Scenes/ResourcePickup.tscn" id="6_r1y6g"]
+[ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="3_pa5vy"]
+[ext_resource type="PackedScene" uid="uid://ba27xcdy6tfnw" path="res://Scenes/Buildings/Natural/Rock_B03L_Prefab.tscn" id="4_2d5t7"]
+[ext_resource type="PackedScene" uid="uid://du4lejbs4awx" path="res://Scenes/Buildings/Natural/Rock_A01S_Prefab.tscn" id="4_bvrs0"]
+[ext_resource type="PackedScene" uid="uid://kv2n5t38358s" path="res://Scenes/Buildings/Natural/Rock_A03L_Prefab.tscn" id="5_2ni6k"]
+[ext_resource type="PackedScene" uid="uid://chqtfa1sq3bhf" path="res://Scenes/Buildings/Natural/Rock_B02S_Prefab.tscn" id="7_pbpui"]
+[ext_resource type="PackedScene" uid="uid://dm0aykw2oe7ul" path="res://Scenes/Buildings/Natural/Tree_B02_Prefab.tscn" id="8_7bhy6"]
+[ext_resource type="PackedScene" uid="uid://cqeeqi11e60c0" path="res://Scenes/Buildings/Natural/Tree_B01_Prefab.tscn" id="9_npxyf"]
+[ext_resource type="PackedScene" uid="uid://bn0pnvw5mv1jq" path="res://Scenes/Buildings/Natural/Tree_A02_Prefab.tscn" id="10_vtudo"]
+[ext_resource type="PackedScene" uid="uid://dtac066fnun0c" path="res://Scenes/Buildings/Natural/Tree_A01_Prefab.tscn" id="11_m71l5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t7cmt"]
 
@@ -15,65 +18,68 @@
 
 [node name="GameManager" parent="." instance=ExtResource("1_r1y6g")]
 
-[node name="StaticBody2D2" parent="." instance=ExtResource("1_pa5vy")]
+[node name="Level" type="Node2D" parent="."]
+
+[node name="StaticBody2D2" parent="Level" instance=ExtResource("1_pa5vy")]
 position = Vector2(1241, 497)
 scale = Vector2(1, 26.64)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="Level"]
 position = Vector2(-106, 0)
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+[node name="ColorRect" type="ColorRect" parent="Level/StaticBody2D"]
 offset_left = -728.0
 offset_top = 708.0
 offset_right = 2114.0
 offset_bottom = 1651.0
 color = Color(0.707967, 0.707967, 0.707967, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D"]
 position = Vector2(699, 710)
 shape = SubResource("WorldBoundaryShape2D_t7cmt")
 
-[node name="StaticBody2D3" parent="." instance=ExtResource("1_pa5vy")]
+[node name="StaticBody2D3" parent="Level" instance=ExtResource("1_pa5vy")]
 position = Vector2(-88, 334)
 scale = Vector2(20.44, 1)
 
-[node name="StaticBody2D4" parent="." instance=ExtResource("1_pa5vy")]
+[node name="StaticBody2D4" parent="Level" instance=ExtResource("1_pa5vy")]
 position = Vector2(314, 334)
 rotation = 1.57079
 scale = Vector2(6.64, 1)
 
-[node name="StaticBody2D5" parent="." instance=ExtResource("1_pa5vy")]
+[node name="StaticBody2D5" parent="Level" instance=ExtResource("1_pa5vy")]
 position = Vector2(785, 211)
 scale = Vector2(6.64, 1)
-
-[node name="Tree" parent="." instance=ExtResource("3_pa5vy")]
-modulate = Color(0, 1, 0.0333333, 1)
-position = Vector2(909, 597)
-scale = Vector2(1, 6.04)
-data = ExtResource("4_bvrs0")
-
-[node name="Tree2" parent="." instance=ExtResource("3_pa5vy")]
-modulate = Color(0.157203, 1, 0.454531, 1)
-position = Vector2(554, 682)
-scale = Vector2(2.32173, 1.93118)
-data = ExtResource("5_2d5t7")
-
-[node name="Tree4" parent="." instance=ExtResource("3_pa5vy")]
-modulate = Color(0, 1, 0.0333333, 1)
-position = Vector2(209, 634)
-scale = Vector2(0.806219, 0.976198)
-data = ExtResource("6_2ni6k")
-
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_qrlst")]
-position = Vector2(1039, 694)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 271)
 zoom = Vector2(0.6, 0.6)
 
-[node name="Player" parent="." instance=ExtResource("1_qrlst")]
-position = Vector2(757, 176)
-player_id = 2
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_pa5vy")]
+position = Vector2(850, 606)
 
-[node name="ResourcePickup" parent="." instance=ExtResource("6_r1y6g")]
-position = Vector2(793, -143)
+[node name="Buildings" type="Node2D" parent="."]
+
+[node name="Rock" parent="Buildings" instance=ExtResource("4_2d5t7")]
+position = Vector2(372, 658)
+
+[node name="Rock2" parent="Buildings" instance=ExtResource("5_2ni6k")]
+position = Vector2(1171, 655)
+
+[node name="Rock3" parent="Buildings" instance=ExtResource("4_bvrs0")]
+position = Vector2(226, 656)
+
+[node name="Rock4" parent="Buildings" instance=ExtResource("7_pbpui")]
+position = Vector2(698, 663)
+
+[node name="PlacedBuilding" parent="Buildings" instance=ExtResource("8_7bhy6")]
+position = Vector2(52, 709)
+
+[node name="PlacedBuilding2" parent="Buildings" instance=ExtResource("9_npxyf")]
+position = Vector2(149, 318)
+
+[node name="PlacedBuilding3" parent="Buildings" instance=ExtResource("10_vtudo")]
+position = Vector2(1058, 712)
+
+[node name="PlacedBuilding4" parent="Buildings" instance=ExtResource("11_m71l5")]
+position = Vector2(759, 193)

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba27xcdy6tfnw"]
+
+[ext_resource type="Script" uid="uid://dpbom2b6ylvgf" path="res://Scripts/Building/PlacedBuilding.gd" id="1_dstnf"]
+[ext_resource type="Resource" uid="uid://dfgyfjde7nfup" path="res://Resources/Buildings/Natural/RockL_Data.tres" id="2_g6ni8"]
+[ext_resource type="Texture2D" uid="uid://qm01ti5xye2j" path="res://Assets/Buildings/Natural/Rocks_Sheet.png" id="3_lt83d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wcish"]
+radius = 40.0
+height = 100.0
+
+[node name="Rock" type="StaticBody2D" groups=["Buildings"]]
+collision_layer = 4
+script = ExtResource("1_dstnf")
+building_data = ExtResource("2_g6ni8")
+metadata/_custom_type_script = "uid://dpbom2b6ylvgf"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("3_lt83d")
+hframes = 3
+vframes = 2
+frame = 5
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -126)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 139)
+shape = SubResource("CapsuleShape2D_wcish")

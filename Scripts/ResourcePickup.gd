@@ -68,8 +68,8 @@ func _on_spawn_timer_timeout() -> void:
 		#collect(area.get_node("Inventory"))
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.has_node("Inventory") and !receiving_inventory:
-		receiving_inventory = body.get_node("Inventory")
+	if body.has_node("InventoryManager") and !receiving_inventory:
+		receiving_inventory = body.get_node("InventoryManager")
 	#if body.has_node("Inventory") and initialized:
 		#collect(body.get_node("Inventory"))
 
