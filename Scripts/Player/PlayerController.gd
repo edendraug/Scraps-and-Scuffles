@@ -10,10 +10,10 @@ var current_health: int
 @onready var misc_label: Label = $DebugUI/MiscLabel
 
 @export_category("Components")
-@export var sprite : Sprite2D
+@export var sprite_manager : Node2D
 @export var collider : CollisionShape2D
-@export var anim : AnimationPlayer
 @export var hit_manager: Node2D
+@export var building_placer: BuildingPlacer
 
 
 @export_category(" Horizontal Movement")
@@ -51,6 +51,7 @@ var current_state := State.IDLE
 @export_category("Combat Stuff")
 @export var hit_force: float = 1000.0
 var can_hit : bool = true
+@export var hitting : bool = false
 var hittable_objects: Array = []
 var hit_targets: Array = []
 @export var stun_timer : Timer
@@ -67,8 +68,6 @@ var look_dir: int = 1:
 		look_dir = value
 		look_dir_changed.emit(look_dir)
 	get: return look_dir
-
-signal hit_action()
 
 func _ready() -> void:
 	InputManager.register_player(player_id)
@@ -150,8 +149,11 @@ func handle_input():
 	if InputManager.is_action_just_released(player_id, "jump"):
 		jump(false, false) if current_state != State.SLIDE else jump(true, false)
 	
-	if InputManager.is_action_just_pressed(player_id, "attack"):
-		attack()
+	if building_placer:
+		if !building_placer.is_menu_open:
+			if !building_placer.is_placing:
+				if InputManager.is_action_pressed(player_id, "attack"):
+					attack()
 
 #region === MOVEMENT AND PHYSICS ===
 func apply_gravity(delta: float) -> void:
@@ -202,15 +204,15 @@ func halt_movement(facing: float, delta) -> void:
 	elif facing < 0:
 		current_state = State.CROUCH
 
-func jump(is_pressed: bool, is_on_wall: bool) -> void:	
+func jump(is_pressed: bool, is_sliding: bool) -> void:	
 	# Standard jumping
-	if !is_on_wall: 
+	if !is_sliding: 
 		if is_pressed and coyote_timer > 0:
 			velocity.y = jump_velocity
 			coyote_timer = 0
 			current_state = State.JUMP
 	# Wall jumping
-	if is_on_wall and wall_coyote_timer > 0:
+	if is_sliding and wall_coyote_timer > 0:
 		var wall_normal := get_wall_normal()
 		var jump_dir := get_wall_jump_direction(wall_normal)
 		velocity = jump_dir * wall_jump_velocity
@@ -224,7 +226,10 @@ func jump(is_pressed: bool, is_on_wall: bool) -> void:
 
 #region === OTHER FEATURES ===
 func attack():
+	#var animation_player: AnimationPlayer = sprite_manager.anim
+	
 	if can_hit:
+		hitting = true
 		can_hit = false
 		attack_cooldown_timer.start()
 		for i in hittable_objects:
@@ -275,7 +280,7 @@ func update_coyote_time(delta: float) -> void:
 		wall_coyote_timer -= delta
 
 func update_animations():
-	sprite.flip_h = last_direction < 0
+	sprite_manager.scale.x = last_direction
 #endregion
 
 #region === SIGNALS ===
@@ -290,6 +295,7 @@ func _on_invincibility_timer_timeout() -> void:
 
 func _on_attack_cooldown_timer_timeout() -> void:
 	can_hit = true
+	hitting = false
 #endregion
 
 #region === DEV STUFF ===

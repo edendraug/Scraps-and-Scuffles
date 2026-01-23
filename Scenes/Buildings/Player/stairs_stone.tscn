@@ -1,15 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://c66j4slxg0o40"]
+[gd_scene load_steps=6 format=3 uid="uid://cu1wofkes7waw"]
 
-[ext_resource type="Script" uid="uid://dpbom2b6ylvgf" path="res://Scripts/Building/PlacedBuilding.gd" id="1_jmo1a"]
+[ext_resource type="Script" uid="uid://dpbom2b6ylvgf" path="res://Scripts/Building/PlacedBuilding.gd" id="1_riy6p"]
+[ext_resource type="Texture2D" uid="uid://7liutw05fn38" path="res://Assets/Temp/cracks.png" id="2_i3hqt"]
+[ext_resource type="Texture2D" uid="uid://bvnyrm8onvfks" path="res://Assets/Temp/Temp Buildings/Stone/6x6 Stone Stair.png" id="2_riy6p"]
+[ext_resource type="Shader" uid="uid://cg2ln1uue282v" path="res://Assets/Shaders/building_damage.gdshader" id="3_o55ry"]
+[ext_resource type="PackedScene" uid="uid://bj8nefjcoicxi" path="res://Scenes/Particles/building_hit_particles.tscn" id="5_o55ry"]
 
-[node name="PlacedBuilding" type="StaticBody2D"]
-script = ExtResource("1_jmo1a")
+[node name="PlacedBuilding" type="StaticBody2D" node_paths=PackedStringArray("particle_emitter")]
+script = ExtResource("1_riy6p")
+damage_texture = ExtResource("2_i3hqt")
+damage_shader = ExtResource("3_o55ry")
+particle_emitter = NodePath("BuildingHitParticles")
 metadata/_custom_type_script = "uid://dpbom2b6ylvgf"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-16, -16)
+scale = Vector2(2, 2)
+texture = ExtResource("2_riy6p")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="BuildingHitParticles" parent="." instance=ExtResource("5_o55ry")]
+position = Vector2(-16, -16)
+emission_shape = 4
+emission_points = PackedVector2Array(-80, 80, -64, 64, -48, 48, -32, 32, -16, 16, 0, 0, 16, -16, 32, -32, 48, -48, 64, -64, 80, -80)
+emission_colors = PackedColorArray()

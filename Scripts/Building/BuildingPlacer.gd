@@ -3,14 +3,13 @@ class_name BuildingPlacer
 
 @export var player_id: int = 0 # For multiplayer (0-3)
 @export var placement_radius: float = 200.0 # Adjustable placement range
-@export var ghost_modulate: Color = Color(1, 1, 1, 0.5) # Semi-transparent preview
-
-@export var stick_input_deadzone: float = 0.3
+@export var ghost_modulate: Color = Color(1, 1, 1, 0.3) # Semi-transparent preview
+#@export var radial_menu_path: NodePath # Path to the RadialBuildMenu
 
 #References
 @onready var player: CharacterBody2D = get_parent()
 var inventory_manager # Regerence to player's inventory
-@export var radial_menu: Control # Reference to RadialBuildMenu UI
+@export var radial_menu: Node2D # Reference to RadialBuildMenu UI
 
 #Placement state
 var is_menu_open: bool = false
@@ -24,23 +23,17 @@ func _ready() -> void:
 	inventory_manager = player.get_node_or_null("InventoryManager")
 	if not inventory_manager:
 		push_error("BuildingPlacer: No InventoryManager found on player!")
-	
-	# Get radial menu reference
-	#if radial_menu_path:
-		#radial_menu = get_node(radial_menu_path)
-	#if not radial_menu:
-		#push_error("BuildingPlacer: No RadialBuildMenu assigned!")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_placing and ghost_instance:
 		update_ghost_position()
 	handle_input()
-	radial_menu.global_position = player.global_position
 
 func handle_input() -> void:
 	# Build menu hold
-	if InputManager.is_action_pressed(player_id, "build_menu"):
+	if InputManager.is_action_just_pressed(player_id, "build_menu"):
 		open_build_menu()
+		
 	
 	if InputManager.is_action_just_released(player_id, "build_menu"):
 		if is_menu_open:
@@ -52,34 +45,28 @@ func handle_input() -> void:
 		cycle_building_type()
 	
 	if is_placing:
-		if InputManager.is_action_pressed(player_id, "rotate_building"):
+		if InputManager.is_action_just_pressed(player_id, "rotate_building"):
 			rotate_ghost()
-		if InputManager.is_action_pressed(player_id, "confirm"):
+			
+		if InputManager.is_action_just_pressed(player_id, "confirm"):
 			try_place_building()
-		if InputManager.is_action_pressed(player_id, "cancel"):
+			
+		if InputManager.is_action_just_pressed(player_id, "cancel"):
 			cancel_placement()
 
 func open_build_menu():
-	#print("open_build_menu called")
-	#print("  radial_menu = ", radial_menu)
-	#print("  current_building_type = ", current_building_type)
-	
+	cancel_placement()
 	is_menu_open = true
 	if radial_menu:
-		#print("    Showing menu...")
-		
-		#Set the player reference so menu can follow
 		radial_menu.target_player = player
-		
-		radial_menu.show()
+		radial_menu.open_menu()
 		radial_menu.populate_menu(current_building_type, get_inventory_data())
-	else:
-		print("  ERROR: radial_menu is null!")
 
 func close_build_menu():
 	is_menu_open = false
 	if radial_menu:
-		radial_menu.hide()
+		radial_menu.close_menu()
+
 
 func cycle_building_type():
 	match current_building_type:
@@ -97,8 +84,7 @@ func select_from_menu():
 	if not radial_menu:
 		return
 	
-	var selection_dir = get_selection_direction()
-	selected_building = radial_menu.get_selection_from_direction(selection_dir)
+	selected_building = radial_menu.get_selected_building()
 	
 	if selected_building:
 		enter_placement_mode()
@@ -109,7 +95,7 @@ func get_selection_direction() -> Vector2:
 		InputManager.get_axis(player_id, "ui_right_stick_up", "ui_right_stick_down")
 	)
 	
-	if stick_input.length() > stick_input_deadzone: # Deadzone
+	if stick_input.length() > 0.3: # Deadzone
 		return stick_input.normalized()
 	
 	# Fallback to mouse position relative to player
@@ -121,6 +107,8 @@ func enter_placement_mode():
 	if not selected_building or not selected_building.building_scene:
 		return
 	
+	get_viewport().warp_mouse(player.get_global_transform_with_canvas().origin)
+	
 	is_placing = true
 	current_rotation = 0
 	
@@ -130,9 +118,9 @@ func enter_placement_mode():
 	ghost_instance.modulate = ghost_modulate
 	
 	# Disable collision on ghost
-	#for child in ghost_instance.get_children():
-		#if child is CollisionObject2D or child is CollisionPolygon2D:
-			#child.disabled = true
+	for child in ghost_instance.get_children():
+		if child is CollisionShape2D or child is CollisionPolygon2D:
+			child.disabled = true
 
 func update_ghost_position():
 	if not ghost_instance:
@@ -160,8 +148,9 @@ func update_ghost_position():
 	var can_afford = selected_building.can_afford(get_inventory_data())
 	
 	if can_place and can_afford:
-		ghost_instance.modulate = Color(0, 1, 0, 0.5) # Green = valid
-		ghost_instance.modulate = Color(1, 0, 0, 0.5) # Red = invalid
+		ghost_instance.modulate = Color(0, 1, 0, 0.3) # Green = valid
+	else:
+		ghost_instance.modulate = Color(1, 0, 0, 0.3) # Red = invalid
 
 func get_placement_target_position() -> Vector2:
 	# Use right stick or mouse
@@ -170,7 +159,7 @@ func get_placement_target_position() -> Vector2:
 		InputManager.get_axis(player_id, "ui_right_stick_up", "ui_right_stick_down")
 	)
 	
-	if stick_input.length() > stick_input_deadzone:
+	if stick_input.length() > 0.3:
 		return player.global_position + stick_input.normalized() * placement_radius
 	
 	# Fallback to mouse
@@ -211,7 +200,7 @@ func try_place_building():
 	BuildingManager.register_placed_building(grid_pos, selected_building, current_rotation, building_instance)
 	
 	# Exit placement mode
-	cancel_placement()	
+	cancel_placement()
 
 func cancel_placement():
 	is_placing = false

@@ -1,23 +1,25 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://i2mololkgfcf"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=5 format=3 uid="uid://i2mololkgfcf"]
 
-[ext_resource type="Texture2D" uid="uid://bvnyrm8onvfks" path="res://Assets/Temp/Temp Buildings/Stone/6x6 Stone Stair.png" id="1_mlw7y"]
-[ext_resource type="PackedScene" uid="uid://c66j4slxg0o40" path="res://Scenes/Buildings/Player/stairs_stone.tscn" id="1_w7l58"]
+[ext_resource type="PackedScene" uid="uid://cu1wofkes7waw" path="res://Scenes/Buildings/Player/stairs_stone.tscn" id="1_w7l58"]
+[ext_resource type="Texture2D" uid="uid://1xb2rl0rivx8" path="res://Assets/Temp/Icons/stair.png" id="2_w7l58"]
 [ext_resource type="Script" uid="uid://dj07g4dseo2ah" path="res://Scripts/Building/BuildingData.gd" id="2_witvd"]
+[ext_resource type="Texture2D" uid="uid://b6rkmb6lrsxdk" path="res://Assets/Particles/Particle_Stone.png" id="3_5xd6h"]
 
 [resource]
 script = ExtResource("2_witvd")
 building_name = "Stone Stairs"
 building_type = 1
 building_scene = ExtResource("1_w7l58")
-icon = ExtResource("1_mlw7y")
+menu_icon = ExtResource("2_w7l58")
+particle_texture = ExtResource("3_5xd6h")
 is_natural_building = false
 drop_resources_on_destroy = true
 grid_width = 6
 grid_height = 6
-grid_pattern = Array[PackedByteArray]([])
+grid_pattern = Array[PackedByteArray]([PackedByteArray(0, 0, 0, 0, 0, 1), PackedByteArray(0, 0, 0, 0, 1, 0), PackedByteArray(0, 0, 0, 1, 0, 0), PackedByteArray(0, 0, 1, 0, 0, 0), PackedByteArray(0, 1, 0, 0, 0, 0), PackedByteArray(1, 0, 0, 0, 0, 0)])
 wood_cost = 0
-stone_cost = 8
+stone_cost = 10
 energy_cost = 0
-max_health = 10
+max_health = 12
 can_rotate = true
 metadata/_custom_type_script = "uid://dj07g4dseo2ah"

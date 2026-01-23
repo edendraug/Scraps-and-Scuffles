@@ -1,15 +1,17 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=2 format=3 uid="uid://wj3eamjkr8rr"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=3 format=3 uid="uid://wj3eamjkr8rr"]
 
 [ext_resource type="Script" uid="uid://dj07g4dseo2ah" path="res://Scripts/Building/BuildingData.gd" id="1_1hrrj"]
+[ext_resource type="Texture2D" uid="uid://b6rkmb6lrsxdk" path="res://Assets/Particles/Particle_Stone.png" id="1_vy5wh"]
 
 [resource]
 script = ExtResource("1_1hrrj")
 building_name = "Small Rock"
 building_type = 1
+particle_texture = ExtResource("1_vy5wh")
 is_natural_building = true
 drop_resources_on_destroy = true
-grid_width = 1
-grid_height = 1
+grid_width = 0
+grid_height = 0
 grid_pattern = Array[PackedByteArray]([])
 wood_cost = 0
 stone_cost = 6

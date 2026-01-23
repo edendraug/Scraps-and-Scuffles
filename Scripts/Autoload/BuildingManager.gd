@@ -1,6 +1,6 @@
 extends Node
 
-@export var grid_size: int = 16 # Size of each grid cell in pixels
+@export var grid_size: int = 32 # Size of each grid cell in pixels
 @export var allow_overlap: bool = false # Toggle for testing
 
 var all_buildings: Array[BuildingData] = []

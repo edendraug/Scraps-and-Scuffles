@@ -1,16 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://d2qhnnqa03y08"]
+[gd_scene load_steps=6 format=3 uid="uid://d2qhnnqa03y08"]
 
 [ext_resource type="PackedScene" uid="uid://bj30cbosvrssh" path="res://Scenes/static_test_object.tscn" id="1_pa5vy"]
 [ext_resource type="PackedScene" uid="uid://1epvep0gnru2" path="res://Scenes/Game_Manager.tscn" id="1_r1y6g"]
 [ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="3_pa5vy"]
-[ext_resource type="PackedScene" uid="uid://ba27xcdy6tfnw" path="res://Scenes/Buildings/Natural/Rock_B03L_Prefab.tscn" id="4_2d5t7"]
-[ext_resource type="PackedScene" uid="uid://du4lejbs4awx" path="res://Scenes/Buildings/Natural/Rock_A01S_Prefab.tscn" id="4_bvrs0"]
-[ext_resource type="PackedScene" uid="uid://kv2n5t38358s" path="res://Scenes/Buildings/Natural/Rock_A03L_Prefab.tscn" id="5_2ni6k"]
-[ext_resource type="PackedScene" uid="uid://chqtfa1sq3bhf" path="res://Scenes/Buildings/Natural/Rock_B02S_Prefab.tscn" id="7_pbpui"]
-[ext_resource type="PackedScene" uid="uid://dm0aykw2oe7ul" path="res://Scenes/Buildings/Natural/Tree_B02_Prefab.tscn" id="8_7bhy6"]
-[ext_resource type="PackedScene" uid="uid://cqeeqi11e60c0" path="res://Scenes/Buildings/Natural/Tree_B01_Prefab.tscn" id="9_npxyf"]
-[ext_resource type="PackedScene" uid="uid://bn0pnvw5mv1jq" path="res://Scenes/Buildings/Natural/Tree_A02_Prefab.tscn" id="10_vtudo"]
-[ext_resource type="PackedScene" uid="uid://dtac066fnun0c" path="res://Scenes/Buildings/Natural/Tree_A01_Prefab.tscn" id="11_m71l5"]
+[ext_resource type="PackedScene" uid="uid://bikcdmor1gipd" path="res://Scenes/UI/DevTools.tscn" id="12_npxyf"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t7cmt"]
 
@@ -55,31 +48,12 @@ scale = Vector2(6.64, 1)
 position = Vector2(576, 271)
 zoom = Vector2(0.6, 0.6)
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("3_pa5vy")]
-position = Vector2(850, 606)
-
 [node name="Buildings" type="Node2D" parent="."]
 
-[node name="Rock" parent="Buildings" instance=ExtResource("4_2d5t7")]
-position = Vector2(372, 658)
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Rock2" parent="Buildings" instance=ExtResource("5_2ni6k")]
-position = Vector2(1171, 655)
+[node name="Dev UI" parent="UI" instance=ExtResource("12_npxyf")]
+visible = false
 
-[node name="Rock3" parent="Buildings" instance=ExtResource("4_bvrs0")]
-position = Vector2(226, 656)
-
-[node name="Rock4" parent="Buildings" instance=ExtResource("7_pbpui")]
-position = Vector2(698, 663)
-
-[node name="PlacedBuilding" parent="Buildings" instance=ExtResource("8_7bhy6")]
-position = Vector2(52, 709)
-
-[node name="PlacedBuilding2" parent="Buildings" instance=ExtResource("9_npxyf")]
-position = Vector2(149, 318)
-
-[node name="PlacedBuilding3" parent="Buildings" instance=ExtResource("10_vtudo")]
-position = Vector2(1058, 712)
-
-[node name="PlacedBuilding4" parent="Buildings" instance=ExtResource("11_m71l5")]
-position = Vector2(759, 193)
+[node name="Player1" parent="." instance=ExtResource("3_pa5vy")]
+position = Vector2(801, 662)

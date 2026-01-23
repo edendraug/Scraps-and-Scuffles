@@ -130,6 +130,7 @@ func _on_down_area_exited(area_rid: RID, area: Area2D, area_shape_index: int, lo
 #endregion
 
 func update_labels() -> void:
+	#pass
 	misc_label.text = str(player.hittable_objects)
 
 func _on_player_look_dir_changed(new_look_dir: int) -> void:

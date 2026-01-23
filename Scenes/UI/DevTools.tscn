@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://bikcdmor1gipd"]
+
+[ext_resource type="Script" uid="uid://c3win6xg3ri4g" path="res://Scripts/Dev/DevTools.gd" id="1_6nx4r"]
+[ext_resource type="Resource" uid="uid://dr57dqk0k8oxh" path="res://Resources/Crafting Items/wood_resource.tres" id="2_x54mq"]
+[ext_resource type="Resource" uid="uid://yj6eugle2exq" path="res://Resources/Crafting Items/stone_resource.tres" id="3_d2sop"]
+[ext_resource type="Resource" uid="uid://u33kpeoaqoqg" path="res://Resources/Crafting Items/energy_resource.tres" id="4_lvckk"]
+
+[node name="Dev UI" type="Control" node_paths=PackedStringArray("give_rsc_wood", "give_rsc_stone", "give_rsc_energy")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6nx4r")
+start_with_resources = true
+give_rsc_wood = NodePath("ColorRect/MarginContainer/VBoxContainer/GiveWood")
+give_rsc_stone = NodePath("ColorRect/MarginContainer/VBoxContainer/GiveStone")
+give_rsc_energy = NodePath("ColorRect/MarginContainer/VBoxContainer/GiveEnergy")
+wood_rsc = ExtResource("2_x54mq")
+stone_rsc = ExtResource("3_d2sop")
+energy_rsc = ExtResource("4_lvckk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+clip_contents = true
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 160.0
+color = Color(0.79843, 0.874402, 0.780972, 0.490196)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="GiveWood" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give 100 Wood"
+
+[node name="GiveStone" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give 100 Stone"
+
+[node name="GiveEnergy" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give 100 Energy"
+
+[node name="GiveEach" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give 100 of Each"
+
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/GiveWood" to="." method="_on_give_wood_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/GiveStone" to="." method="_on_give_stone_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/GiveEnergy" to="." method="_on_give_energy_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/GiveEach" to="." method="_on_give_each_pressed"]

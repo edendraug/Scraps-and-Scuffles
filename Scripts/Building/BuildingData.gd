@@ -1,3 +1,4 @@
+@tool
 extends Resource
 class_name BuildingData
 
@@ -11,7 +12,8 @@ enum BuildingType {
 @export var building_name: String = "Building"
 @export var building_type: BuildingType = BuildingType.WOOD
 @export var building_scene: PackedScene # The actual building prefab
-@export var icon: Texture2D
+@export var menu_icon: Texture2D
+@export var particle_texture: Texture2D
 
 @export_category("Building Classification")
 @export var is_natural_building: bool = false # Trees, rocks, etc.
