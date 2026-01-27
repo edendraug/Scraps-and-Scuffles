@@ -21,6 +21,11 @@ BuildingManager="*res://Scripts/Autoload/BuildingManager.gd"
 InputManager="*res://Scripts/Autoload/InputManager.gd"
 GameManager="*res://Scripts/GameManager.gd"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [file_customization]
 
 folder_colors={

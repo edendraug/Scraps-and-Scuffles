@@ -14,6 +14,7 @@ enum BuildingType {
 @export var building_scene: PackedScene # The actual building prefab
 @export var menu_icon: Texture2D
 @export var particle_texture: Texture2D
+@export var outline_color: Color
 
 @export_category("Building Classification")
 @export var is_natural_building: bool = false # Trees, rocks, etc.

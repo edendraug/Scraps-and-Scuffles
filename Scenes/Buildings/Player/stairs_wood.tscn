@@ -1,22 +1,22 @@
 [gd_scene load_steps=6 format=3 uid="uid://ddmfb2s8udgi3"]
 
 [ext_resource type="Script" uid="uid://dpbom2b6ylvgf" path="res://Scripts/Building/PlacedBuilding.gd" id="1_moaw2"]
-[ext_resource type="Texture2D" uid="uid://dp4n7nlycojiw" path="res://Assets/Sprites/Temp/Temp Buildings/Wood/6x6 Wooden Stair.png" id="2_g357l"]
 [ext_resource type="Texture2D" uid="uid://7liutw05fn38" path="res://Assets/Sprites/Temp/cracks.png" id="2_sfuaa"]
-[ext_resource type="Shader" uid="uid://cg2ln1uue282v" path="res://Assets/Shaders/building_damage.gdshader" id="3_ey8qy"]
+[ext_resource type="Shader" uid="uid://dotxigkyyn7xx" path="res://Assets/Shaders/Building Shader.gdshader" id="3_ey8qy"]
+[ext_resource type="Texture2D" uid="uid://dy275lep1ite0" path="res://Assets/Sprites/Buildings/Player/Stairs_Wood.png" id="4_ey8qy"]
 [ext_resource type="PackedScene" uid="uid://bj8nefjcoicxi" path="res://Scenes/Particles/building_hit_particles.tscn" id="5_ey8qy"]
 
 [node name="PlacedBuilding" type="StaticBody2D" node_paths=PackedStringArray("particle_emitter")]
 script = ExtResource("1_moaw2")
 damage_texture = ExtResource("2_sfuaa")
-damage_shader = ExtResource("3_ey8qy")
+shader = ExtResource("3_ey8qy")
 particle_emitter = NodePath("BuildingHitParticles")
 metadata/_custom_type_script = "uid://dpbom2b6ylvgf"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-16, -16)
 scale = Vector2(2, 2)
-texture = ExtResource("2_g357l")
+texture = ExtResource("4_ey8qy")
 
 [node name="BuildingHitParticles" parent="." instance=ExtResource("5_ey8qy")]
 position = Vector2(-16, -16)

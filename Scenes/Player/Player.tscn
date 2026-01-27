@@ -723,7 +723,7 @@ node_connections = [&"hit", 0, &"states", &"hit", 1, &"hit_direction", &"move_ti
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r6gjv"]
 radius = 25.0
-height = 100.0
+height = 90.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite_manager", "collider", "hit_manager", "building_placer", "stun_timer", "invincibility_timer", "attack_cooldown_timer") groups=["Players"]]
 z_index = 1
@@ -919,7 +919,7 @@ text = "Energy: 0"
 metadata/resource = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_r6gjv")
 
 [node name="Timers" type="Node2D" parent="."]

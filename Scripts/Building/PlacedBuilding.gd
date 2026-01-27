@@ -12,14 +12,14 @@ class_name PlacedBuilding
 
 @export var create_hit_detection_area: bool = true
 @export var damage_texture: Texture2D # Damage sprite sheet
-@export var damage_shader: Shader
+@export var shader: Shader
 @export var particle_emitter: CPUParticles2D
 
 var current_health: int
 var grid_position: Vector2i
 var hit_area: Area2D
 var building_sprite: Sprite2D
-var damage_material: ShaderMaterial
+var shader_material: ShaderMaterial
 
 var initialized : bool = false
 
@@ -30,7 +30,6 @@ func _ready() -> void:
 			initialize(building_data)
 		else:
 			update_collision_from_data()
-
 func find_sprite() -> Sprite2D:
 	# Look for Sprite2D child
 	for child in get_children():
@@ -50,14 +49,19 @@ func initialize(data: BuildingData):
 	# Store grid position for later reference
 	grid_position = BuildingManager.world_to_grid(global_position)
 	
+	# Play tween animation on spawn
+	var tween = create_tween().set_trans(Tween.TRANS_BOUNCE)
+	self.scale = Vector2(1.1, 1.1)
+	tween.tween_property(self,"scale", Vector2.ONE, 0.15)
+	
 	# Generate collision at runtime
 	update_collision_from_data()
 	
 	# Setup damage shader
-	setup_damage_shader()
+	setup_shader()
+	
 	initialized = true
-
-
+	
 func take_damage(amount: int, hit_pos: Vector2) -> void:
 	print(self.name, ": I got hit for %s damage." % amount)
 	print(self.name, ": %s health remaining." % current_health)
@@ -141,34 +145,36 @@ func destruction_effect():
 func repair(amount: float):
 	pass
 
-func setup_damage_shader():
+func setup_shader():
 	print("setup_damage_shader called")
 	print("  building sprite: ", building_sprite)
-	print(" damage_shader: ", damage_shader)
+	print(" damage_shader: ", shader)
 	print("  damage_texture: ", damage_texture)
 	
-	if not building_sprite or not damage_shader or not damage_texture:
+	if not building_sprite or not shader or not damage_texture:
 		return
 	
 	# Create shader material
-	damage_material = ShaderMaterial.new()
-	damage_material.shader = damage_shader
+	shader_material = ShaderMaterial.new()
+	shader_material.shader = shader
 	
 	# Set shader parameters
-	damage_material.set_shader_parameter("damage_texture", damage_texture)
-	damage_material.set_shader_parameter("damage_percent", 0.0)
-	damage_material.set_shader_parameter("total_frames", 6)
-	damage_material.set_shader_parameter("damage_frame_size", Vector2(16, 16))
-	damage_material.set_shader_parameter("damage_scale", 2.0)
-	damage_material.set_shader_parameter("enable_color_shift", false)
-	damage_material.set_shader_parameter("blend_strength", 0.8)
+	shader_material.set_shader_parameter("outline_color", building_data.outline_color)
+	shader_material.set_shader_parameter("damage_texture", damage_texture)
+	shader_material.set_shader_parameter("damage_percent", 0.0)
+	shader_material.set_shader_parameter("total_frames", 6)
+	shader_material.set_shader_parameter("damage_frame_size", Vector2(16, 16))
+	shader_material.set_shader_parameter("damage_scale", 2.0)
+	shader_material.set_shader_parameter("enable_color_shift", true)
+	shader_material.set_shader_parameter("color_shift_strength", 0.3)
+	shader_material.set_shader_parameter("blend_strength", 0.8)
 	
 	# Apply material to sprite
-	building_sprite.material = damage_material
+	building_sprite.material = shader_material
 	print("  Damage shader applied successfully!")
 
 func update_damage_visual():
-	if not damage_material or not building_data:
+	if not shader_material or not building_data:
 		print("update_damage_visual: Missing material or building_data")
 		return
 	
@@ -179,7 +185,7 @@ func update_damage_visual():
 	print("Updating damage visual: ", damage_percent, " (health: ", current_health, "/", building_data.max_health, ")")
 	
 	# Update shader paramter
-	damage_material.set_shader_parameter("damage_percent", damage_percent)
+	shader_material.set_shader_parameter("damage_percent", damage_percent)
 
 func update_collision_from_data():
 	if not building_data:

@@ -1,8 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://lvank1wf5lkh"]
-
-[ext_resource type="Shader" uid="uid://b38n0cby65iml" path="res://Assets/Shaders/sprite-outline.gdshader" id="1_30m2d"]
-
-[resource]
-shader = ExtResource("1_30m2d")
-shader_parameter/outline_width = 1.0
-shader_parameter/outline_color = Color(1, 1, 1, 1)

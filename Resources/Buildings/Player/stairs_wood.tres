@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ddmfb2s8udgi3" path="res://Scenes/Buildings/Player/stairs_wood.tscn" id="1_podbf"]
 [ext_resource type="Script" uid="uid://dj07g4dseo2ah" path="res://Scripts/Building/BuildingData.gd" id="2_podbf"]
-[ext_resource type="Texture2D" uid="uid://1xb2rl0rivx8" path="res://Assets/Sprites/Temp/Icons/stair.png" id="2_tp5e4"]
+[ext_resource type="Texture2D" uid="uid://boq6tilwydkxy" path="res://Assets/Sprites/UI/Stairs_Wood_Icon.png" id="2_tp5e4"]
 [ext_resource type="Texture2D" uid="uid://c5kc6i2jtf5ka" path="res://Assets/Sprites/Particles/Particle_Wood.png" id="3_tp5e4"]
 
 [resource]
@@ -12,6 +12,7 @@ building_type = 0
 building_scene = ExtResource("1_podbf")
 menu_icon = ExtResource("2_tp5e4")
 particle_texture = ExtResource("3_tp5e4")
+outline_color = Color(0.182376, 0.0637344, 0.0230974, 1)
 is_natural_building = false
 drop_resources_on_destroy = true
 grid_width = 6
