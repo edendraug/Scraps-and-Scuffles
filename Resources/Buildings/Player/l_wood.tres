@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=5 format=3 uid="uid://d0ve17cagl1r5"]
 
 [ext_resource type="PackedScene" uid="uid://d2p6et4fbrxjq" path="res://Scenes/Buildings/Player/l_wood.tscn" id="1_w05ql"]
-[ext_resource type="Texture2D" uid="uid://bqfam562qe78u" path="res://Assets/Temp/Icons/lshape.png" id="2_obkbq"]
+[ext_resource type="Texture2D" uid="uid://bqfam562qe78u" path="res://Assets/Sprites/Temp/Icons/lshape.png" id="2_obkbq"]
 [ext_resource type="Script" uid="uid://dj07g4dseo2ah" path="res://Scripts/Building/BuildingData.gd" id="2_w05ql"]
-[ext_resource type="Texture2D" uid="uid://c5kc6i2jtf5ka" path="res://Assets/Particles/Particle_Wood.png" id="3_obkbq"]
+[ext_resource type="Texture2D" uid="uid://c5kc6i2jtf5ka" path="res://Assets/Sprites/Particles/Particle_Wood.png" id="3_obkbq"]
 
 [resource]
 script = ExtResource("2_w05ql")

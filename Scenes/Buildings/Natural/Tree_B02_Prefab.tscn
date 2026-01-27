@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpbom2b6ylvgf" path="res://Scripts/Building/PlacedBuilding.gd" id="1_dpbox"]
 [ext_resource type="Resource" uid="uid://1w15ry6quobg" path="res://Resources/Buildings/Natural/Tree_Data.tres" id="2_s5iwh"]
-[ext_resource type="Texture2D" uid="uid://dqx017pubq4t3" path="res://Assets/Buildings/Natural/Trees_Sheet.png" id="3_r84oj"]
+[ext_resource type="Texture2D" uid="uid://dqx017pubq4t3" path="res://Assets/Sprites/Buildings/Natural/Trees_Sheet.png" id="3_r84oj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f57ws"]
 size = Vector2(34, 156)

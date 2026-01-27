@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpbom2b6ylvgf" path="res://Scripts/Building/PlacedBuilding.gd" id="1_wcish"]
 [ext_resource type="Resource" uid="uid://dfgyfjde7nfup" path="res://Resources/Buildings/Natural/RockL_Data.tres" id="2_wcish"]
-[ext_resource type="Texture2D" uid="uid://qm01ti5xye2j" path="res://Assets/Buildings/Natural/Rocks_Sheet.png" id="3_4y3fs"]
+[ext_resource type="Texture2D" uid="uid://qm01ti5xye2j" path="res://Assets/Sprites/Buildings/Natural/Rocks_Sheet.png" id="3_4y3fs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wcish"]
 radius = 40.0

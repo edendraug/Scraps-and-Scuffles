@@ -1,65 +1,112 @@
-[gd_scene load_steps=5 format=3 uid="uid://bikcdmor1gipd"]
+[gd_scene load_steps=6 format=3 uid="uid://bikcdmor1gipd"]
 
 [ext_resource type="Script" uid="uid://c3win6xg3ri4g" path="res://Scripts/Dev/DevTools.gd" id="1_6nx4r"]
 [ext_resource type="Resource" uid="uid://dr57dqk0k8oxh" path="res://Resources/Crafting Items/wood_resource.tres" id="2_x54mq"]
 [ext_resource type="Resource" uid="uid://yj6eugle2exq" path="res://Resources/Crafting Items/stone_resource.tres" id="3_d2sop"]
 [ext_resource type="Resource" uid="uid://u33kpeoaqoqg" path="res://Resources/Crafting Items/energy_resource.tres" id="4_lvckk"]
 
-[node name="Dev UI" type="Control" node_paths=PackedStringArray("give_rsc_wood", "give_rsc_stone", "give_rsc_energy")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x54mq"]
+bg_color = Color(1, 1, 1, 0.145098)
+
+[node name="Dev UI" type="Control" node_paths=PackedStringArray("timer_label", "give_rsc_wood", "give_rsc_stone", "give_rsc_energy")]
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("1_6nx4r")
-start_with_resources = true
-give_rsc_wood = NodePath("ColorRect/MarginContainer/VBoxContainer/GiveWood")
-give_rsc_stone = NodePath("ColorRect/MarginContainer/VBoxContainer/GiveStone")
-give_rsc_energy = NodePath("ColorRect/MarginContainer/VBoxContainer/GiveEnergy")
+timer_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/VBoxContainer/Level Time")
+give_rsc_wood = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveWood")
+give_rsc_stone = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveStone")
+give_rsc_energy = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveEnergy")
 wood_rsc = ExtResource("2_x54mq")
 stone_rsc = ExtResource("3_d2sop")
 energy_rsc = ExtResource("4_lvckk")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-clip_contents = true
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 160.0
-color = Color(0.79843, 0.874402, 0.780972, 0.490196)
-
-[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -299.0
+offset_top = -176.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.0431373)
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="GiveWood" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Give 100 Wood"
+
+[node name="GiveStone" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Give 100 Stone"
+
+[node name="GiveEnergy" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Give 100 Energy"
+
+[node name="GiveEach" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give 100 of Each"
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Panel" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x54mq")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Panel"]
+layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="GiveWood" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+[node name="Time in Level" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Give 100 Wood"
+text = "Time in level:"
 
-[node name="GiveStone" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+[node name="Level Time" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Give 100 Stone"
+text = "0:00"
+horizontal_alignment = 1
 
-[node name="GiveEnergy" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Give 100 Energy"
-
-[node name="GiveEach" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Give 100 of Each"
-
-[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/GiveWood" to="." method="_on_give_wood_pressed"]
-[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/GiveStone" to="." method="_on_give_stone_pressed"]
-[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/GiveEnergy" to="." method="_on_give_energy_pressed"]
-[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/GiveEach" to="." method="_on_give_each_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveWood" to="." method="_on_give_wood_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveStone" to="." method="_on_give_stone_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveEnergy" to="." method="_on_give_energy_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveEach" to="." method="_on_give_each_pressed"]

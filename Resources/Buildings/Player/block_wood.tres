@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=5 format=3 uid="uid://dcqjdo1aviiim"]
 
 [ext_resource type="PackedScene" uid="uid://wgaqcki8k2qw" path="res://Scenes/Buildings/Player/block_wood.tscn" id="1_ws66e"]
-[ext_resource type="Texture2D" uid="uid://djyatdn6dl8k0" path="res://Assets/Temp/Icons/block.png" id="2_4hjjm"]
-[ext_resource type="Texture2D" uid="uid://c5kc6i2jtf5ka" path="res://Assets/Particles/Particle_Wood.png" id="3_4hjjm"]
+[ext_resource type="Texture2D" uid="uid://djyatdn6dl8k0" path="res://Assets/Sprites/Temp/Icons/block.png" id="2_4hjjm"]
+[ext_resource type="Texture2D" uid="uid://c5kc6i2jtf5ka" path="res://Assets/Sprites/Particles/Particle_Wood.png" id="3_4hjjm"]
 [ext_resource type="Script" uid="uid://dj07g4dseo2ah" path="res://Scripts/Building/BuildingData.gd" id="3_um7qe"]
 
 [resource]

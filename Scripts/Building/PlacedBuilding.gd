@@ -159,6 +159,7 @@ func setup_damage_shader():
 	damage_material.set_shader_parameter("damage_percent", 0.0)
 	damage_material.set_shader_parameter("total_frames", 6)
 	damage_material.set_shader_parameter("damage_frame_size", Vector2(16, 16))
+	damage_material.set_shader_parameter("damage_scale", 2.0)
 	damage_material.set_shader_parameter("enable_color_shift", false)
 	damage_material.set_shader_parameter("blend_strength", 0.8)
 	

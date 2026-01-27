@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CraftableResource" load_steps=4 format=3 uid="uid://yj6eugle2exq"]
 
-[ext_resource type="Texture2D" uid="uid://b30nqah4gj68" path="res://Assets/Temp/Stone.png" id="1_ifc78"]
+[ext_resource type="Texture2D" uid="uid://chxcf8dfupdqn" path="res://Assets/Sprites/Resources/Stone.png" id="1_ifc78"]
 [ext_resource type="PackedScene" uid="uid://bnwqh82etapn6" path="res://Scenes/CraftableResources/Resource_Pickup.tscn" id="2_ifc78"]
 [ext_resource type="Script" uid="uid://bu4ofekvbqa31" path="res://Resources/ResourceData.gd" id="3_c5cgw"]
 
@@ -9,5 +9,7 @@ script = ExtResource("3_c5cgw")
 display_name = "Stone"
 display_description = "A strong and durable material!"
 pickup_scene = ExtResource("2_ifc78")
+variations = 4
+animated = false
 icon = ExtResource("1_ifc78")
 metadata/_custom_type_script = "uid://bu4ofekvbqa31"

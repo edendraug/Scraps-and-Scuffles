@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var data: CraftableResource
 @export var amount := 1
 
+
 var gravity := 2000.0 ##Base amount of gravity.
 @export var friction := 0.9
 
@@ -15,10 +16,20 @@ var initial_impulse := Vector2.ZERO
 
 var receiving_inventory : Node
 var initialized := false
+
 func setup(resource_data: CraftableResource) -> void:
 	data = resource_data
 	if data.icon:
 		$Sprite2D.texture = data.icon
+		
+		# Set a random variation
+		$Sprite2D.hframes = data.variations
+		$Sprite2D.frame = randi_range(1, data.variations)
+		# Flip X scale randomly
+		var flip = bool(randi() % 2)
+		if flip:
+			$Sprite2D.scale.x = -2
+		else: $Sprite2D.scale.x = 2
 
 func _ready() -> void:
 	add_to_group("Resources")

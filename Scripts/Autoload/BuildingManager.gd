@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @export var grid_size: int = 32 # Size of each grid cell in pixels
 @export var allow_overlap: bool = false # Toggle for testing
@@ -64,14 +64,45 @@ func can_place_at(grid_pos: Vector2i, building_data: BuildingData, rotation_degr
 	if allow_overlap:
 		return true
 	
+	# Get the occupied cells for this building with rotation applied
 	var occupied_cells = building_data.get_rotated_cells(rotation_degrees)
 	
+	# Check if any cells are occupied by other buildings
 	for cell_offset in occupied_cells:
 		var check_pos = grid_pos + cell_offset
 		if placed_buildings.has(check_pos):
 			return false
 	
+	# Check if any cells overlap with players (collision layer 4)
+	if not check_player_collision(grid_pos, occupied_cells):
+		return false
+	
 	return true
+
+func check_player_collision(grid_pos: Vector2i, occupied_cells: Array[Vector2i]) -> bool:
+	# Get all players
+	var players = get_tree().get_nodes_in_group("Players")
+	
+	for cell_offset in occupied_cells:
+		var world_pos = grid_to_world(grid_pos + cell_offset)
+		
+		# Create a small area to check for player overlap
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = world_pos
+		query.collision_mask = 1 << 3 # Layer 4 (bit 3)
+		query.collide_with_areas = false
+		query.collide_with_bodies = true
+		
+		var space_state = get_world_2d().direct_space_state if has_method("get_world_2d") else Engine.get_main_loop().root.get_world_2d().direct_space_state
+		var results = space_state.intersect_point(query, 1)
+		
+		if results.size() > 0:
+			# Check if any result is a player
+			for result in results:
+				if result.collider.is_in_group("Players"):
+					return false # Player is in the way
+	
+	return true # No player collision
 
 func register_placed_building(grid_pos: Vector2i, building_data: BuildingData, rotation_degrees: int, building_node: Node2D):
 	var occupied_cells = building_data.get_rotated_cells(rotation_degrees)

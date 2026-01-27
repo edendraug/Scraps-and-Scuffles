@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 BuildingManager="*res://Scripts/Autoload/BuildingManager.gd"
 InputManager="*res://Scripts/Autoload/InputManager.gd"
+GameManager="*res://Scripts/GameManager.gd"
 
 [file_customization]
 

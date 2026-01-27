@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bcu7e883nkidc"]
+
+[ext_resource type="Shader" uid="uid://dloco7sj78qik" path="res://Assets/Shaders/sprite_outline_v2.gdshader" id="1_5w0nx"]
+
+[resource]
+shader = ExtResource("1_5w0nx")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+shader_parameter/use_canvas_group = false

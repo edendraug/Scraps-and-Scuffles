@@ -14,6 +14,7 @@ var current_health: int
 @export var collider : CollisionShape2D
 @export var hit_manager: Node2D
 @export var building_placer: BuildingPlacer
+@export var shader: Shader
 
 
 @export_category(" Horizontal Movement")
@@ -47,6 +48,7 @@ var wall_coyote_timer := 0.0
 
 enum State {IDLE, MOVE, JUMP, FALL, SLIDE, HIT, LOOK_UP, CROUCH}
 var current_state := State.IDLE
+var is_building := false
 
 @export_category("Combat Stuff")
 @export var hit_force: float = 1000.0
@@ -68,10 +70,12 @@ var look_dir: int = 1:
 		look_dir = value
 		look_dir_changed.emit(look_dir)
 	get: return look_dir
+signal player_just_hit
 
 func _ready() -> void:
 	InputManager.register_player(player_id)
 	current_health = max_health
+	
 
 func _process(delta: float) -> void:
 	update_states()
@@ -149,11 +153,9 @@ func handle_input():
 	if InputManager.is_action_just_released(player_id, "jump"):
 		jump(false, false) if current_state != State.SLIDE else jump(true, false)
 	
-	if building_placer:
-		if !building_placer.is_menu_open:
-			if !building_placer.is_placing:
-				if InputManager.is_action_pressed(player_id, "attack"):
-					attack()
+
+	if InputManager.is_action_pressed(player_id, "attack") and !is_building:
+		attack()
 
 #region === MOVEMENT AND PHYSICS ===
 func apply_gravity(delta: float) -> void:
@@ -182,7 +184,7 @@ func handle_movement(delta) -> void:
 		last_direction = sign(input_dir.x)
 	
 	if input_dir.y != 0 and is_on_floor():
-		halt_movement(input_dir.y, delta)
+		halt_movement(input_dir.y)
 	# Update State to MOVE
 	if input_dir.x != 0 and !stunned:
 		var speed := run_speed if InputManager.is_action_pressed(player_id, "run") else walk_speed
@@ -197,8 +199,8 @@ func handle_movement(delta) -> void:
 	
 	move_and_slide()
 
-func halt_movement(facing: float, delta) -> void:
-	velocity.x = move_toward(velocity.x, 0.0, friction/2 * delta)
+func halt_movement(facing: float) -> void:
+	velocity.x = move_toward(velocity.x, 0.0, friction/2)
 	if facing > 0:
 		current_state = State.LOOK_UP
 	elif facing < 0:
@@ -226,36 +228,38 @@ func jump(is_pressed: bool, is_sliding: bool) -> void:
 
 #region === OTHER FEATURES ===
 func attack():
-	#var animation_player: AnimationPlayer = sprite_manager.anim
-	
-	if can_hit:
+	if !hitting:
 		hitting = true
-		can_hit = false
+		player_just_hit.emit()
 		attack_cooldown_timer.start()
 		for i in hittable_objects:
-			if i.has_method("take_damage"):
+			if i.get_parent().has_method("take_damage"):
+				i.get_parent().take_damage(1, self.global_position)
+			elif i.has_method("take_damage"):
 				i.take_damage(1, self.global_position)
 
-func take_damage(amount: int, hit_pos: Vector2, delta: float) -> void:	
+func take_damage(amount: int, hit_pos: Vector2) -> void:	
 	var force_dir := (global_position - hit_pos).normalized()
 	
-	if stunned == false and invincible == false:
+	if !stunned and !invincible:
 		velocity = force_dir * hit_force
 		if current_health > 1:
 			current_health -= 1
 		else: 
 			current_health = 0
-			stun(delta)
+			stun()
 		print(name, ": I got hit!",)
 
-func stun(delta):
-	halt_movement(0, delta)
+func stun():
+	update_shader(Color.WHITE)
+	halt_movement(0)
 	stunned = true
 	print("stunned!")
 	stun_timer.start()
 
 func restore_health():
 	current_health = max_health
+	
 #endregion
 
 #region === HELPER FUNCTIONS ===
@@ -281,6 +285,11 @@ func update_coyote_time(delta: float) -> void:
 
 func update_animations():
 	sprite_manager.scale.x = last_direction
+
+# PLACEHOLDER SHADER STUFF FOR LATER VISUALS
+func update_shader(color):
+	sprite_manager.rendered_sprite.material = sprite_manager.rendered_sprite.material.duplicate()
+	sprite_manager.rendered_sprite.material.set_shader_parameter("line_color", color)
 #endregion
 
 #region === SIGNALS ===
@@ -292,10 +301,12 @@ func _on_stun_timer_timeout() -> void:
 
 func _on_invincibility_timer_timeout() -> void:
 	invincible = false
+	update_shader(Color.WHITE)
+	
 
 func _on_attack_cooldown_timer_timeout() -> void:
-	can_hit = true
 	hitting = false
+	is_building = false
 #endregion
 
 #region === DEV STUFF ===

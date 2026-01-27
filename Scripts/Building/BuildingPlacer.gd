@@ -1,10 +1,11 @@
 extends Node2D
 class_name BuildingPlacer
 
-@export var player_id: int = 0 # For multiplayer (0-3)
+var player_id: int = 0 # For multiplayer (0-3)
 @export var placement_radius: float = 200.0 # Adjustable placement range
 @export var ghost_modulate: Color = Color(1, 1, 1, 0.3) # Semi-transparent preview
-#@export var radial_menu_path: NodePath # Path to the RadialBuildMenu
+
+@export var stick_input_deadzone: float = 0.3
 
 #References
 @onready var player: CharacterBody2D = get_parent()
@@ -18,8 +19,12 @@ var selected_building: BuildingData = null
 var ghost_instance: Node2D = null
 var current_rotation: int = 0 # 0, 90, 180, 270
 var current_building_type: BuildingData.BuildingType = BuildingData.BuildingType.WOOD
+var menu_close_mouse_pos: Vector2 = Vector2.ZERO
+
+enum State {INACTIVE, ACTIVE}
 
 func _ready() -> void:
+	player_id = player.player_id
 	inventory_manager = player.get_node_or_null("InventoryManager")
 	if not inventory_manager:
 		push_error("BuildingPlacer: No InventoryManager found on player!")
@@ -28,6 +33,7 @@ func _process(_delta: float) -> void:
 	if is_placing and ghost_instance:
 		update_ghost_position()
 	handle_input()
+
 
 func handle_input() -> void:
 	# Build menu hold
@@ -55,6 +61,7 @@ func handle_input() -> void:
 			cancel_placement()
 
 func open_build_menu():
+	player.is_building = true
 	cancel_placement()
 	is_menu_open = true
 	if radial_menu:
@@ -63,9 +70,14 @@ func open_build_menu():
 		radial_menu.populate_menu(current_building_type, get_inventory_data())
 
 func close_build_menu():
+	# Store mouse position before closing
+	#menu_close_mouse_pos = get_global_mouse_position()
 	is_menu_open = false
 	if radial_menu:
 		radial_menu.close_menu()
+	if !ghost_instance:
+		player.attack_cooldown_timer.start()
+
 
 
 func cycle_building_type():
@@ -107,8 +119,6 @@ func enter_placement_mode():
 	if not selected_building or not selected_building.building_scene:
 		return
 	
-	get_viewport().warp_mouse(player.get_global_transform_with_canvas().origin)
-	
 	is_placing = true
 	current_rotation = 0
 	
@@ -119,8 +129,13 @@ func enter_placement_mode():
 	
 	# Disable collision on ghost
 	for child in ghost_instance.get_children():
-		if child is CollisionShape2D or child is CollisionPolygon2D:
+		if child is CollisionShape2D:
 			child.disabled = true
+		elif child is Area2D:
+			# Disable Area2D collision shapes too
+			for area_child in child.get_children():
+				if area_child is CollisionShape2D:
+					area_child.disables = true
 
 func update_ghost_position():
 	if not ghost_instance:
@@ -192,14 +207,15 @@ func try_place_building():
 	building_instance.global_position = ghost_instance.global_position
 	building_instance.rotation_degrees = current_rotation
 	
+	
 	# Initialize building properties
 	if building_instance.has_method("initialize"):
 		building_instance.initialize(selected_building)
 	
 	# Register with BuildingManager
 	BuildingManager.register_placed_building(grid_pos, selected_building, current_rotation, building_instance)
-	
 	# Exit placement mode
+	player.attack_cooldown_timer.start()
 	cancel_placement()
 
 func cancel_placement():
@@ -209,6 +225,7 @@ func cancel_placement():
 		ghost_instance = null
 	selected_building = null
 	current_rotation = 0
+
 
 func get_inventory_data() -> Dictionary:
 	if inventory_manager and inventory_manager.has_method("get_resources"):

@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2qhnnqa03y08"]
+[gd_scene load_steps=7 format=3 uid="uid://d2qhnnqa03y08"]
 
+[ext_resource type="PackedScene" uid="uid://bvfmokyylsiux" path="res://Scenes/Level_Camera.tscn" id="1_bue4o"]
 [ext_resource type="PackedScene" uid="uid://bj30cbosvrssh" path="res://Scenes/static_test_object.tscn" id="1_pa5vy"]
 [ext_resource type="PackedScene" uid="uid://1epvep0gnru2" path="res://Scenes/Game_Manager.tscn" id="1_r1y6g"]
 [ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="3_pa5vy"]
@@ -8,6 +9,8 @@
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t7cmt"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Level Camera" parent="." instance=ExtResource("1_bue4o")]
 
 [node name="GameManager" parent="." instance=ExtResource("1_r1y6g")]
 
@@ -44,10 +47,6 @@ scale = Vector2(6.64, 1)
 position = Vector2(785, 211)
 scale = Vector2(6.64, 1)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 271)
-zoom = Vector2(0.6, 0.6)
-
 [node name="Buildings" type="Node2D" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -57,3 +56,5 @@ visible = false
 
 [node name="Player1" parent="." instance=ExtResource("3_pa5vy")]
 position = Vector2(801, 662)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]

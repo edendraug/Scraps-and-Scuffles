@@ -22,7 +22,7 @@ var available_buildings: Array[BuildingData] = []
 var menu_items: Array[Node2D] = []
 var selected_index: int = -1
 var has_user_input: bool = false # Track if user has moved stick/mouse
-
+var menu_close_mouse_pos: Vector2 = Vector2.ZERO
 
 var radial_offset := Vector2.ZERO
 var resistance_strength := 2.0
@@ -334,10 +334,10 @@ func open_menu():
 		get_viewport().warp_mouse(target_player.get_global_transform_with_canvas().origin)
 
 func close_menu():
+	var origin = target_player.get_global_transform_with_canvas().origin
+	menu_close_mouse_pos = get_selection_direction().limit_length(outer_radius)
 	hide()
 	#Restore mouse cursor
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
-	# THIS WORKS BUT THERE IS STILL A FRAME OR SO WHERE THE MOUSE REAPPEARS AT CENTER OF SCREEN.
-	# WE NEED TO MAKE SURE WE POSITION THE MOUSE AT PLAYER'S POSITION IMMIDIATELY
-	get_viewport().warp_mouse(target_player.get_global_transform_with_canvas().origin)
+	#await get_tree().process_frame
+	get_viewport().warp_mouse(origin + menu_close_mouse_pos)

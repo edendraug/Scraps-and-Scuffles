@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cu1wofkes7waw"]
 
 [ext_resource type="Script" uid="uid://dpbom2b6ylvgf" path="res://Scripts/Building/PlacedBuilding.gd" id="1_riy6p"]
-[ext_resource type="Texture2D" uid="uid://7liutw05fn38" path="res://Assets/Temp/cracks.png" id="2_i3hqt"]
-[ext_resource type="Texture2D" uid="uid://bvnyrm8onvfks" path="res://Assets/Temp/Temp Buildings/Stone/6x6 Stone Stair.png" id="2_riy6p"]
+[ext_resource type="Texture2D" uid="uid://7liutw05fn38" path="res://Assets/Sprites/Temp/cracks.png" id="2_i3hqt"]
+[ext_resource type="Texture2D" uid="uid://bvnyrm8onvfks" path="res://Assets/Sprites/Temp/Temp Buildings/Stone/6x6 Stone Stair.png" id="2_riy6p"]
 [ext_resource type="Shader" uid="uid://cg2ln1uue282v" path="res://Assets/Shaders/building_damage.gdshader" id="3_o55ry"]
 [ext_resource type="PackedScene" uid="uid://bj8nefjcoicxi" path="res://Scenes/Particles/building_hit_particles.tscn" id="5_o55ry"]
 
