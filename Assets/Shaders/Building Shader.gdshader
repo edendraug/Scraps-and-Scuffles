@@ -23,29 +23,25 @@ uniform float color_shift_strength : hint_range(0.0, 1.0) = 0.5;
 uniform float blend_strength : hint_range(0.0, 1.0) = 0.8;
 
 void fragment() {
+        vec4 base = texture(TEXTURE, UV);
         vec2 texel = TEXTURE_PIXEL_SIZE * outline_width;
 
-        float alpha = texture(TEXTURE, UV).a;
-        float maxa = alpha;
-        float mina = alpha;
+        float center_a = base.a;
+        float neighbor_max = 0.0;
 
-        float a;
-        a = texture(TEXTURE, UV + vec2(texel.x, 0.0)).a;
-        maxa = max(maxa, a); mina = min(mina, a);
+        // Check 4-directional neighbors
+        neighbor_max = max(neighbor_max, texture(TEXTURE, UV + vec2(texel.x, 0.0)).a);
+        neighbor_max = max(neighbor_max, texture(TEXTURE, UV - vec2(texel.x, 0.0)).a);
+        neighbor_max = max(neighbor_max, texture(TEXTURE, UV + vec2(0.0, texel.y)).a);
+        neighbor_max = max(neighbor_max, texture(TEXTURE, UV - vec2(0.0, texel.y)).a);
 
-        a = texture(TEXTURE, UV - vec2(texel.x, 0.0)).a;
-        maxa = max(maxa, a); mina = min(mina, a);
+        bool is_outline = center_a < 0.01 && neighbor_max > 0.01;
 
-        a = texture(TEXTURE, UV + vec2(0.0, texel.y)).a;
-        maxa = max(maxa, a); mina = min(mina, a);
+        vec4 outlined_color = base;
 
-        a = texture(TEXTURE, UV - vec2(0.0, texel.y)).a;
-        maxa = max(maxa, a); mina = min(mina, a);
-
-        vec4 base_color = texture(TEXTURE, UV);
-
-        // Apply outline
-        vec4 outlined_color = mix(base_color, outline_color, maxa - mina);
+        if (is_outline) {
+                outlined_color = vec4(outline_color.rgb, outline_color.a * neighbor_max);
+        }
 
         /* ==============================
            DAMAGE PASS
@@ -53,7 +49,7 @@ void fragment() {
 
         vec3 result_color = outlined_color.rgb;
 
-        if (outlined_color.a > 0.01 && damage_percent > 0.0) {
+        if (outlined_color.a > 0.01 && damage_percent > 0.0 && !is_outline) {
                 int current_frame = int(floor(damage_percent * float(total_frames - 1)));
                 current_frame = clamp(current_frame, 0, total_frames - 1);
 
