@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3 uid="uid://de7noqlh3vma4"]
+
+[ext_resource type="Script" uid="uid://c0msrvjy18apn" path="res://Resources/Levels/LevelData.gd" id="1_ugpj7"]
+
+[resource]
+script = ExtResource("1_ugpj7")
+level_name = "Swamp"
+level_scene_path = "res://Resources/Levels/Lvl_Swamp.tscn"
+description = "This place stinks..."
+bounds_min_x = -1000.0
+bounds_max_x = 1000.0
+bounds_min_y = -800.0
+bounds_max_y = 800.0
+portal_position = Vector2(0, 0)
+metadata/_custom_type_script = "uid://c0msrvjy18apn"

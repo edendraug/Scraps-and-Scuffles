@@ -3,6 +3,7 @@ extends Camera2D
 var targets : Array = []
 
 @export var margin: Vector2 = Vector2(100,100)
+var zoom_modifier: float = 0.0
 @export var min_zoom: float = 0.5
 @export var max_zoom: float = 2.0
 @export var zoom_speed: float = 0.1
@@ -41,5 +42,6 @@ func _physics_process(delta: float) -> void:
 	var target_zoom = min(zoom_x, zoom_y)
 	# Clamp zoom to prevent too close/too far
 	target_zoom = clamp(target_zoom, min_zoom, max_zoom)
+	target_zoom *= zoom_modifier
 	# Apply smooth zoom
 	zoom = zoom.lerp(Vector2(target_zoom, target_zoom), zoom_speed)

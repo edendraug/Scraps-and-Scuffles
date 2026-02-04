@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3 uid="uid://c2iorhv40y7u6"]
+
+[ext_resource type="Script" uid="uid://c0msrvjy18apn" path="res://Resources/Levels/LevelData.gd" id="1_n8jvx"]
+
+[resource]
+script = ExtResource("1_n8jvx")
+level_name = "Whiteroom"
+level_scene_path = "res://Resources/Levels/Whiteroom.tscn"
+description = "For testing purposes only. How did you get here?"
+bounds_min_x = -1200.0
+bounds_max_x = 1000.0
+bounds_min_y = -700.0
+bounds_max_y = 300.0
+portal_position = Vector2(0, 0)
+metadata/_custom_type_script = "uid://c0msrvjy18apn"

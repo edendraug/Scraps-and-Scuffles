@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://hna08e5gsnoc"]
+
+[ext_resource type="Script" uid="uid://cacb3805ghrn0" path="res://Scripts/Building/Natural/RockSpawner.gd" id="1_dbl5f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xsnhp"]
+radius = 27.074
+
+[node name="RockSpawner" type="StaticBody2D"]
+script = ExtResource("1_dbl5f")
+bounce_strength_min = 300.0
+bounce_strength_max = 400.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+scale = Vector2(2, 2)
+hframes = 6
+vframes = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, -17)
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xsnhp")
+
+[node name="Label" type="Label" parent="."]
+offset_top = -57.0
+offset_right = 40.0
+offset_bottom = -34.0

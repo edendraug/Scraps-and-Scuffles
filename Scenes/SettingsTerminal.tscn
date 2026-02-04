@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://bcvanfxqra25y"]
+
+[ext_resource type="Script" uid="uid://b7d0f8a1y5iyd" path="res://Scripts/Level Select Screen/SettingsTerminal.gd" id="1_4ruiw"]
+[ext_resource type="Texture2D" uid="uid://dj07on4jggicv" path="res://Assets/Sprites/Scene Specific/Level Select/Terminal.png" id="2_eqobl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ndjn"]
+radius = 48.0
+height = 114.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sndnp"]
+atlas = ExtResource("2_eqobl")
+region = Rect2(37, 0, 37, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ymx8"]
+atlas = ExtResource("2_eqobl")
+region = Rect2(74, 0, 37, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6o6y"]
+atlas = ExtResource("2_eqobl")
+region = Rect2(0, 0, 37, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_focvp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sndnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ymx8")
+}],
+"loop": true,
+"name": &"active",
+"speed": 1.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6o6y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SettingsTerminal" type="Area2D"]
+script = ExtResource("1_4ruiw")
+metadata/_custom_type_script = "uid://b7d0f8a1y5iyd"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -42)
+shape = SubResource("CapsuleShape2D_5ndjn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, -48)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_focvp")
+autoplay = "default"
+frame_progress = 0.36736

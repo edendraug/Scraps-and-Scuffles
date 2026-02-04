@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://bi1cv6lgcotfg"]
+
+[ext_resource type="Script" uid="uid://dpbom2b6ylvgf" path="res://Scripts/Building/PlacedBuilding.gd" id="1_x4gga"]
+[ext_resource type="Texture2D" uid="uid://7liutw05fn38" path="res://Assets/Sprites/Temp/cracks.png" id="2_fx74b"]
+[ext_resource type="Shader" uid="uid://dgocve0rddpqp" path="res://Assets/Shaders/Natural Building Shader.gdshader" id="3_es4in"]
+[ext_resource type="Texture2D" uid="uid://qm01ti5xye2j" path="res://Assets/Sprites/Buildings/Natural/Rocks_Sheet.png" id="4_k6jwd"]
+[ext_resource type="PackedScene" uid="uid://bj8nefjcoicxi" path="res://Scenes/Particles/building_hit_particles.tscn" id="5_6atmo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xsp4"]
+radius = 34.0147
+
+[node name="Rock" type="StaticBody2D" node_paths=PackedStringArray("particle_emitter") groups=["Buildings"]]
+z_index = 1
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_x4gga")
+damage_texture = ExtResource("2_fx74b")
+shader = ExtResource("3_es4in")
+particle_emitter = NodePath("BuildingHitParticles")
+metadata/_custom_type_script = "uid://dpbom2b6ylvgf"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("4_k6jwd")
+offset = Vector2(0, -17)
+hframes = 6
+vframes = 2
+frame = 9
+
+[node name="BuildingHitParticles" parent="." instance=ExtResource("5_6atmo")]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -126)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 124.645)
+shape = SubResource("CircleShape2D_0xsp4")

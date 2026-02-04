@@ -11,7 +11,8 @@ enum BuildingType {
 @export_category("Base Properties")
 @export var building_name: String = "Building"
 @export var building_type: BuildingType = BuildingType.WOOD
-@export var building_scene: PackedScene # The actual building prefab
+@export var building_scene: PackedScene # The actual building prefab (default variant)
+@export var building_variants: Array[PackedScene] = [] # Multiple scene variant
 @export var menu_icon: Texture2D
 @export var particle_texture: Texture2D
 @export var outline_color: Color
@@ -49,13 +50,7 @@ func get_total_cost() -> Dictionary:
 		"energy": energy_cost
 		}
 
-func can_afford(inventory: Dictionary) -> bool:
-	# Debug - remove this later
-	#print("can_afford called with inventory: " , inventory)
-	#print("  wood check: ", inventory.get("wood", 0), " >= ", wood_cost)
-	#print("  stone check: ", inventory.get("stoned", 0), " >= ", stone_cost)
-	#print("  energy check: ", inventory.get("energy", 0), " >= ", energy_cost)
-	
+func can_afford(inventory: Dictionary) -> bool:	
 	var wood_ok = inventory.get("wood", 0) >= wood_cost
 	var stone_ok = inventory.get("stone", 0) >= stone_cost
 	var energy_ok = inventory.get("energy", 0) >= energy_cost
@@ -63,6 +58,16 @@ func can_afford(inventory: Dictionary) -> bool:
 	#print("  Results: wood=%s, stone=%s, energy=%s" % [wood_ok, stone_ok, energy_ok])
 	
 	return wood_ok and stone_ok and energy_ok
+
+func get_random_building_scene() -> PackedScene:
+	if building_variants.is_empty():
+		return building_scene # Default to building_scene (No variants)
+	
+	# Pool includes defualt + all_variants
+	var all_variants = [building_scene] + building_variants
+	
+	# Random pick
+	return all_variants[randi() % all_variants.size()]
 
 # Get the actual occupied cells based on pattern
 # Returns array of Vector2i offset from center

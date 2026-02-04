@@ -212,6 +212,9 @@ func try_place_building():
 	if building_instance.has_method("initialize"):
 		building_instance.initialize(selected_building)
 	
+	if building_instance.has_method("tween_building"):
+		building_instance.tween_building(Vector2(1.3,1.3), .25, Tween.TRANS_BACK, Tween.EASE_OUT)
+	
 	# Register with BuildingManager
 	BuildingManager.register_placed_building(grid_pos, selected_building, current_rotation, building_instance)
 	# Exit placement mode

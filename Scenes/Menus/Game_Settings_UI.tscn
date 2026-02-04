@@ -1,0 +1,463 @@
+[gd_scene load_steps=8 format=3 uid="uid://4lqmvpp60qtw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cr1im"]
+bg_color = Color(0.149587, 0.301121, 0.422826, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ua1p4"]
+bg_color = Color(1, 1, 1, 0.0901961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s74ff"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o1yne"]
+bg_color = Color(1, 1, 1, 0.0901961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1lpf0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv3ax"]
+bg_color = Color(0.23217, 0.470437, 0.26603, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1rmo"]
+bg_color = Color(1, 1, 1, 0.0901961)
+
+[node name="GameSettingsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 354.0
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+layout_mode = 2
+tab_alignment = 1
+current_tab = 1
+
+[node name="Match Settings" type="PanelContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cr1im")
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Match Settings"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ua1p4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Game Mode"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "King of the Hill"
+popup/item_0/id = 0
+popup/item_1/text = "Tag"
+popup/item_1/id = 1
+popup/item_2/text = "Keep Away"
+popup/item_2/id = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hill Radius"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+min_value = 30.0
+max_value = 240.0
+step = 10.0
+value = 120.0
+
+[node name="Label2" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "120"
+horizontal_alignment = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Relocate hill every"
+horizontal_alignment = 2
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 10.0
+max_value = 300.0
+step = 5.0
+value = 40.0
+alignment = 1
+suffix = "seconds"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o1yne")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Win Condition"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "Highest Score"
+popup/item_0/id = 1
+popup/item_1/text = "First to Winning Score"
+popup/item_1/id = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Winning Score"
+horizontal_alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_1lpf0")
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 10.0
+value = 10.0
+alignment = 1
+suffix = "points"
+custom_arrow_step = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Time Limit"
+horizontal_alignment = 2
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 30.0
+step = 15.0
+value = 30.0
+alignment = 1
+suffix = "seconds"
+
+[node name="Resource Spawning" type="PanelContainer" parent="MarginContainer/TabContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kv3ax")
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Resource Spawning"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Starting resources"
+horizontal_alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_1lpf0")
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 16.0
+alignment = 1
+suffix = "sources"
+custom_arrow_step = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Maximum amount"
+horizontal_alignment = 2
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 300.0
+step = 5.0
+value = 30.0
+alignment = 1
+suffix = "sources"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Natural Resource Spawn Interval"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Choose the minumum and maximum amount of time it takes for a natural resource to drop. The level will drop a resource at a random time frame between these settings."
+autowrap_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Minimum Time"
+horizontal_alignment = 2
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 5.0
+max_value = 300.0
+step = 5.0
+value = 30.0
+alignment = 1
+suffix = "seconds"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Maximum Time"
+horizontal_alignment = 2
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 5.0
+max_value = 300.0
+step = 5.0
+value = 60.0
+alignment = 1
+suffix = "seconds"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Resource Weights"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k1rmo")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wood"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 50.0
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k1rmo")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stone"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 50.0
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k1rmo")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Energy"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 50.0

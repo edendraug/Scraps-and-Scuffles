@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MatchSettings" load_steps=2 format=3 uid="uid://cof168wm3dxh3"]
+
+[ext_resource type="Script" uid="uid://ds5eq4pr0d2i2" path="res://Scripts/MatchSettings.gd" id="1_8mjl2"]
+
+[resource]
+script = ExtResource("1_8mjl2")
+game_mode = 0
+score_target = 100
+time_limit_minutes = 3.0
+use_score_target = true
+use_time_limit = true
+hill_radius = 200.0
+hill_relocate_interval = 45.0
+tick_interval = 0.75
+metadata/_custom_type_script = "uid://ds5eq4pr0d2i2"

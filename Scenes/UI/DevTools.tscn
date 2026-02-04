@@ -8,7 +8,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x54mq"]
 bg_color = Color(1, 1, 1, 0.145098)
 
-[node name="Dev UI" type="Control" node_paths=PackedStringArray("timer_label", "give_rsc_wood", "give_rsc_stone", "give_rsc_energy")]
+[node name="Dev UI" type="Control" node_paths=PackedStringArray("timer_label", "give_rsc_wood", "give_rsc_stone", "give_rsc_energy", "camera_zoom_slider")]
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -25,6 +25,7 @@ give_rsc_energy = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxCon
 wood_rsc = ExtResource("2_x54mq")
 stone_rsc = ExtResource("3_d2sop")
 energy_rsc = ExtResource("4_lvckk")
+camera_zoom_slider = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HSlider")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -106,7 +107,48 @@ layout_mode = 2
 text = "0:00"
 horizontal_alignment = 1
 
+[node name="GiveEach2" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Minumum Camera Zoom"
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+min_value = 0.5
+max_value = 2.0
+step = 0.25
+value = 1.0
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Game Engine Speed"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Half Speed" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = ".5x"
+
+[node name="Normal Speed" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "1x"
+
+[node name="Double Speed" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "2x"
+
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveWood" to="." method="_on_give_wood_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveStone" to="." method="_on_give_stone_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveEnergy" to="." method="_on_give_energy_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GiveEach" to="." method="_on_give_each_pressed"]
+[connection signal="button_down" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/Half Speed" to="." method="_on_half_speed_button_down"]
+[connection signal="button_down" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/Normal Speed" to="." method="_on_normal_speed_button_down"]
+[connection signal="button_down" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/Double Speed" to="." method="_on_double_speed_button_down"]

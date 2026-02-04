@@ -1,4 +1,4 @@
-@tool
+#@tool
 extends StaticBody2D
 class_name PlacedBuilding
 
@@ -30,6 +30,7 @@ func _ready() -> void:
 			initialize(building_data)
 		else:
 			update_collision_from_data()
+
 func find_sprite() -> Sprite2D:
 	# Look for Sprite2D child
 	for child in get_children():
@@ -49,11 +50,6 @@ func initialize(data: BuildingData):
 	# Store grid position for later reference
 	grid_position = BuildingManager.world_to_grid(global_position)
 	
-	# Play tween animation on spawn
-	var tween = create_tween().set_trans(Tween.TRANS_BOUNCE)
-	self.scale = Vector2(1.1, 1.1)
-	tween.tween_property(self,"scale", Vector2.ONE, 0.15)
-	
 	# Generate collision at runtime
 	update_collision_from_data()
 	
@@ -61,8 +57,14 @@ func initialize(data: BuildingData):
 	setup_shader()
 	
 	initialized = true
-	
-func take_damage(amount: int, hit_pos: Vector2) -> void:
+
+func tween_building(initial_scale: Vector2, duration: float, trans: Tween.TransitionType, ease: Tween.EaseType):
+	# Play tween animation on spawn
+	var tween = create_tween().set_trans(trans).set_ease(ease)
+	scale = initial_scale
+	tween.tween_property(self,"scale", Vector2.ONE, duration)
+
+func take_damage(amount: int, hit_pos: Vector2, force: float = 1) -> void:
 	print(self.name, ": I got hit for %s damage." % amount)
 	print(self.name, ": %s health remaining." % current_health)
 	current_health -= amount
@@ -164,11 +166,13 @@ func setup_shader():
 	shader_material.set_shader_parameter("damage_percent", 0.0)
 	shader_material.set_shader_parameter("total_frames", 6)
 	shader_material.set_shader_parameter("damage_frame_size", Vector2(16, 16))
-	shader_material.set_shader_parameter("damage_scale", 2.0)
-	shader_material.set_shader_parameter("enable_color_shift", true)
+	shader_material.set_shader_parameter("damage_scale", 1.0)
 	shader_material.set_shader_parameter("color_shift_strength", 0.3)
 	shader_material.set_shader_parameter("blend_strength", 0.8)
-	
+	if !building_data.is_natural_building:
+		shader_material.set_shader_parameter("enable_color_shift", true)
+	else:
+		shader_material.set_shader_parameter("enable_color_shift", false)
 	# Apply material to sprite
 	building_sprite.material = shader_material
 	print("  Damage shader applied successfully!")

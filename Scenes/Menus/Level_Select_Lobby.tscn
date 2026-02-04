@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgxawxpm8lgst"]
+
+[ext_resource type="Script" uid="uid://lfnton1swx0l" path="res://Scripts/Level Select Screen/LevelSelectLobbyManager.gd" id="1_t320a"]
+[ext_resource type="Script" uid="uid://dpo30b5f7v4pq" path="res://Scripts/Level Select Screen/LobbyCameraController.gd" id="2_kmvgw"]
+[ext_resource type="PackedScene" uid="uid://bcvanfxqra25y" path="res://Scenes/SettingsTerminal.tscn" id="3_l0hla"]
+[ext_resource type="PackedScene" uid="uid://4lqmvpp60qtw" path="res://Scenes/Menus/Game_Settings_UI.tscn" id="4_kmvgw"]
+[ext_resource type="Script" uid="uid://e04sge6aw0ig" path="res://Scripts/Level Select Screen/CharacterSelectionManager.gd" id="5_l0hla"]
+
+[node name="LevelSelectLobby" type="Node2D"]
+
+[node name="LevelSelectLobbyManager" type="Node" parent="."]
+script = ExtResource("1_t320a")
+metadata/_custom_type_script = "uid://lfnton1swx0l"
+
+[node name="LobbyCameraController" type="Camera2D" parent="."]
+script = ExtResource("2_kmvgw")
+metadata/_custom_type_script = "uid://dpo30b5f7v4pq"
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Environment"]
+offset_left = -647.0
+offset_right = 687.0
+offset_bottom = 432.0
+color = Color(0.533037, 0.533037, 0.533037, 1)
+
+[node name="Portals" type="Node2D" parent="."]
+
+[node name="SettingsTerminal" parent="." node_paths=PackedStringArray("settings_ui") instance=ExtResource("3_l0hla")]
+position = Vector2(-448, 9)
+settings_ui = NodePath("../CanvasLayer/GameSettingsUI")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameSettingsUI" parent="CanvasLayer" instance=ExtResource("4_kmvgw")]
+visible = false
+
+[node name="CharacterSelectionManager" type="Node" parent="."]
+script = ExtResource("5_l0hla")
+metadata/_custom_type_script = "uid://e04sge6aw0ig"

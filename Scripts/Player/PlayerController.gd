@@ -238,13 +238,13 @@ func attack():
 			elif i.has_method("take_damage"):
 				i.take_damage(1, self.global_position)
 
-func take_damage(amount: int, hit_pos: Vector2) -> void:	
+func take_damage(amount: int, hit_pos: Vector2, force: float = hit_force) -> void:
 	var force_dir := (global_position - hit_pos).normalized()
 	
 	if !stunned and !invincible:
-		velocity = force_dir * hit_force
-		if current_health > 1:
-			current_health -= 1
+		velocity = force_dir * force
+		if current_health > 0:
+			current_health -= amount
 		else: 
 			current_health = 0
 			stun()
@@ -311,5 +311,6 @@ func _on_attack_cooldown_timer_timeout() -> void:
 
 #region === DEV STUFF ===
 func update_dev_labels():
-	current_state_label.text = str("State: ", State.find_key(current_state))
+	#current_state_label.text = str("State: ", State.find_key(current_state))
+	current_state_label.text = str(current_health)
 #endregion

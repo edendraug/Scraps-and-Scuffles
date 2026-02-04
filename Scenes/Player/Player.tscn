@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://dr57dqk0k8oxh" path="res://Resources/Crafting Items/wood_resource.tres" id="4_825xp"]
 [ext_resource type="Resource" uid="uid://yj6eugle2exq" path="res://Resources/Crafting Items/stone_resource.tres" id="5_ji083"]
 [ext_resource type="Resource" uid="uid://u33kpeoaqoqg" path="res://Resources/Crafting Items/energy_resource.tres" id="6_0kmp4"]
-[ext_resource type="Script" uid="uid://3rx50jetx55h" path="res://Scenes/Player/PlayerSpriteManager.gd" id="8_0kmp4"]
+[ext_resource type="Script" uid="uid://3rx50jetx55h" path="res://Scripts/Player/PlayerSpriteManager.gd" id="8_0kmp4"]
 [ext_resource type="Script" uid="uid://irfaxbw0dyxw" path="res://Scripts/Building/BuildingPlacer.gd" id="8_825xp"]
 [ext_resource type="Shader" uid="uid://dloco7sj78qik" path="res://Assets/Shaders/sprite_outline_v2.gdshader" id="8_i5acl"]
 [ext_resource type="PackedScene" uid="uid://cm5xk86fi1j2i" path="res://Scenes/UI/RadialBuildMenu.tscn" id="8_ji083"]
@@ -728,6 +728,7 @@ height = 90.0
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite_manager", "collider", "hit_manager", "building_placer", "stun_timer", "invincibility_timer", "attack_cooldown_timer") groups=["Players"]]
 z_index = 1
 collision_layer = 8
+collision_mask = 5
 floor_constant_speed = true
 floor_max_angle = 0.872665
 floor_snap_length = 10.0
@@ -865,6 +866,7 @@ radial_menu = NodePath("../RadialBuildMenu")
 [node name="RadialBuildMenu" parent="." instance=ExtResource("8_ji083")]
 
 [node name="DebugUI" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_top = 60.0

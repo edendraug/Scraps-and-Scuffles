@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=4 format=3 uid="uid://dxwisrs6wiwut"]
+
+[ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="1_oddyn"]
+[ext_resource type="Texture2D" uid="uid://ybqymjpekfin" path="res://Assets/Sprites/Characters/Construction Worker_Still.png" id="2_utydc"]
+[ext_resource type="Script" uid="uid://c8i63gapd0xv6" path="res://Resources/Characters/CharacterData.gd" id="3_4d37u"]
+
+[resource]
+script = ExtResource("3_4d37u")
+character_name = "Builder"
+character_scene = ExtResource("1_oddyn")
+icon_sprite = ExtResource("2_utydc")
+metadata/_custom_type_script = "uid://c8i63gapd0xv6"

@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=3 uid="uid://cw23l82pxc6gc"]
+
+[ext_resource type="Script" uid="uid://p1fbwcbjruws" path="res://Scripts/Building/Natural/TreeSeed.gd" id="1_1d8hk"]
+[ext_resource type="Texture2D" uid="uid://pd0llkrd6s5o" path="res://Assets/Sprites/Buildings/Natural/Tree_Seed_Sheet.png" id="2_1d8hk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d8hk"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1erfq"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkdy7"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uk62u"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0qpa"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6hgn"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wr3x1"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60dsx"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rixh4"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fysv"]
+atlas = ExtResource("2_1d8hk")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1erfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1d8hk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1erfq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkdy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uk62u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0qpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6hgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wr3x1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60dsx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rixh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fysv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fysv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fysv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fysv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rixh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fysv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fysv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rixh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fysv")
+}],
+"loop": false,
+"name": &"germinate",
+"speed": 8.0
+}]
+
+[node name="TreeSeed" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_1d8hk")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1erfq")
+animation = &"germinate"
+autoplay = "default"

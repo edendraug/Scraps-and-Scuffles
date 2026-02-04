@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://d2qhnnqa03y08"]
+
+[ext_resource type="Script" uid="uid://bh30rd7n4lqd3" path="res://Scenes/Test Level Manager.gd" id="1_to3gn"]
+[ext_resource type="Resource" uid="uid://cvjcsuu3pvj8r" path="res://Resources/test_spawn_settings.tres" id="2_gxtem"]
+[ext_resource type="Resource" uid="uid://cof168wm3dxh3" path="res://Resources/test_match_settings.tres" id="3_41ir2"]
+[ext_resource type="PackedScene" uid="uid://bvfmokyylsiux" path="res://Scenes/Level_Camera.tscn" id="4_l4xnw"]
+[ext_resource type="PackedScene" uid="uid://1epvep0gnru2" path="res://Scenes/Game_Manager.tscn" id="5_xe148"]
+[ext_resource type="PackedScene" uid="uid://bj30cbosvrssh" path="res://Scenes/static_test_object.tscn" id="6_j6jpa"]
+[ext_resource type="PackedScene" uid="uid://bikcdmor1gipd" path="res://Scenes/UI/DevTools.tscn" id="7_4ua8u"]
+[ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="8_8u0dv"]
+[ext_resource type="PackedScene" uid="uid://x1fid803lxap" path="res://Tools/position_helper.tscn" id="9_4hbr2"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t7cmt"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_to3gn")
+override_spawn_settings = ExtResource("2_gxtem")
+override_match_settings = ExtResource("3_41ir2")
+
+[node name="Level Camera" parent="." instance=ExtResource("4_l4xnw")]
+visible = false
+
+[node name="GameManager" parent="." instance=ExtResource("5_xe148")]
+
+[node name="Level" type="Node2D" parent="."]
+position = Vector2(-615, -439)
+
+[node name="StaticBody2D2" parent="Level" instance=ExtResource("6_j6jpa")]
+position = Vector2(1241, 497)
+scale = Vector2(1, 26.64)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Level"]
+position = Vector2(-106, 0)
+
+[node name="ColorRect" type="ColorRect" parent="Level/StaticBody2D"]
+offset_left = -728.0
+offset_top = 708.0
+offset_right = 2114.0
+offset_bottom = 1651.0
+color = Color(0.707967, 0.707967, 0.707967, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D"]
+position = Vector2(699, 710)
+shape = SubResource("WorldBoundaryShape2D_t7cmt")
+
+[node name="StaticBody2D3" parent="Level" instance=ExtResource("6_j6jpa")]
+position = Vector2(-88, 334)
+scale = Vector2(20.44, 1)
+
+[node name="StaticBody2D4" parent="Level" instance=ExtResource("6_j6jpa")]
+position = Vector2(314, 334)
+rotation = 1.57079
+scale = Vector2(6.64, 1)
+
+[node name="StaticBody2D5" parent="Level" instance=ExtResource("6_j6jpa")]
+position = Vector2(785, 211)
+scale = Vector2(6.64, 1)
+
+[node name="Buildings" type="Node2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Dev UI" parent="UI" instance=ExtResource("7_4ua8u")]
+visible = false
+
+[node name="Player1" parent="." instance=ExtResource("8_8u0dv")]
+position = Vector2(-121, 53)
+
+[node name="Position Helper" parent="." instance=ExtResource("9_4hbr2")]
+position = Vector2(-1200, 1)
+gizmo_extents = 25.0
+
+[node name="Position Helper2" parent="." instance=ExtResource("9_4hbr2")]
+position = Vector2(1000, 0)
+gizmo_extents = 25.0
+
+[node name="Position Helper3" parent="." instance=ExtResource("9_4hbr2")]
+position = Vector2(0, -700)
+gizmo_extents = 25.0
+
+[node name="Position Helper4" parent="." instance=ExtResource("9_4hbr2")]
+position = Vector2(0, 300)
+gizmo_extents = 25.0
