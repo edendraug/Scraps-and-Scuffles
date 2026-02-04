@@ -8,6 +8,8 @@ class_name CharacterSelectionManager
 	Color.GREEN,
 	Color.YELLOW
 ]
+@export var deselect_hold_time: float = 1.5
+var deselect_timers: Dictionary = {} # player_id -> time held
 
 var character_displays: Array[CharacterDisplay] = []
 var player_cursors: Dictionary = {} # player_id -> PlayerCursor
@@ -22,6 +24,10 @@ func _ready():
 	await get_tree().process_frame
 	find_character_displays()
 	
+	# TEMPORARY: Force join player 0 if not already joined
+	if not GameSettings.is_player_joined(0):
+		GameSettings.join_player(0, -1)
+	
 	# Create cursor for Player 0 (already joined by default)
 	if GameSettings.is_player_joined(0):
 		create_cursor_for_player(0)
@@ -34,9 +40,24 @@ func _process(delta: float) -> void:
 	# Check for deslection input (hold B)
 	for player_id in player_selections.keys():
 		if InputManager.is_action_pressed(player_id, "cancel"):
-			# Hold B to deselect
-			deselect_player_character(player_id)
-
+			# Increment hold timer
+			if not deselect_timers.has(player_id):
+				deselect_timers[player_id] = 0.0
+			
+			deselect_timers[player_id] += delta
+			
+			# Visual feedback - could add a progress bar here
+			#print("Player ", player_id, " deselect hold: ", deselect_timers[player_id], " / ", deselect_hold_time)
+			
+			if deselect_timers[player_id] >= deselect_hold_time:
+				deselect_player_character(player_id)
+				deselect_timers.erase(player_id)
+		else:
+			# Button released - reset timer
+			if deselect_timers.has(player_id):
+				#print("Player ", player_id, " released cancel button - timer reset")
+				deselect_timers.erase(player_id)
+			
 func find_character_displays():
 	character_displays.clear()
 	
@@ -125,6 +146,7 @@ func _on_character_clicked(display: CharacterDisplay):
 	# Handle click events (for mouse input)
 	# Find which cursor clicked it
 	# For now, this is mainly for visual feedback
+	print(display, " clicked")
 	pass
 
 func _on_player_joined(player_id: int):

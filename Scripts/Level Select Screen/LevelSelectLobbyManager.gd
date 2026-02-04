@@ -4,6 +4,9 @@ class_name LevelSelectLobbyManager
 @export var camera: LobbyCameraController
 @export var character_selection_manager: CharacterSelectionManager
 @export var grace_period_duration: float = 3.0
+@export var winner_reveal_delay: float = 4.0
+
+var votes_finalized: bool = false
 
 var all_voted: bool = false
 var grace_period_active: bool = false
@@ -51,9 +54,34 @@ func attempt_join_player(device_id: int):
 				return
 
 func _on_level_voted(player_id: int, level: LevelData):
+	print("Vote changed - Player ", player_id, " voted for: ", level)
+	
+	# Don't process votes if already finalized
+	if votes_finalized:
+		print("  Votes already finalized, ignoring")
+		return
+	
+	# Check if all players have voted (and actually have a vote - not null)
+	var all_have_votes = true
+	for pid in GameSettings.get_joined_player_ids():
+		var vote = GameSettings.get_player_vote(pid)
+		print("  Player ", pid, " vote: ", vote)
+		if vote == null:
+			all_have_votes = false
+			break
+	
+	print("  All have votes: ", all_have_votes, " | all_voted: ", all_voted)
+	
 	# Check if all players have voted
-	if GameSettings.have_all_players_voted() and not all_voted:
+	if all_have_votes and not all_voted:
+		print("  Starting grace period!")
 		start_grace_period()
+	elif not all_have_votes and all_voted:
+		# Someone changed their vote during grace period - cancel it!
+		print("  Vote changed during grace period - canceling!")
+		cancel_grace_period()
+	
+	
 
 func start_grace_period():
 	all_voted = true
@@ -62,15 +90,38 @@ func start_grace_period():
 	
 	print("All players voted! Grace period: ", grace_period_duration, " seconds")
 	grace_period_started.emit()
+
+func cancel_grace_period():
+	all_voted = false
+	grace_period_active = false
+	grace_timer = 0.0
+	
+	print("Grace period canceled - vote changed")
+	
+	# Return camera to follow mode
+	if camera:
+		camera.set_camera_state((LobbyCameraController.CameraState.FOLLOW_PLAYERS))
+
+func finalize_voting():
+	grace_period_active = false
+	votes_finalized = true
+	
+	print("Votes are locked in!")
+	voting_complete.emit()
+	
+	# Disable all player movement
+	disable_all_players()
 	
 	#Camera focuses on voted portals
 	if camera:
 		camera.set_camera_state(LobbyCameraController.CameraState.FOCUS_VOTED)
-
-func finalize_voting():
-	grace_period_active = false
-	
+		
+	# Wait for suspense
+	await get_tree().create_timer(winner_reveal_delay).timeout
 	# Calculate winner
+	reveal_winner()
+
+func reveal_winner():
 	var winning_level = GameSettings.calculate_winning_level()
 	
 	if not winning_level:
@@ -78,7 +129,6 @@ func finalize_voting():
 		return
 	
 	print("Winning level: ", winning_level.level_name)
-	voting_complete.emit()
 	
 	#Camera zooms on winner
 	if camera:
@@ -86,6 +136,14 @@ func finalize_voting():
 	
 	await get_tree().create_timer(2.0).timeout
 	load_game_level(winning_level)
+
+func disable_all_players():
+	var players = get_tree().get_nodes_in_group("Players")
+	for player in players:
+		if player.has_method("set_physics_process"):
+			player.set_physics_process(false)
+		if player.has_method("set_process"):
+			player.set_process(false)
 
 func load_game_level(level: LevelData):
 	if loading_level:
@@ -117,9 +175,18 @@ func _on_player_joined(player_id: int):
 	if all_voted:
 		all_voted = false
 		grace_period_active = false
+		votes_finalized = false
 
 func _on_player_left(player_id: int):
-	# Player left- remove their vote
 	# Check if we still have all votes
-	if GameSettings.have_all_players_voted() and not all_voted:
+	if votes_finalized:
+		return # Don't recalculate if already locked
+	
+	var all_have_votes = true
+	for pid in GameSettings.get_joined_player_ids():
+		if GameSettings.get_player_vote(pid) == null:
+			all_have_votes = false
+			break
+
+	if all_have_votes and not all_voted:
 		start_grace_period()

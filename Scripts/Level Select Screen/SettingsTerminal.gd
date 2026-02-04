@@ -65,7 +65,7 @@ func _on_body_exited(body: Node2D):
 	if body == player_at_terminal:
 		if ui_open:
 			close_terminal()
-		player_at_terminal == null
+		player_at_terminal = null
 
 func get_player_id(player: Node2D):
 	if player.has_method("get_player_id"):

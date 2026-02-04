@@ -13,7 +13,7 @@ signal character_selected(player_id: int, character: CharacterDisplay)
 
 func _ready() -> void:
 	if cursor_sprite:
-		cursor_sprite.module = player_color
+		cursor_sprite.modulate = player_color
 	# Start at screen center or spawn position
 	global_position = get_viewport_rect().size / 2
 
@@ -26,19 +26,20 @@ func _process(delta: float) -> void:
 	global_position += input_dir * cursor_speed * delta
 	
 	# Clamp to screen bounds
-	var viewport_size = get_viewport_rect().size
-	global_position.x = clamp(global_position.x, 0, viewport_size.x)
-	global_position.y = clamp(global_position.y, 0, viewport_size.y)
+	#var viewport_size = get_viewport_rect().size
+	#global_position.x = clamp(global_position.x, 0, viewport_size.x)
+	#global_position.y = clamp(global_position.y, 0, viewport_size.y)
 	
 	# Check for selection input
 	if InputManager.is_action_just_pressed(player_id, "confirm"):
+		print("Confirm pressed")
 		attempt_select_character()
 
 func get_cursor_input() -> Vector2:
 	# Use left stick for cursor movement
 	var input = Vector2(
 		InputManager.get_axis(player_id, "move_left", "move_right"),
-		InputManager.get_axis(player_id, "move_up", "move_down")
+		InputManager.get_axis(player_id, "look_up", "look_down")
 	)
 	
 	# Fallback to mouse for player 0 (if keyboard/mouse)
@@ -67,7 +68,7 @@ func deactivate_cursor():
 	is_active = false
 	hide()
 
-func activate_cusror():
+func activate_cursor():
 	is_active = true
 	show()
 

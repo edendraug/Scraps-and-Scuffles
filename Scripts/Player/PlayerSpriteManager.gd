@@ -30,7 +30,26 @@ func update_animations():
 			anim_tree["parameters/states/transition_request"] = "jumping"
 		player.State.SLIDE:
 			anim_tree["parameters/states/transition_request"] = "slide"
+
+func set_sprite_sheet(new_sprite_sheet: Texture2D):
+	if not new_sprite_sheet:
+		push_warning("PlayerSpriteManager: No sprite sheet provided")
+		return
 	
+	# Find all Sprite2D nodes that need updating
+	var sprites_to_update = []
+	
+	# Look in SubViewport for sprites
+	if sub_viewport: 
+		for child in sub_viewport.find_children("*", "", true):
+			if child is Sprite2D:
+				sprites_to_update.append(child)
+	
+	# Update all found sprites
+	for sprite in sprites_to_update:
+		sprite.texture = new_sprite_sheet
+	
+	print ("PlayerSpriteManager: Sprite sheet updated to ", new_sprite_sheet.resource_path)
 
 func _on_player_just_hit() -> void:
 	anim_tree.set("parameters/hit/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)

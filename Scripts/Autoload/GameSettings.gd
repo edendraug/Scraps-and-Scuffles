@@ -32,6 +32,7 @@ func _ready() -> void:
 	# Load available content
 	load_levels()
 	load_characters()
+	print("GameSettings: ", joined_players.size(), " players found")
 
 # === LEVEL MANAGEMENT ===
 func load_levels():
@@ -64,9 +65,16 @@ func vote_for_level(player_id: int, level: LevelData):
 	if not is_player_joined(player_id):
 		return
 	
-	level_votes[player_id] = level
-	print("Player ", player_id, " voted for: ", level.level_name if level else "none")
-	level_voted.emit(player_id, level)
+	# Allow clearing vote by passing null
+	if level == null:
+		if level_votes.has(player_id):
+			level_votes.erase(player_id)
+			print("Player ", player_id, " cleared their vote")
+			level_voted.emit(player_id, null)
+	else:
+		level_votes[player_id] = level
+		print("Player ", player_id, " voted for: ", level.level_name if level else "none")
+		level_voted.emit(player_id, level)
 
 func get_player_vote(player_id: int) -> LevelData:
 	return level_votes.get(player_id, null)
@@ -170,6 +178,9 @@ func join_player(player_id: int, device_id: int) -> bool:
 	
 	joined_players[player_id] = player_data
 	
+	# Register with InputManager
+	InputManager.register_player(player_id, device_id)
+	
 	print("Player ", player_id, " joined (device: ", device_id, ")")
 	player_joined.emit(player_id)
 	
@@ -181,6 +192,9 @@ func leave_player(player_id: int):
 	
 	joined_players.erase(player_id)
 	level_votes.erase(player_id)
+	
+	# Unregister from InputManager
+	InputManager.unregister_player(player_id)
 	
 	print("Player ", player_id, " left")
 	player_left.emit(player_id)

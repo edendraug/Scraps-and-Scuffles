@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3kotmmq26pbt"]
+
+[ext_resource type="Script" uid="uid://c0rcpii3poned" path="res://Scripts/Level Select Screen/LevelPortal.gd" id="1_oi8fb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c2sf3"]
+radius = 55.1453
+
+[node name="LevelPortal" type="Area2D"]
+collision_mask = 8
+script = ExtResource("1_oi8fb")
+metadata/_custom_type_script = "uid://c0rcpii3poned"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c2sf3")

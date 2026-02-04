@@ -3,13 +3,12 @@ class_name CharacterDisplay
 
 @export var character_data: CharacterData
 @export var display_position: Vector2
+@export var player_scene: PackedScene # Assign Player.tscn here
 
 var player_character : Node2D = null # Reference to the actual player node
+var display_sprite: Sprite2D = null # Static icon when not selected
 var is_selected: bool = false
 var selected_by_player_id: int = -1
-
-# Visual indicator (option highlight)
-var selection_indicator: Sprite2D
 
 signal character_clicked(display: CharacterDisplay)
 
@@ -18,21 +17,18 @@ func _ready() -> void:
 	if display_position == Vector2.ZERO:
 		display_position = global_position
 	
-	# Find the player character node (should be child of this display)
-	player_character = get_player_node()
-	
-	if player_character:
-		#Disable player controls initially
-		disable_player_controls()
-		# Make sure it's at display position
-		player_character.global_position = display_position
+	# Create static display sprite
+	create_display_sprite()
 
-func get_player_node() -> Node2D:
-	# Find CharacterBody2D child
-	for child in get_children():
-		if child is CharacterBody2D:
-			return child
-	return null
+func create_display_sprite():
+	if not character_data or not character_data.icon_sprite:
+		return
+	
+	display_sprite = Sprite2D.new()
+	display_sprite.texture = character_data.icon_sprite
+	display_sprite.position = Vector2.ZERO
+	display_sprite.scale = Vector2(2.0, 2.0)
+	add_child(display_sprite)
 
 func can_be_selected() -> bool:
 	return not is_selected
@@ -44,14 +40,31 @@ func select_character(player_id: int) -> bool:
 	is_selected = true
 	selected_by_player_id = player_id
 	
-	if player_character:
-		# Assign player_id to character
+	# Remove static sprite
+	if display_sprite:
+		display_sprite.queue_free()
+		display_sprite = null
+	
+	# Instantiate actual player
+	if player_scene:
+		player_character = player_scene.instantiate()
+		add_child(player_character)
+		player_character.global_position = display_position
+	
+		# Assign player_id
 		if "player_id" in player_character:
 			player_character.player_id = player_id
-		
-		# Enable player controls
+	
+		# Swap sprite sheet
+		if player_character.has_node("SpriteManager"):
+			var sprite_manager = player_character.get_node("SpriteManager")
+			if sprite_manager.has_method("set_sprite_sheet"):
+				sprite_manager.set_sprite_sheet(character_data.sprite_sheet)
+			
+	
+		# Enable player controls initially
 		enable_player_controls()
-		
+	
 		# Add to Players group
 		if not player_character.is_in_group("Players"):
 			player_character.add_to_group("Players")
@@ -69,30 +82,18 @@ func deselect_character():
 	print("Character '", character_data.character_name, "' deselected")
 	
 	is_selected = false
-	var prev_player_id = selected_by_player_id
 	selected_by_player_id = -1
 	
+	# Remove player instance
 	if player_character:
-		# Disable controls
-		disable_player_controls()
+		player_character.queue_free()
+		player_character = null
 		
-		# Teleport back to display position
-		player_character.global_position = display_position
-		
-		# Reset velocity if applicable
-		if player_character is CharacterBody2D:
-			player_character.velocity = Vector2.ZERO
-		
-		# Remove from Players group
-		if player_character.is_in_group("Players"):
-			player_character.remove_from_group("Players")
-		
-		# Clear player_id
-		if "player_id" in player_character:
-			player_character.player_id = -1
+	# Recreate static sprite
+	create_display_sprite()
 	
-	# Hide selection indicator
 	hide_selected_indicator()
+
 
 func disable_player_controls():
 	if not player_character:
@@ -124,6 +125,6 @@ func hide_selected_indicator():
 	if player_character and "modulate" in player_character:
 		player_character.modulate = Color(1, 1, 1) # Normal brightness
 
-func handle_cliock():
+func handle_click():
 	# Emit signal when clicked
 	character_clicked.emit(self)

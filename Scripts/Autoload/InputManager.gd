@@ -36,6 +36,7 @@ func _ready():
 	
 	# Listen for controller connections/disconnections
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
+	
 
 func detect_controllers():
 	var connected_joypads = Input.get_connected_joypads()
@@ -59,6 +60,7 @@ func register_player(player_id: int, device_id: int = -1) -> bool:
 	active_players[player_id] = true
 	
 	print("InputManager: Player %d registered with device %d (%s)" % [player_id, device_id, get_device_name(device_id)])
+	print("  active_players array: ", active_players)
 	return true
 
 func unregister_player(player_id: int):

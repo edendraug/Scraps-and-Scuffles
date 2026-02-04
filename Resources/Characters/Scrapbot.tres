@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=4 format=3 uid="uid://bq6ykw276lnpu"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://bq6ykw276lnpu"]
 
 [ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="1_ad0a8"]
 [ext_resource type="Texture2D" uid="uid://bc045nx5a8yng" path="res://Assets/Sprites/Characters/Robot_Still.png" id="2_7fe8b"]
 [ext_resource type="Script" uid="uid://c8i63gapd0xv6" path="res://Resources/Characters/CharacterData.gd" id="3_7qcrj"]
+[ext_resource type="Texture2D" uid="uid://cwlekngoa17kr" path="res://Assets/Sprites/Characters/Construction Worker.png" id="4_7fe8b"]
 
 [resource]
 script = ExtResource("3_7qcrj")
 character_name = "Scrapbot"
 character_scene = ExtResource("1_ad0a8")
+sprite_sheet = ExtResource("4_7fe8b")
 icon_sprite = ExtResource("2_7fe8b")
 metadata/_custom_type_script = "uid://c8i63gapd0xv6"

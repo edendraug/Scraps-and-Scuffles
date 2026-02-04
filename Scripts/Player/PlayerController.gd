@@ -75,6 +75,7 @@ signal player_just_hit
 func _ready() -> void:
 	InputManager.register_player(player_id)
 	current_health = max_health
+	update_dev_labels()
 	
 
 func _process(delta: float) -> void:
@@ -312,5 +313,5 @@ func _on_attack_cooldown_timer_timeout() -> void:
 #region === DEV STUFF ===
 func update_dev_labels():
 	#current_state_label.text = str("State: ", State.find_key(current_state))
-	current_state_label.text = str(current_health)
+	current_state_label.text = str("Player ID: ", player_id)
 #endregion

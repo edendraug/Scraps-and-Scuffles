@@ -24,7 +24,7 @@ func _on_body_entered(body: Node2D):
 		players_in_portal.append(body)
 		player_entered_portal.emit(body, level_data)
 		
-		# Auto vote when entering portal
+		# Vote when entering portal
 		var player_id = get_player_id(body)
 		if player_id != -1:
 			GameSettings.vote_for_level(player_id, level_data)
@@ -33,6 +33,11 @@ func _on_body_exited(body: Node2D):
 	if body in players_in_portal:
 		players_in_portal.erase(body)
 		player_exited_portal.emit(body, level_data)
+	
+	# UNVOTE when leaving portal
+	var player_id = get_player_id(body)
+	if player_id != -1:
+		GameSettings.vote_for_level(player_id, null)
 
 func get_player_id(player: Node2D) -> int:
 	# Try to get player_id from the player node

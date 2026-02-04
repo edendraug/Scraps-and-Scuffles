@@ -1,4 +1,5 @@
 extends Camera2D
+class_name LevelCamera
 
 var targets : Array = []
 
@@ -9,8 +10,14 @@ var zoom_modifier: float = 0.0
 @export var zoom_speed: float = 0.1
 
 func _ready() -> void:
+	await get_tree().process_frame
+	add_to_group("LevelCamera")
+	
 	targets = get_tree().get_nodes_in_group("Players")
-	print(targets.size())
+	print("LevelCamera found ", targets.size(), " players")
+	
+	if targets.size() == 0:
+		push_warning("LevelCamera: No players found!")
 	
 	var center = Vector2.ZERO
 	for target in targets:
@@ -42,6 +49,7 @@ func _physics_process(delta: float) -> void:
 	var target_zoom = min(zoom_x, zoom_y)
 	# Clamp zoom to prevent too close/too far
 	target_zoom = clamp(target_zoom, min_zoom, max_zoom)
-	target_zoom *= zoom_modifier
+	if zoom_modifier != 0.0:
+		target_zoom *= zoom_modifier
 	# Apply smooth zoom
 	zoom = zoom.lerp(Vector2(target_zoom, target_zoom), zoom_speed)

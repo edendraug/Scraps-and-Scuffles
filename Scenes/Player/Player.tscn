@@ -733,6 +733,7 @@ floor_constant_speed = true
 floor_max_angle = 0.872665
 floor_snap_length = 10.0
 script = ExtResource("1_r6gjv")
+player_id = -1
 sprite_manager = NodePath("SpriteManager")
 collider = NodePath("Collider")
 hit_manager = NodePath("HitManager")
@@ -866,7 +867,6 @@ radial_menu = NodePath("../RadialBuildMenu")
 [node name="RadialBuildMenu" parent="." instance=ExtResource("8_ji083")]
 
 [node name="DebugUI" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_top = 60.0
@@ -882,6 +882,7 @@ theme_override_font_sizes/font_size = 16
 text = "State: Idle"
 
 [node name="MiscLabel" type="Label" parent="DebugUI"]
+visible = false
 layout_mode = 0
 offset_left = -32.0
 offset_top = -146.0
@@ -891,6 +892,7 @@ theme_override_font_sizes/font_size = 16
 text = "Misc"
 
 [node name="ColorRect" type="ColorRect" parent="DebugUI"]
+visible = false
 layout_mode = 0
 offset_left = -51.0
 offset_right = -11.0
@@ -899,6 +901,7 @@ scale = Vector2(3.08, 2.36)
 color = Color(0, 0, 0, 0.305882)
 
 [node name="LabelsContainer" type="VBoxContainer" parent="DebugUI"]
+visible = false
 layout_mode = 0
 offset_left = -36.0
 offset_top = 5.0

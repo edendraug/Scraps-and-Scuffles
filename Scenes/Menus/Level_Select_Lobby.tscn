@@ -1,40 +1,77 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgxawxpm8lgst"]
+[gd_scene load_steps=13 format=3 uid="uid://cgxawxpm8lgst"]
 
 [ext_resource type="Script" uid="uid://lfnton1swx0l" path="res://Scripts/Level Select Screen/LevelSelectLobbyManager.gd" id="1_t320a"]
 [ext_resource type="Script" uid="uid://dpo30b5f7v4pq" path="res://Scripts/Level Select Screen/LobbyCameraController.gd" id="2_kmvgw"]
+[ext_resource type="PackedScene" uid="uid://hn2lxr3xxmq7" path="res://Scenes/Menus/Player_Cursor.tscn" id="3_5f777"]
 [ext_resource type="PackedScene" uid="uid://bcvanfxqra25y" path="res://Scenes/SettingsTerminal.tscn" id="3_l0hla"]
+[ext_resource type="PackedScene" uid="uid://dyagci8df48k6" path="res://Scenes/Menus/Character_Display.tscn" id="4_6ldb3"]
 [ext_resource type="PackedScene" uid="uid://4lqmvpp60qtw" path="res://Scenes/Menus/Game_Settings_UI.tscn" id="4_kmvgw"]
 [ext_resource type="Script" uid="uid://e04sge6aw0ig" path="res://Scripts/Level Select Screen/CharacterSelectionManager.gd" id="5_l0hla"]
+[ext_resource type="Resource" uid="uid://bq6ykw276lnpu" path="res://Resources/Characters/Scrapbot.tres" id="8_6ldb3"]
+[ext_resource type="PackedScene" uid="uid://d3kotmmq26pbt" path="res://Scenes/Menus/Level_Portal.tscn" id="8_umf1q"]
+[ext_resource type="Resource" uid="uid://dxwisrs6wiwut" path="res://Resources/Characters/Builder.tres" id="9_6ldb3"]
+[ext_resource type="Resource" uid="uid://c2iorhv40y7u6" path="res://Resources/Levels/Lvl_Whiteroom.tres" id="9_umf1q"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_v5lu7"]
 
 [node name="LevelSelectLobby" type="Node2D"]
 
-[node name="LevelSelectLobbyManager" type="Node" parent="."]
+[node name="LevelSelectLobbyManager" type="Node" parent="." node_paths=PackedStringArray("camera", "character_selection_manager")]
 script = ExtResource("1_t320a")
+camera = NodePath("../LobbyCameraController")
+character_selection_manager = NodePath("CharacterSelectionManager")
+grace_period_duration = 1.0
+winner_reveal_delay = 1.0
 metadata/_custom_type_script = "uid://lfnton1swx0l"
 
-[node name="LobbyCameraController" type="Camera2D" parent="."]
-script = ExtResource("2_kmvgw")
-metadata/_custom_type_script = "uid://dpo30b5f7v4pq"
+[node name="CharacterSelectionManager" type="Node" parent="LevelSelectLobbyManager"]
+script = ExtResource("5_l0hla")
+cursor_scene = ExtResource("3_5f777")
+cursor_colors = Array[Color]([Color(0.17222, 0.477414, 0.855979, 1), Color(0.801636, 0.260951, 0.202798, 1), Color(0.25839, 0.696105, 0.340482, 1), Color(0.736458, 0.660415, 0.115982, 1)])
+metadata/_custom_type_script = "uid://e04sge6aw0ig"
 
-[node name="Environment" type="Node2D" parent="."]
+[node name="Characters" type="Node2D" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="Environment"]
-offset_left = -647.0
-offset_right = 687.0
-offset_bottom = 432.0
-color = Color(0.533037, 0.533037, 0.533037, 1)
+[node name="CharacterDisplay" parent="Characters" instance=ExtResource("4_6ldb3")]
+position = Vector2(-320, -73)
+character_data = ExtResource("9_6ldb3")
+
+[node name="CharacterDisplay2" parent="Characters" instance=ExtResource("4_6ldb3")]
+position = Vector2(-191, -73)
+character_data = ExtResource("8_6ldb3")
 
 [node name="Portals" type="Node2D" parent="."]
+
+[node name="LevelPortal" parent="Portals" instance=ExtResource("8_umf1q")]
+position = Vector2(0, -51)
+level_data = ExtResource("9_umf1q")
 
 [node name="SettingsTerminal" parent="." node_paths=PackedStringArray("settings_ui") instance=ExtResource("3_l0hla")]
 position = Vector2(-448, 9)
 settings_ui = NodePath("../CanvasLayer/GameSettingsUI")
 
+[node name="LobbyCameraController" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+editor_draw_drag_margin = true
+script = ExtResource("2_kmvgw")
+metadata/_custom_type_script = "uid://dpo30b5f7v4pq"
+
+[node name="Environment" type="Node2D" parent="."]
+z_index = -3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Environment"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/StaticBody2D"]
+position = Vector2(-647, 0)
+shape = SubResource("WorldBoundaryShape2D_v5lu7")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/StaticBody2D"]
+offset_left = -647.0
+offset_right = 687.0
+offset_bottom = 432.0
+color = Color(0.533037, 0.533037, 0.533037, 1)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GameSettingsUI" parent="CanvasLayer" instance=ExtResource("4_kmvgw")]
 visible = false
-
-[node name="CharacterSelectionManager" type="Node" parent="."]
-script = ExtResource("5_l0hla")
-metadata/_custom_type_script = "uid://e04sge6aw0ig"

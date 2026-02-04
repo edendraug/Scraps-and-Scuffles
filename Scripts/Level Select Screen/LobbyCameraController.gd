@@ -7,7 +7,12 @@ enum CameraState {
 	FOCUS_WINNER # Zoom on winning level
 }
 
+@export var lobby_center: Vector2 = Vector2.ZERO
+@export var player_influence: float = 0.3
+@export var max_offset_from_center: float = 200.0
+
 @export var follow_smoothing: float = 5.0
+@export var follow_zoom_level: float = 0.5
 @export var vote_zoom_level: float = 0.7 # Zoom out to show voted levels
 @export var winner_zoom_level: float = 1.2 # Zoom in on winner
 @export var zoom_speed: float = 2.0
@@ -43,21 +48,25 @@ func find_portals():
 
 func follow_players(delta):
 	var players = get_tree().get_nodes_in_group("Players")
+	var target_pos = lobby_center
 	
-	if players.is_empty():
-		return
-	
-	# Calculate average position of all players
-	var avg_pos = Vector2.ZERO
-	for player in players:
-		avg_pos += player.global_position
-	avg_pos /= players.size()
-	
+	if not players.is_empty():
+		# Calculate average position of all players
+		var avg_player_pos = Vector2.ZERO
+		for player in players:
+			avg_player_pos += player.global_position
+		avg_player_pos /= players.size()
+		
+		# Offset from center based on player positions
+		var offset = (avg_player_pos - lobby_center) * player_influence
+		offset = offset.limit_length(max_offset_from_center)
+		
+		target_pos = lobby_center + offset
 	# Smooth camera movement
-	global_position = global_position.lerp(avg_pos, follow_smoothing * delta)
+	global_position = global_position.lerp(target_pos, follow_smoothing * delta)
 	
 	# Reset zoom
-	zoom = zoom.lerp(Vector2.ONE, zoom_speed * delta)
+	zoom = zoom.lerp(Vector2(follow_zoom_level, follow_zoom_level), zoom_speed * delta)
 
 func focus_on_voted_portals(delta):
 	var voted_levels = GameSettings.get_voted_levels()

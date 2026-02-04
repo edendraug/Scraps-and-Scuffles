@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyagci8df48k6"]
+
+[ext_resource type="Script" uid="uid://c1ss38aersfaf" path="res://Scripts/Level Select Screen/CharacterDisplay.gd" id="1_67dea"]
+[ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="2_1f0xx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nubbt"]
+radius = 32.0
+height = 110.0
+
+[node name="CharacterDisplay" type="Node2D"]
+script = ExtResource("1_67dea")
+player_scene = ExtResource("2_1f0xx")
+metadata/_custom_type_script = "uid://c1ss38aersfaf"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_nubbt")

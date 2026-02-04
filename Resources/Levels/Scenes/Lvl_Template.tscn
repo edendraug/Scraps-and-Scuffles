@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dus2dlcsh6p5r"]
+
+[ext_resource type="Script" uid="uid://b2gp0xbaoe60w" path="res://Scripts/Levels/LevelManager.gd" id="1_k6bnn"]
+[ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="2_4ljll"]
+[ext_resource type="Script" uid="uid://d4m0ndliqtr4r" path="res://Scripts/LevelCamera.gd" id="2_j61mu"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h0q4w"]
+
+[node name="Level" type="Node2D"]
+
+[node name="LevelManager" type="Node" parent="." node_paths=PackedStringArray("player_spawn_points")]
+script = ExtResource("1_k6bnn")
+player_spawn_points = [NodePath("../Spawn Points/SpawnPoint1"), NodePath("../Spawn Points/SpawnPoint2"), NodePath("../Spawn Points/SpawnPoint3"), NodePath("../Spawn Points/SpawnPoint4")]
+player_scene = ExtResource("2_4ljll")
+metadata/_custom_type_script = "uid://b2gp0xbaoe60w"
+
+[node name="Spawn Points" type="Node2D" parent="."]
+
+[node name="SpawnPoint1" type="Marker2D" parent="Spawn Points"]
+position = Vector2(-229, 137)
+
+[node name="SpawnPoint2" type="Marker2D" parent="Spawn Points"]
+position = Vector2(-73, 137)
+
+[node name="SpawnPoint3" type="Marker2D" parent="Spawn Points"]
+position = Vector2(49, 145)
+
+[node name="SpawnPoint4" type="Marker2D" parent="Spawn Points"]
+position = Vector2(167, 134)
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Terrain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/StaticBody2D"]
+position = Vector2(0, 200)
+shape = SubResource("WorldBoundaryShape2D_h0q4w")
+
+[node name="LevelCamera" type="Camera2D" parent="."]
+zoom = Vector2(0.75, 0.75)
+script = ExtResource("2_j61mu")
+min_zoom = 0.3
+max_zoom = 0.75
+metadata/_custom_type_script = "uid://d4m0ndliqtr4r"

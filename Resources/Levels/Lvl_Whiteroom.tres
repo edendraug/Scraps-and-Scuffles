@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3 uid="uid://c2iorhv40y7u6"]
+[gd_resource type="Resource" script_class="LevelData" load_steps=3 format=3 uid="uid://c2iorhv40y7u6"]
 
+[ext_resource type="Texture2D" uid="uid://buh4lxcre4ovb" path="res://Assets/Sprites/Temp/Energy.png" id="1_6tc7h"]
 [ext_resource type="Script" uid="uid://c0msrvjy18apn" path="res://Resources/Levels/LevelData.gd" id="1_n8jvx"]
 
 [resource]
 script = ExtResource("1_n8jvx")
 level_name = "Whiteroom"
-level_scene_path = "res://Resources/Levels/Whiteroom.tscn"
+level_scene_path = "D:/Godot/scraps-and-scuffles/Resources/Levels/Scenes/Lvl_Template.tscn"
+preview_image = ExtResource("1_6tc7h")
 description = "For testing purposes only. How did you get here?"
 bounds_min_x = -1200.0
 bounds_max_x = 1000.0
