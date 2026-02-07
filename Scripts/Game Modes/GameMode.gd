@@ -44,6 +44,7 @@ func add_score(player_id: int, points: int):
 		player_scores[player_id] = 0
 	
 	player_scores[player_id] += points
+	print("Player ", player_id, " scored ", points, " points! Total: ", player_scores[player_id])
 	score_updated.emit(player_id, player_scores[player_id])
 	
 	# Check win condition

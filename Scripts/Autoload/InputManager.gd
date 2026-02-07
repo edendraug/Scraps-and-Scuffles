@@ -120,7 +120,7 @@ func get_action_strength(player_id: int, action: String) -> float:
 		return 0.0
 	
 	var action_name = get_action_name(action, player_id)
-	return Input.is_action_just_pressed(action_name)
+	return Input.get_action_strength(action_name)
 
 # Get axis value (for movement, aiming)
 func get_axis(player_id: int, negative_action: String, positive_action: String) -> float:

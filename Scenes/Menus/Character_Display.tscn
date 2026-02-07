@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dyagci8df48k6"]
 
-[ext_resource type="Script" uid="uid://c1ss38aersfaf" path="res://Scripts/Level Select Screen/CharacterDisplay.gd" id="1_67dea"]
+[ext_resource type="Script" uid="uid://c1ss38aersfaf" path="res://Scripts/Menus/Level Select Screen/CharacterDisplay.gd" id="1_67dea"]
 [ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="2_1f0xx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nubbt"]

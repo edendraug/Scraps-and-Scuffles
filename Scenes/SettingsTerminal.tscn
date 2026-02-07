@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bcvanfxqra25y"]
 
-[ext_resource type="Script" uid="uid://b7d0f8a1y5iyd" path="res://Scripts/Level Select Screen/SettingsTerminal.gd" id="1_4ruiw"]
+[ext_resource type="Script" uid="uid://b7d0f8a1y5iyd" path="res://Scripts/Menus/Level Select Screen/SettingsTerminal.gd" id="1_4ruiw"]
 [ext_resource type="Texture2D" uid="uid://dj07on4jggicv" path="res://Assets/Sprites/Scene Specific/Level Select/Terminal.png" id="2_eqobl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ndjn"]

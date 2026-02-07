@@ -1,0 +1,359 @@
+[gd_scene load_steps=5 format=3 uid="uid://bofsabeevssj4"]
+
+[ext_resource type="Script" uid="uid://c2bvdsji74rqn" path="res://Scripts/Menus/Main Menu/MainMenu.gd" id="1_n6o43"]
+[ext_resource type="Script" uid="uid://8l25mdo6unuh" path="res://Scripts/Menus/Main Menu/SettingsOverlay.gd" id="2_dlmu3"]
+[ext_resource type="Script" uid="uid://dbe3f7uaedgq5" path="res://Scripts/Menus/Main Menu/InfoPanel.gd" id="3_6pxni"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dlmu3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_btn", "settings_btn", "quit_btn", "how_to_play_btn", "credits_btn", "settings_overlay", "how_to_play_panel", "credits_panel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n6o43")
+play_btn = NodePath("MarginContainer/VBoxContainer/Primary Buttons Container/PlayButton")
+settings_btn = NodePath("MarginContainer/VBoxContainer/Primary Buttons Container/SettingsButton")
+quit_btn = NodePath("MarginContainer/VBoxContainer/Primary Buttons Container/QuitButton")
+how_to_play_btn = NodePath("MarginContainer/VBoxContainer/Secondary Buttons Container/HowToPlayButton")
+credits_btn = NodePath("MarginContainer/VBoxContainer/Secondary Buttons Container/CreditsButton")
+settings_overlay = NodePath("SettingsOverlay")
+how_to_play_panel = NodePath("HowToPlayPanel")
+credits_panel = NodePath("CreditsPanel")
+level_select_lobby_scene_path = "res://Scenes/Menus/Level_Select_Lobby.tscn"
+metadata/_custom_type_script = "uid://c2bvdsji74rqn"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.384253, 0.544289, 0.503607, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Spacer1" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "SCRAPS & SCUFFLES"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Primary Buttons Container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/Primary Buttons Container"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+text = "PLAY"
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer/Primary Buttons Container"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/Primary Buttons Container"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+text = "QUIT"
+
+[node name="Spacer3" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Secondary Buttons Container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="HowToPlayButton" type="Button" parent="MarginContainer/VBoxContainer/Secondary Buttons Container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "?"
+
+[node name="CreditsButton" type="Button" parent="MarginContainer/VBoxContainer/Secondary Buttons Container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "Credits"
+
+[node name="SettingsOverlay" type="Control" parent="." node_paths=PackedStringArray("close_btn", "back_btn")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_dlmu3")
+close_btn = NodePath("CenterContainer/PanelContainer/Button")
+back_btn = NodePath("CenterContainer/PanelContainer/Button")
+metadata/_custom_type_script = "uid://8l25mdo6unuh"
+
+[node name="ColorRect" type="ColorRect" parent="SettingsOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="CenterContainer" type="CenterContainer" parent="SettingsOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SettingsOverlay/CenterContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dlmu3")
+
+[node name="Label" type="Label" parent="SettingsOverlay/CenterContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 26
+text = "SETTINGS"
+
+[node name="TabContainer" type="TabContainer" parent="SettingsOverlay/CenterContainer/PanelContainer"]
+layout_mode = 2
+tab_alignment = 1
+current_tab = 0
+
+[node name="Graphics" type="Control" parent="SettingsOverlay/CenterContainer/PanelContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsOverlay/CenterContainer/PanelContainer/TabContainer/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="SettingsOverlay/CenterContainer/PanelContainer/TabContainer/Graphics/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Graphics settings coming soon..."
+
+[node name="Audio" type="Control" parent="SettingsOverlay/CenterContainer/PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsOverlay/CenterContainer/PanelContainer/TabContainer/Audio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="SettingsOverlay/CenterContainer/PanelContainer/TabContainer/Audio/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Audio settings coming soon..."
+
+[node name="Controls" type="Control" parent="SettingsOverlay/CenterContainer/PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsOverlay/CenterContainer/PanelContainer/TabContainer/Controls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="SettingsOverlay/CenterContainer/PanelContainer/TabContainer/Controls/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Controls settings coming soon..."
+
+[node name="Button" type="Button" parent="SettingsOverlay/CenterContainer/PanelContainer"]
+z_index = 1
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+
+[node name="HowToPlayPanel" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_6pxni")
+metadata/_custom_type_script = "uid://dbe3f7uaedgq5"
+
+[node name="ColorRect" type="ColorRect" parent="HowToPlayPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="CenterContainer" type="CenterContainer" parent="HowToPlayPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HowToPlayPanel/CenterContainer"]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HowToPlayPanel/CenterContainer/PanelContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+
+[node name="MarginContainer" type="MarginContainer" parent="HowToPlayPanel/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HowToPlayPanel/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HowToPlayPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "How to Play"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HowToPlayPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Lorem ipsum"
+fit_content = true
+
+[node name="CreditsPanel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_6pxni")
+panel_type = 1
+metadata/_custom_type_script = "uid://dbe3f7uaedgq5"
+
+[node name="ColorRect" type="ColorRect" parent="CreditsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="CenterContainer" type="CenterContainer" parent="CreditsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CreditsPanel/CenterContainer"]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CreditsPanel/CenterContainer/PanelContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+
+[node name="MarginContainer" type="MarginContainer" parent="CreditsPanel/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreditsPanel/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CreditsPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Credits"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CreditsPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Developed by Cameron Wolfe"
+fit_content = true

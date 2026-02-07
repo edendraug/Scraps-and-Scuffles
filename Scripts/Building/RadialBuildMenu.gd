@@ -1,7 +1,8 @@
 extends Node2D
 class_name RadialBuildMenu
 
-@export var player_id: int
+@onready var player: CharacterBody2D = get_parent()
+
 # Donut shape properties
 @export var outer_radius: float = 200.0
 @export var inner_radius: float = 80.0
@@ -38,7 +39,6 @@ var cost_label: Label
 var page_dots: Array[Sprite2D] = []
 
 func _ready() -> void:
-	player_id = get_parent().player_id
 	# Create containers
 	icon_container = Node2D.new()
 	add_child(icon_container)
@@ -292,8 +292,8 @@ func update_page_indicators():
 func get_selection_direction() -> Vector2:
 	# Try controller right stick first
 	var stick_input = Vector2(
-		InputManager.get_axis(player_id, "ui_right_stick_left", "ui_right_stick_right"),
-		InputManager.get_axis(player_id, "ui_right_stick_up", "ui_right_stick_down")
+		InputManager.get_axis(player.player_id, "ui_right_stick_left", "ui_right_stick_right"),
+		InputManager.get_axis(player.player_id, "ui_right_stick_up", "ui_right_stick_down")
 	)
 	
 	if stick_input.length() > 0.2:

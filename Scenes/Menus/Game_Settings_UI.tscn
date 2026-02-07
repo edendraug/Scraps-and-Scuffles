@@ -1,4 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://4lqmvpp60qtw"]
+[gd_scene load_steps=10 format=3 uid="uid://4lqmvpp60qtw"]
+
+[ext_resource type="Script" uid="uid://l5dsdd0d3fbh" path="res://Scripts/Menus/Level Select Screen/LobbySettingsUI.gd" id="1_cr1im"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cr1im"]
 bg_color = Color(0.149587, 0.301121, 0.422826, 1)
@@ -6,12 +8,12 @@ bg_color = Color(0.149587, 0.301121, 0.422826, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ua1p4"]
 bg_color = Color(1, 1, 1, 0.0901961)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s74ff"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o1yne"]
 bg_color = Color(1, 1, 1, 0.0901961)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1lpf0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s74ff"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv3ax"]
 bg_color = Color(0.23217, 0.470437, 0.26603, 1)
@@ -19,41 +21,87 @@ bg_color = Color(0.23217, 0.470437, 0.26603, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1rmo"]
 bg_color = Color(1, 1, 1, 0.0901961)
 
-[node name="GameSettingsUI" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w30pq"]
+bg_color = Color(0.3705, 0.5382, 0.65, 1)
+
+[node name="LobbySettingsUI" type="Control" node_paths=PackedStringArray("game_mode_option", "hill_radius_slider", "hill_radius_value_label", "hill_relocation_slider", "hill_relocation_value_label", "win_condition_option", "score_target_spinbox", "time_limit_spinbox", "starting_buildings_spinbox", "max_buildings_spinbox", "min_spawn_interval_spinbox", "max_spawn_interval_spinbox", "wood_weight_slider", "wood_weight_value_label", "stone_weight_slider", "stone_weight_value_label", "energy_weight_slider", "energy_weight_value_label", "apply_button", "reset_button", "close_button", "open_preset_dialogue_panel_button", "cancel_preset_dialogue_panel_button", "save_preset_button", "load_preset_button", "preset_dialogue_panel", "preset_name_input", "preset_list")]
 layout_mode = 3
-anchors_preset = 9
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
+script = ExtResource("1_cr1im")
+game_mode_option = NodePath("Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer/GameModeOptions")
+hill_radius_slider = NodePath("Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/HillRadius_Slider")
+hill_radius_value_label = NodePath("Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/HillRadius_Value")
+hill_relocation_slider = NodePath("Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer5/HillRelocation_Slider")
+hill_relocation_value_label = NodePath("Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer5/HillRelocation_Value")
+win_condition_option = NodePath("Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer2/WinConditionOption")
+score_target_spinbox = NodePath("Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/ScoreTarget_SpinBox")
+time_limit_spinbox = NodePath("Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/TimeLimit_SpinBox")
+starting_buildings_spinbox = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/Resources_SpinBox")
+max_buildings_spinbox = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/MaxAmound_SpinBox")
+min_spawn_interval_spinbox = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3/MinTime_Spinbox")
+max_spawn_interval_spinbox = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4/MaxTime_SpinBox")
+wood_weight_slider = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer/Wood_HSlider")
+wood_weight_value_label = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/WoodPercent")
+stone_weight_slider = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer/Stone_HSlider")
+stone_weight_value_label = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/StonePercent")
+energy_weight_slider = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer/Energy_HSlider")
+energy_weight_value_label = NodePath("Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer/EnergyPercent")
+apply_button = NodePath("Main/GridContainer/MarginContainer2/HBoxContainer/ApplySettings_Button")
+reset_button = NodePath("Main/GridContainer/MarginContainer2/HBoxContainer/ResetSettings_Button")
+close_button = NodePath("Main/GridContainer/MarginContainer2/HBoxContainer/Close_Button")
+open_preset_dialogue_panel_button = NodePath("Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Save_Preset_Button")
+cancel_preset_dialogue_panel_button = NodePath("PresetDialogue/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel_SavingPreset_Button")
+save_preset_button = NodePath("PresetDialogue/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SavePreset_Button")
+load_preset_button = NodePath("Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/LoadPreset_Button")
+preset_dialogue_panel = NodePath("PresetDialogue")
+preset_name_input = NodePath("PresetDialogue/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LineEdit")
+preset_list = NodePath("Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Preset_ItemList")
+metadata/_custom_type_script = "uid://l5dsdd0d3fbh"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(500, 0)
+[node name="Main" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 354.0
 grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 500.0
+grow_vertical = 2
+theme_override_constants/v_separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
+theme_override_constants/margin_bottom = 0
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+[node name="TabContainer" type="TabContainer" parent="Main/GridContainer/MarginContainer"]
 layout_mode = 2
 tab_alignment = 1
-current_tab = 1
+current_tab = 0
 
-[node name="Match Settings" type="PanelContainer" parent="MarginContainer/TabContainer"]
-visible = false
+[node name="Match Settings" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_cr1im")
 metadata/_tab_index = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Match Settings"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
@@ -61,161 +109,165 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 7
 alignment = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ua1p4")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="Label" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "Game Mode"
 horizontal_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="GameModeOptions" type="OptionButton" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 alignment = 1
 selected = 0
 item_count = 3
 popup/item_0/text = "King of the Hill"
 popup/item_0/id = 0
-popup/item_1/text = "Tag"
-popup/item_1/id = 1
-popup/item_2/text = "Keep Away"
-popup/item_2/id = 2
+popup/item_1/text = "Keep Away"
+popup/item_1/id = 2
+popup/item_2/text = "Tag"
+popup/item_2/id = 1
 
-[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer3" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer3" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="HillRadius" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Hill Radius"
 horizontal_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="HillRadius_Slider" type="HSlider" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
-min_value = 30.0
-max_value = 240.0
+min_value = 50.0
+max_value = 300.0
 step = 10.0
 value = 120.0
+tick_count = 9
+ticks_on_borders = true
 
-[node name="Label2" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="HillRadius_Value" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "120"
 horizontal_alignment = 1
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer5" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="HillRadius" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Relocate hill every"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="HillRelocation_Slider" type="HSlider" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
-theme_override_constants/separation = 20
-theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
-
-[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = 10.0
+min_value = 15.0
 max_value = 300.0
 step = 5.0
-value = 40.0
-alignment = 1
-suffix = "seconds"
+value = 45.0
+tick_count = 9
+ticks_on_borders = true
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="HillRelocation_Value" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "45 seconds"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o1yne")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Win Condition"
 horizontal_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer2"]
+[node name="WinConditionOption" type="OptionButton" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer2"]
 layout_mode = 2
 alignment = 1
 selected = 0
 item_count = 2
 popup/item_0/text = "Highest Score"
 popup/item_0/id = 1
-popup/item_1/text = "First to Winning Score"
+popup/item_1/text = "First to Target Score"
 popup/item_1/id = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Winning Score"
+text = "Target Score"
 horizontal_alignment = 2
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_1lpf0")
 
-[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ScoreTarget_SpinBox" type="SpinBox" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 10.0
-value = 10.0
+max_value = 1000.0
+value = 100.0
 alignment = 1
 suffix = "points"
 custom_arrow_step = 1.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Time Limit"
 horizontal_alignment = 2
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="VSeparator2" type="VSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
 
-[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="TimeLimit_SpinBox" type="SpinBox" parent="Main/GridContainer/MarginContainer/TabContainer/Match Settings/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 30.0
@@ -224,16 +276,17 @@ value = 30.0
 alignment = 1
 suffix = "seconds"
 
-[node name="Resource Spawning" type="PanelContainer" parent="MarginContainer/TabContainer"]
+[node name="Resource Spawning" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kv3ax")
 metadata/_tab_index = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Resource Spawning"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
@@ -241,26 +294,26 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 7
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="StartingResources" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Starting resources"
 horizontal_alignment = 2
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_1lpf0")
 
-[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Resources_SpinBox" type="SpinBox" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 value = 16.0
@@ -268,196 +321,423 @@ alignment = 1
 suffix = "sources"
 custom_arrow_step = 1.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="ResetButton" type="Button" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "<-"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="MaximumAmount" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Maximum amount"
 horizontal_alignment = 2
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="VSeparator2" type="VSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
 
-[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="MaxAmound_SpinBox" type="SpinBox" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 300.0
+min_value = 10.0
 step = 5.0
 value = 30.0
 alignment = 1
 suffix = "sources"
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="ResetButton" type="Button" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "<-"
+
+[node name="HSeparator" type="HSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Natural Resource Spawn Interval"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/normal_font_size = 12
 text = "Choose the minumum and maximum amount of time it takes for a natural resource to drop. The level will drop a resource at a random time frame between these settings."
-autowrap_mode = 2
+fit_content = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Minimum Time"
 horizontal_alignment = 2
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="VSeparator2" type="VSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
 
-[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="MinTime_Spinbox" type="SpinBox" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 5.0
-max_value = 300.0
+max_value = 60.0
 step = 5.0
 value = 30.0
 alignment = 1
 suffix = "seconds"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="ResetButton" type="Button" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "<-"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="Label" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Maximum Time"
 horizontal_alignment = 2
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="VSeparator2" type="VSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_s74ff")
 
-[node name="SpinBox" type="SpinBox" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="MaxTime_SpinBox" type="SpinBox" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = 5.0
-max_value = 300.0
+min_value = 10.0
+max_value = 240.0
 step = 5.0
 value = 60.0
 alignment = 1
 suffix = "seconds"
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="ResetButton" type="Button" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "<-"
+
+[node name="HSeparator2" type="HSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer3" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer3" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="ResourceWeights" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "Resource Weights"
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="PanelContainer" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k1rmo")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Wood" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Wood"
-horizontal_alignment = 1
+text = "Wood:"
+horizontal_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="WoodPercent" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-value = 50.0
+size_flags_horizontal = 3
+text = "45%"
 
-[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Wood_HSlider" type="HSlider" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+step = 5.0
+value = 45.0
+
+[node name="PanelContainer2" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k1rmo")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="StoneLabel" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Stone"
-horizontal_alignment = 1
+text = "Stone:"
+horizontal_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer"]
+[node name="StonePercent" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-value = 50.0
+size_flags_horizontal = 3
+text = "35%"
 
-[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Stone_HSlider" type="HSlider" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+step = 5.0
+value = 35.0
+
+[node name="PanelContainer3" type="PanelContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k1rmo")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="EnergyLabel" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Energy"
-horizontal_alignment = 1
+text = "Energy:"
+horizontal_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer"]
+[node name="EnergyPercent" type="Label" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-value = 50.0
+size_flags_horizontal = 3
+text = "20%"
+
+[node name="Energy_HSlider" type="HSlider" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+step = 5.0
+value = 20.0
+
+[node name="HSeparator" type="HSeparator" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Button" type="Button" parent="Main/GridContainer/MarginContainer/TabContainer/Resource Spawning/ScrollContainer/MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Reset Resource Weights"
+
+[node name="Control" type="Control" parent="Main/GridContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/GridContainer/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 218.0
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Presets"
+
+[node name="HSeparator" type="HSeparator" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Presets"
+
+[node name="Preset_ItemList" type="ItemList" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+auto_height = true
+
+[node name="LoadPreset_Button" type="Button" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load Selected Preset"
+
+[node name="HSeparator2" type="HSeparator" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Save_Preset_Button" type="Button" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save current settings as preset"
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="Main/GridContainer/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = ">
+>"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Main/GridContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/GridContainer/MarginContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="ApplySettings_Button" type="Button" parent="Main/GridContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Apply"
+
+[node name="ResetSettings_Button" type="Button" parent="Main/GridContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reset"
+
+[node name="Close_Button" type="Button" parent="Main/GridContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "Close"
+
+[node name="PresetDialogue" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PresetDialogue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="CenterContainer" type="CenterContainer" parent="PresetDialogue"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PresetDialogue/CenterContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w30pq")
+
+[node name="MarginContainer" type="MarginContainer" parent="PresetDialogue/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PresetDialogue/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PresetDialogue/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save Preset as..."
+
+[node name="LineEdit" type="LineEdit" parent="PresetDialogue/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "New Preset Name"
+alignment = 1
+max_length = 35
+clear_button_enabled = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PresetDialogue/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+
+[node name="SavePreset_Button" type="Button" parent="PresetDialogue/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.82
+text = "Save"
+
+[node name="Cancel_SavingPreset_Button" type="Button" parent="PresetDialogue/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"

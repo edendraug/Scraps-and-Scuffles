@@ -1,7 +1,7 @@
 extends Node2D
 class_name BuildingPlacer
 
-var player_id: int = 0 # For multiplayer (0-3)
+#var player.player_id: int # For multiplayer (0-3)
 @export var placement_radius: float = 200.0 # Adjustable placement range
 @export var ghost_modulate: Color = Color(1, 1, 1, 0.3) # Semi-transparent preview
 
@@ -24,7 +24,7 @@ var menu_close_mouse_pos: Vector2 = Vector2.ZERO
 enum State {INACTIVE, ACTIVE}
 
 func _ready() -> void:
-	player_id = player.player_id
+	#player.player_id = player.player.player_id
 	inventory_manager = player.get_node_or_null("InventoryManager")
 	if not inventory_manager:
 		push_error("BuildingPlacer: No InventoryManager found on player!")
@@ -37,27 +37,27 @@ func _process(_delta: float) -> void:
 
 func handle_input() -> void:
 	# Build menu hold
-	if InputManager.is_action_just_pressed(player_id, "build_menu"):
+	if InputManager.is_action_just_pressed(player.player_id, "build_menu"):
 		open_build_menu()
 		
 	
-	if InputManager.is_action_just_released(player_id, "build_menu"):
+	if InputManager.is_action_just_released(player.player_id, "build_menu"):
 		if is_menu_open:
 			select_from_menu()
 		close_build_menu()
 	
 	# Switch building type while menu is open
-	if is_menu_open and InputManager.is_action_just_pressed(player_id, "switch_building_type"):
+	if is_menu_open and InputManager.is_action_just_pressed(player.player_id, "switch_building_type"):
 		cycle_building_type()
 	
 	if is_placing:
-		if InputManager.is_action_just_pressed(player_id, "rotate_building"):
+		if InputManager.is_action_just_pressed(player.player_id, "rotate_building"):
 			rotate_ghost()
 			
-		if InputManager.is_action_just_pressed(player_id, "confirm"):
+		if InputManager.is_action_just_pressed(player.player_id, "confirm"):
 			try_place_building()
 			
-		if InputManager.is_action_just_pressed(player_id, "cancel"):
+		if InputManager.is_action_just_pressed(player.player_id, "cancel"):
 			cancel_placement()
 
 func open_build_menu():
@@ -103,8 +103,8 @@ func select_from_menu():
 
 func get_selection_direction() -> Vector2:
 	var stick_input = Vector2(
-		InputManager.get_axis(player_id, "ui_right_stick_left", "ui_right_stick_right"),
-		InputManager.get_axis(player_id, "ui_right_stick_up", "ui_right_stick_down")
+		InputManager.get_axis(player.player_id, "ui_right_stick_left", "ui_right_stick_right"),
+		InputManager.get_axis(player.player_id, "ui_right_stick_up", "ui_right_stick_down")
 	)
 	
 	if stick_input.length() > 0.3: # Deadzone
@@ -170,8 +170,8 @@ func update_ghost_position():
 func get_placement_target_position() -> Vector2:
 	# Use right stick or mouse
 	var stick_input = Vector2(
-		InputManager.get_axis(player_id, "ui_right_stick_left", "ui_right_stick_right"),
-		InputManager.get_axis(player_id, "ui_right_stick_up", "ui_right_stick_down")
+		InputManager.get_axis(player.player_id, "ui_right_stick_left", "ui_right_stick_right"),
+		InputManager.get_axis(player.player_id, "ui_right_stick_up", "ui_right_stick_down")
 	)
 	
 	if stick_input.length() > 0.3:
