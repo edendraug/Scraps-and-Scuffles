@@ -36,14 +36,17 @@ metadata/_custom_type_script = "uid://e04sge6aw0ig"
 [node name="CharacterDisplay" parent="Characters" instance=ExtResource("4_6ldb3")]
 position = Vector2(-320, -73)
 character_data = ExtResource("9_6ldb3")
+display_position = Vector2(-320, -73)
 
 [node name="CharacterDisplay2" parent="Characters" instance=ExtResource("4_6ldb3")]
 position = Vector2(-245, -73)
 character_data = ExtResource("8_6ldb3")
+display_position = Vector2(-245, -73)
 
 [node name="CharacterDisplay3" parent="Characters" instance=ExtResource("4_6ldb3")]
 position = Vector2(-167, -73)
 character_data = ExtResource("7_umf1q")
+display_position = Vector2(-167, -73)
 
 [node name="Portals" type="Node2D" parent="."]
 

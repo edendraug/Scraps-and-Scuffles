@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://p6omqbqflq8l"]
+
+[ext_resource type="Script" uid="uid://cy84rsqlvccul" path="res://Scripts/Menus/Match End Scene/Pedestal.gd" id="1_ujxwd"]
+[ext_resource type="Texture2D" uid="uid://2x6f5ac36vnd" path="res://Assets/Sprites/Scene Specific/Match End/Pedestal_Top.png" id="2_pa22o"]
+[ext_resource type="Texture2D" uid="uid://c6ray3bos7yic" path="res://Assets/Sprites/Scene Specific/Match End/Pedestal_Column.png" id="3_gliuv"]
+[ext_resource type="Texture2D" uid="uid://idmwpnieebd7" path="res://Assets/Sprites/Scene Specific/Match End/Pedestal_Bottom.png" id="4_gliuv"]
+[ext_resource type="PackedScene" uid="uid://x1fid803lxap" path="res://Tools/position_helper.tscn" id="5_3idwd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gliuv"]
+size = Vector2(32, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3idwd"]
+size = Vector2(28, 18)
+
+[node name="Pedestal" type="Node2D" node_paths=PackedStringArray("player_name_label", "platform_top_sprite", "column_sprite", "base_sprite")]
+script = ExtResource("1_ujxwd")
+player_name_label = NodePath("CenterContainer/Label")
+platform_top_sprite = NodePath("Sprites Root/Top")
+column_sprite = NodePath("Sprites Root/Column")
+base_sprite = NodePath("Sprites Root/Base")
+metadata/_custom_type_script = "uid://cy84rsqlvccul"
+
+[node name="Sprites Root" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Top" type="Sprite2D" parent="Sprites Root"]
+position = Vector2(0, -28.5)
+texture = ExtResource("2_pa22o")
+
+[node name="Position Helper" parent="Sprites Root/Top" instance=ExtResource("5_3idwd")]
+position = Vector2(0, -1.5)
+scale = Vector2(0.5, 0.5)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprites Root/Top"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites Root/Top/StaticBody2D"]
+shape = SubResource("RectangleShape2D_gliuv")
+
+[node name="Column" type="Sprite2D" parent="Sprites Root"]
+position = Vector2(0, -7)
+texture = ExtResource("3_gliuv")
+centered = false
+offset = Vector2(-16, -18)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprites Root/Column"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites Root/Column/StaticBody2D"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_3idwd")
+
+[node name="Base" type="Sprite2D" parent="Sprites Root"]
+texture = ExtResource("4_gliuv")
+offset = Vector2(0, -3.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_top = -41.0
+offset_right = 40.0
+offset_bottom = -1.0
+use_top_left = true
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Character Label"
+horizontal_alignment = 1

@@ -1,7 +1,12 @@
+@tool
 extends Node2D
 class_name CharacterDisplay
 
-@export var character_data: CharacterData
+@export var character_data: CharacterData:
+	set(value):
+		character_data = value # Update the sprite when the resource changes
+		if is_inside_tree():
+			_update_sprite_display()
 @export var display_position: Vector2
 @export var player_scene: PackedScene # Assign Player.tscn here
 
@@ -29,6 +34,20 @@ func create_display_sprite():
 	display_sprite.position = Vector2.ZERO
 	display_sprite.scale = Vector2(2.0, 2.0)
 	add_child(display_sprite)
+
+func _update_sprite_display():
+	if display_sprite:
+		if character_data and character_data.icon_sprite:
+			display_sprite.texture = character_data.icon_sprite
+		else:
+			display_sprite.texture = null
+	else:
+		create_display_sprite()
+	#if display_sprite:
+		#display_sprite.queue_free()
+		#display_sprite = null
+	#
+	#create_display_sprite()
 
 func can_be_selected() -> bool:
 	return not is_selected

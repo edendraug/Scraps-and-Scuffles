@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 		
 		# Checktime limit
 		if match_time_remaining <= 0:
-			#end_match_time_limit()
+			end_match_with_time_limit()
 			return
 	
 	current_mode.update_mode(delta)
@@ -74,6 +74,11 @@ func end_match(winner_id: int = -1):
 		current_mode.end_mode()
 		
 	match_ended.emit(winner_id)
+	
+	# Transition to Match End Scene
+	await get_tree().create_timer(1.0).timeout # Brief pause before transition
+	
+	get_tree().change_scene_to_file("res://Scenes/Menus/Match_End.tscn")
 
 func end_match_with_time_limit():
 	# Time ran out- find player with highest score

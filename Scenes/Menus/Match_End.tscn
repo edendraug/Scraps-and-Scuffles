@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://coc7lr6w6t6u2"]
+
+[ext_resource type="Script" uid="uid://d3cpghlca8b17" path="res://Scripts/Menus/Match End Scene/MatchEndScene.gd" id="1_qpeur"]
+[ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="2_jq67k"]
+[ext_resource type="PackedScene" uid="uid://dyagci8df48k6" path="res://Scenes/Menus/Character_Display.tscn" id="3_idht4"]
+[ext_resource type="PackedScene" uid="uid://p6omqbqflq8l" path="res://Scenes/Menus/Pedestal.tscn" id="3_n06vg"]
+[ext_resource type="Resource" uid="uid://bg0hawq6lmu2g" path="res://Resources/Characters/Test_Char.tres" id="4_n06vg"]
+[ext_resource type="Script" uid="uid://c8i63gapd0xv6" path="res://Resources/Characters/CharacterData.gd" id="4_waujt"]
+[ext_resource type="Resource" uid="uid://dxwisrs6wiwut" path="res://Resources/Characters/Builder.tres" id="5_xaulu"]
+[ext_resource type="Resource" uid="uid://bq6ykw276lnpu" path="res://Resources/Characters/Scrapbot.tres" id="7_xaulu"]
+[ext_resource type="PackedScene" uid="uid://x1fid803lxap" path="res://Tools/position_helper.tscn" id="9_dtmk4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ga4gj"]
+size = Vector2(130, 126)
+
+[node name="MatchEndScene" type="Node2D" node_paths=PackedStringArray("spawn_positions", "exit_portal")]
+script = ExtResource("1_qpeur")
+player_scene = ExtResource("2_jq67k")
+pedestal_scene = ExtResource("3_n06vg")
+lobby_path = "res://Scenes/Menus/Level_Select_Lobby.tscn"
+spawn_positions = [NodePath("Spawn Nodes/Marker2D"), NodePath("Spawn Nodes/Marker2D2"), NodePath("Spawn Nodes/Marker2D3"), NodePath("Spawn Nodes/Marker2D4")]
+player_spawn_offset = Vector2(0, -106)
+units_per_point = 3.0
+exit_portal = NodePath("Area2D")
+use_debug_mode = true
+debug_character_data = Array[ExtResource("4_waujt")]([ExtResource("5_xaulu"), ExtResource("5_xaulu"), ExtResource("4_n06vg"), ExtResource("7_xaulu")])
+debug_scores = Array[int]([30, 150, 50, 10])
+metadata/_custom_type_script = "uid://d3cpghlca8b17"
+
+[node name="CharacterDisplay" parent="." instance=ExtResource("3_idht4")]
+visible = false
+position = Vector2(0, -118)
+character_data = ExtResource("4_n06vg")
+
+[node name="Spawn Nodes" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Spawn Nodes"]
+position = Vector2(-150, 0)
+
+[node name="Marker2D2" type="Marker2D" parent="Spawn Nodes"]
+position = Vector2(-50, 0)
+
+[node name="Marker2D3" type="Marker2D" parent="Spawn Nodes"]
+position = Vector2(50, 0)
+
+[node name="Marker2D4" type="Marker2D" parent="Spawn Nodes"]
+position = Vector2(150, 0)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-442, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -63)
+shape = SubResource("RectangleShape2D_ga4gj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -407)
+scale = Vector2(0.160912, -0.095686)
+zoom = Vector2(0.6, 0.6)
+
+[node name="Position Helper" parent="." instance=ExtResource("9_dtmk4")]
+position = Vector2(0, -650)
