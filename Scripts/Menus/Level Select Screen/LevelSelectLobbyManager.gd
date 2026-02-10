@@ -24,6 +24,26 @@ func _ready():
 	GameSettings.player_joined.connect(_on_player_joined)
 	GameSettings.player_left.connect(_on_player_left)
 	
+	# Wait for scene to be fully loaded
+	await get_tree().process_frame
+	
+	# Check if players are already joined (returning from match)
+	var already_joined = GameSettings.get_joined_player_ids()
+	
+	if already_joined.is_empty():
+		# Fresh start - Player 0 should join by default
+		print("Fresh lobby start - no players joined yet")
+		# Player 0 will join from first input detection
+	else:
+		# Players returning from a match
+		print("Players returning to lobby:")
+		for player_id in already_joined:
+			var character = GameSettings.get_player_character(player_id)
+			print(player_id, " - Character: ", character.character_name if character else "None")
+			
+			# Respawn returning players with their characters
+			respawn_returning_players()
+	
 	if character_selection_manager:
 		character_selection_manager.all_players_ready.connect(_on_all_players_ready)
 	# Player 0 should already be joined from main menu
@@ -45,6 +65,34 @@ func _input(event):
 	if event is InputEventJoypadButton and event.pressed:
 		var device_id = event.device
 		attempt_join_player(device_id)
+
+func respawn_returning_players():
+	if not character_selection_manager:
+		push_warning("No CharacterSelectionManager assigned!")
+		return
+	
+	# Get all character displays in the scene
+	var character_displays = get_tree().get_nodes_in_group("CharacterDisplays")
+	for player_id in GameSettings.get_joined_player_ids():
+		var character = GameSettings.get_player_character(player_id)
+		
+		if not character:
+			print("Player ", player_id, " has no character - they'll need to select one")
+			continue
+		
+		# Find the matching character display
+		var matching_display = null
+		for display in character_displays:
+			if display.character_data == character:
+				matching_display = display
+				break
+		
+		if matching_display and matching_display.can_be_selected():
+			# Auto-select this character for the returning player
+			matching_display.select_character(player_id)
+			print("Auto-selected ", character.character_name, " for returning Player ", player_id)
+		else:
+			print("WARNING: Could not auto-select character for Player ", player_id)
 
 func _on_all_players_ready():
 	character_selection_complete = true

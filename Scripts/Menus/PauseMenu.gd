@@ -79,6 +79,12 @@ func _on_quit_to_level_select_pressed():
 	get_tree().paused = false
 	is_paused = false
 	
+	# DON'T clear player data - preserve their character selections
+	print("Returning to Level Select Lobby - preserving player data:")
+	for player_id in GameSettings.get_joined_player_ids():
+		var character = GameSettings.get_player_character(player_id)
+		print("  Player ", player_id, ": ", character.character_name if character else "No character")
+	
 	print("Returning to Level Select Lobby")
 	get_tree().change_scene_to_file(lobby_path)
 
@@ -86,6 +92,15 @@ func _on_quit_to_main_menu_pressed():
 	# Unpause before changing scene
 	get_tree().paused = false
 	is_paused = false
+	
+	# Clear ALL player data when returning to main menu
+	print("Returning to Main Menu - clearing all player data")
+	GameSettings.clear_all_players()
+	
+	# Also clear level votes
+	GameSettings.level_votes.clear()
+	
+	print("All player and character data cleared")
 	
 	print("Returning to Main Menu")
 	get_tree().change_scene_to_file(main_menu_path)

@@ -15,17 +15,14 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_v5lu7"]
 
-[node name="LevelSelectLobby" type="Node2D"]
-
-[node name="LevelSelectLobbyManager" type="Node" parent="." node_paths=PackedStringArray("camera", "character_selection_manager")]
+[node name="LevelSelectLobbyManager" type="Node" node_paths=PackedStringArray("camera", "character_selection_manager")]
 script = ExtResource("1_t320a")
-camera = NodePath("../LobbyCameraController")
+camera = NodePath("LobbyCameraController")
 character_selection_manager = NodePath("CharacterSelectionManager")
 grace_period_duration = 1.0
-winner_reveal_delay = 1.0
 metadata/_custom_type_script = "uid://lfnton1swx0l"
 
-[node name="CharacterSelectionManager" type="Node" parent="LevelSelectLobbyManager"]
+[node name="CharacterSelectionManager" type="Node" parent="."]
 script = ExtResource("5_l0hla")
 cursor_scene = ExtResource("3_5f777")
 cursor_colors = Array[Color]([Color(0.17222, 0.477414, 0.855979, 1), Color(0.801636, 0.260951, 0.202798, 1), Color(0.25839, 0.696105, 0.340482, 1), Color(0.736458, 0.660415, 0.115982, 1)])
@@ -33,17 +30,17 @@ metadata/_custom_type_script = "uid://e04sge6aw0ig"
 
 [node name="Characters" type="Node2D" parent="."]
 
-[node name="CharacterDisplay" parent="Characters" instance=ExtResource("4_6ldb3")]
+[node name="CharacterDisplay" parent="Characters" groups=["CharacterDisplays"] instance=ExtResource("4_6ldb3")]
 position = Vector2(-320, -73)
 character_data = ExtResource("9_6ldb3")
 display_position = Vector2(-320, -73)
 
-[node name="CharacterDisplay2" parent="Characters" instance=ExtResource("4_6ldb3")]
+[node name="CharacterDisplay2" parent="Characters" groups=["CharacterDisplays"] instance=ExtResource("4_6ldb3")]
 position = Vector2(-245, -73)
 character_data = ExtResource("8_6ldb3")
 display_position = Vector2(-245, -73)
 
-[node name="CharacterDisplay3" parent="Characters" instance=ExtResource("4_6ldb3")]
+[node name="CharacterDisplay3" parent="Characters" groups=["CharacterDisplays"] instance=ExtResource("4_6ldb3")]
 position = Vector2(-167, -73)
 character_data = ExtResource("7_umf1q")
 display_position = Vector2(-167, -73)

@@ -43,7 +43,6 @@ metadata/_custom_type_script = "uid://d4m0ndliqtr4r"
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("resume_button", "quit_to_level_select_button", "quit_to_main_menu_button", "dim_overlay")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -5,16 +5,12 @@
 [node name="Position Helper" type="Marker2D"]
 z_index = 5
 script = ExtResource("1_dsksg")
+label_offset = Vector2(6.99, -12.44)
+radius = 4.34
 
-[node name="Label" type="Label" parent="."]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -30.0
-offset_right = 64.0
-offset_bottom = -7.0
-grow_vertical = 0
+[node name="PositionLabel" type="Label" parent="."]
+offset_left = 6.99
+offset_top = -12.44
+offset_right = 99.99
+offset_bottom = 10.56
 text = "(0.0, 0.0)"
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(0, -7, -6, 5, 6, 5)

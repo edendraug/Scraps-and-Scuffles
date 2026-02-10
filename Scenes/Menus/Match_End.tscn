@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://coc7lr6w6t6u2"]
+[gd_scene load_steps=12 format=3 uid="uid://coc7lr6w6t6u2"]
 
 [ext_resource type="Script" uid="uid://d3cpghlca8b17" path="res://Scripts/Menus/Match End Scene/MatchEndScene.gd" id="1_qpeur"]
 [ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="2_jq67k"]
@@ -8,29 +8,82 @@
 [ext_resource type="Script" uid="uid://c8i63gapd0xv6" path="res://Resources/Characters/CharacterData.gd" id="4_waujt"]
 [ext_resource type="Resource" uid="uid://dxwisrs6wiwut" path="res://Resources/Characters/Builder.tres" id="5_xaulu"]
 [ext_resource type="Resource" uid="uid://bq6ykw276lnpu" path="res://Resources/Characters/Scrapbot.tres" id="7_xaulu"]
-[ext_resource type="PackedScene" uid="uid://x1fid803lxap" path="res://Tools/position_helper.tscn" id="9_dtmk4"]
+[ext_resource type="Script" uid="uid://btyhtq1fhxbdn" path="res://Scripts/Menus/Match End Scene/MatchEndCamera.gd" id="9_dtmk4"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dtmk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ga4gj"]
 size = Vector2(130, 126)
 
-[node name="MatchEndScene" type="Node2D" node_paths=PackedStringArray("spawn_positions", "exit_portal")]
+[node name="MatchEndScene" type="Node2D" node_paths=PackedStringArray("spawn_positions", "exit_portal", "camera")]
 script = ExtResource("1_qpeur")
 player_scene = ExtResource("2_jq67k")
 pedestal_scene = ExtResource("3_n06vg")
 lobby_path = "res://Scenes/Menus/Level_Select_Lobby.tscn"
 spawn_positions = [NodePath("Spawn Nodes/Marker2D"), NodePath("Spawn Nodes/Marker2D2"), NodePath("Spawn Nodes/Marker2D3"), NodePath("Spawn Nodes/Marker2D4")]
 player_spawn_offset = Vector2(0, -106)
-units_per_point = 3.0
+initial_pause_duration = 3.0
+rise_duration = 5.0
+units_per_point = 2.0
 exit_portal = NodePath("Area2D")
+camera = NodePath("MatchEndCamera")
 use_debug_mode = true
 debug_character_data = Array[ExtResource("4_waujt")]([ExtResource("5_xaulu"), ExtResource("5_xaulu"), ExtResource("4_n06vg"), ExtResource("7_xaulu")])
-debug_scores = Array[int]([30, 150, 50, 10])
+debug_scores = Array[int]([300, 75, 50, 25])
 metadata/_custom_type_script = "uid://d3cpghlca8b17"
+
+[node name="MatchEndCamera" type="Camera2D" parent="."]
+position = Vector2(0, -160)
+zoom = Vector2(1.4, 1.4)
+script = ExtResource("9_dtmk4")
+scene_center = Vector2(0, -160)
+player_influence = 0.8
+max_offset_from_center = 600.0
+player_margin = Vector2(150, 150)
+metadata/_custom_type_script = "uid://btyhtq1fhxbdn"
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Environment"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/StaticBody2D"]
+position = Vector2(0, -9)
+shape = SubResource("WorldBoundaryShape2D_dtmk4")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/StaticBody2D"]
+offset_left = -587.0
+offset_top = -9.0
+offset_right = 582.0
+offset_bottom = 627.0
+color = Color(0.485703, 0.485704, 0.485703, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-442, 0)
+collision_mask = 8
+
+[node name="ColorRect" type="ColorRect" parent="Area2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -123.0
+offset_right = 62.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.419813, 0.419813, 0.419813, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -63)
+shape = SubResource("RectangleShape2D_ga4gj")
 
 [node name="CharacterDisplay" parent="." instance=ExtResource("3_idht4")]
 visible = false
 position = Vector2(0, -118)
 character_data = ExtResource("4_n06vg")
+display_position = Vector2(0, -118)
 
 [node name="Spawn Nodes" type="Node2D" parent="."]
 
@@ -45,18 +98,3 @@ position = Vector2(50, 0)
 
 [node name="Marker2D4" type="Marker2D" parent="Spawn Nodes"]
 position = Vector2(150, 0)
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(-442, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -63)
-shape = SubResource("RectangleShape2D_ga4gj")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -407)
-scale = Vector2(0.160912, -0.095686)
-zoom = Vector2(0.6, 0.6)
-
-[node name="Position Helper" parent="." instance=ExtResource("9_dtmk4")]
-position = Vector2(0, -650)

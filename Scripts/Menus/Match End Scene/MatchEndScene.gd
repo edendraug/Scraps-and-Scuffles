@@ -15,8 +15,11 @@ class_name MatchEndScene
 @export var units_per_point: float = 10.0 # Height growth per score point
 
 @export_group("Exit Portal")
-@export var exit_portal: Area2D # The areaplayers enter to return to lobby
+@export var exit_portal: Area2D # The area players enter to return to lobby
 @export var exit_hold_duration: float = 3.0
+
+@export_group("Camera")
+@export var camera: MatchEndCamera
 
 @export_group("Debug Mode")
 @export var use_debug_mode: bool = false
@@ -100,7 +103,7 @@ func fetch_match_results():
 	print("Match End - Scores: ", player_scores)
 
 func spawn_all():
-	var player_ids_to_spawn: Array[int] = []
+	var player_ids_to_spawn: Array = []
 	
 	if use_debug_mode:
 		# In debug mode, spawn based on debug_player_count
@@ -123,6 +126,19 @@ func spawn_all():
 		
 		# Spawn player
 		spawn_player(player_id, spawn_pos + player_spawn_offset, i)
+		
+	# Setup camera with player references
+	if camera:
+		camera.set_player_references(player_instances)
+		print("Camera: Set ", player_instances.size(), " player references")
+		
+		# Find and set winner
+		var winner = get_winner_player()
+		if winner:
+			camera.set_winner(winner)
+			print("Camera set to follow winner: Player ", get_winner_player_id())
+		else:
+			print("WARNING: No winner found for camera!")
 
 func spawn_pedestal(player_id: int, position: Vector2, index:int):
 	if not pedestal_scene:
@@ -175,8 +191,12 @@ func spawn_player(player_id: int, position: Vector2, index: int):
 func animate_pedestals():
 	print("Animating pedestals based on scores...")
 	
+	# Notify camera to start following winner
+	if camera:
+		camera.start_pedestal_animation()
+	
 	# Get player IDs (either debug or real
-	var player_ids_list: Array[int] = []
+	var player_ids_list: Array = []
 	if use_debug_mode:
 		for i in range(debug_player_count):
 			player_ids_list.append(i)
@@ -217,6 +237,10 @@ func animate_pedestals():
 		
 	# Wait for all animations to complete
 	await get_tree().create_timer(rise_duration).timeout
+	
+	# Notify camera animation ended
+	if camera:
+		camera.end_pedestal_animation()
 	
 	# Enable player controls after animation
 	enable_all_player_controls()
@@ -266,8 +290,37 @@ func _on_exit_portal_exited(body: Node2D):
 func return_to_lobby():
 	print("Returning to Level Select Lobby...")
 	
-	# Clear player data ("They'll rejoin in lobby
-	# Don't clear character selections though
+	# DON'T clear player data
+	# Players remain joined in GameSettings with their selected characters
+	# They'll respawn in the lobby with the same characters
+	
+	for player_id in GameSettings.get_joined_player_ids():
+		var character= GameSettings.get_player_character(player_id)
+		print("  Player ", player_id, ": ", character.character_name if character else "No character")
 	
 	get_tree().change_scene_to_file(lobby_path)
-		
+
+# === HELPER FUNCTIONS ===
+func get_winner_player_id() -> int:
+	var highest_score = -1
+	var winner_id = -1
+	
+	for player_id in player_scores.keys():
+		if player_scores[player_id] > highest_score:
+			highest_score = player_scores[player_id]
+			winner_id = player_id
+	
+	return winner_id
+
+func get_winner_player() -> Node2D:
+	var winner_id = get_winner_player_id()
+	
+	if winner_id == -1:
+		return null
+	
+	# Find the player instance with this ID
+	for player in player_instances:
+		if "player_id" in player and player.player_id == winner_id:
+			return player
+	
+	return null

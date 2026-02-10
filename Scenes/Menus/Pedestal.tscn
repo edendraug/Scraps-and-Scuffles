@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://p6omqbqflq8l"]
+[gd_scene load_steps=7 format=3 uid="uid://p6omqbqflq8l"]
 
 [ext_resource type="Script" uid="uid://cy84rsqlvccul" path="res://Scripts/Menus/Match End Scene/Pedestal.gd" id="1_ujxwd"]
 [ext_resource type="Texture2D" uid="uid://2x6f5ac36vnd" path="res://Assets/Sprites/Scene Specific/Match End/Pedestal_Top.png" id="2_pa22o"]
 [ext_resource type="Texture2D" uid="uid://c6ray3bos7yic" path="res://Assets/Sprites/Scene Specific/Match End/Pedestal_Column.png" id="3_gliuv"]
 [ext_resource type="Texture2D" uid="uid://idmwpnieebd7" path="res://Assets/Sprites/Scene Specific/Match End/Pedestal_Bottom.png" id="4_gliuv"]
-[ext_resource type="PackedScene" uid="uid://x1fid803lxap" path="res://Tools/position_helper.tscn" id="5_3idwd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gliuv"]
 size = Vector2(32, 7)
@@ -26,10 +25,6 @@ scale = Vector2(2, 2)
 [node name="Top" type="Sprite2D" parent="Sprites Root"]
 position = Vector2(0, -28.5)
 texture = ExtResource("2_pa22o")
-
-[node name="Position Helper" parent="Sprites Root/Top" instance=ExtResource("5_3idwd")]
-position = Vector2(0, -1.5)
-scale = Vector2(0.5, 0.5)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Sprites Root/Top"]
 
