@@ -64,7 +64,7 @@ func tween_building(initial_scale: Vector2, duration: float, trans: Tween.Transi
 	scale = initial_scale
 	tween.tween_property(self,"scale", Vector2.ONE, duration)
 
-func take_damage(amount: int, hit_pos: Vector2, force: float = 1) -> void:
+func take_damage(amount: int = 1, attacker_id: int = -1, hit_pos: Vector2 = Vector2.ZERO, force: float = 1) -> void:
 	print(self.name, ": I got hit for %s damage." % amount)
 	print(self.name, ": %s health remaining." % current_health)
 	current_health -= amount

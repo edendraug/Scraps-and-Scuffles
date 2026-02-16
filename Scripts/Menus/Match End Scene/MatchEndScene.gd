@@ -290,6 +290,9 @@ func _on_exit_portal_exited(body: Node2D):
 func return_to_lobby():
 	print("Returning to Level Select Lobby...")
 	
+	# Stop match systems
+	cleanup_match_systems()
+	
 	# DON'T clear player data
 	# Players remain joined in GameSettings with their selected characters
 	# They'll respawn in the lobby with the same characters
@@ -299,6 +302,23 @@ func return_to_lobby():
 		print("  Player ", player_id, ": ", character.character_name if character else "No character")
 	
 	get_tree().change_scene_to_file(lobby_path)
+
+func cleanup_match_systems():
+	print("Cleaning up match systems...")
+	
+	# Stop GameModeManager
+	if GameModeManager:
+		GameModeManager.match_active = false
+		if GameModeManager.current_mode:
+			GameModeManager.current_mode.cleanup()
+			GameModeManager.current_mode.queue_free()
+			GameModeManager.current_mode = null
+		print("  GameModeManager stopped")
+	
+	# Stop NaturalResourceSpawner
+	if NaturalResourceSpawner:
+		NaturalResourceSpawner.stop_spawning()
+		print("  NaturalResourceSpawner stopped")
 
 # === HELPER FUNCTIONS ===
 func get_winner_player_id() -> int:

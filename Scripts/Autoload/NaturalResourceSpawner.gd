@@ -22,6 +22,8 @@ func _ready():
 	if not spawn_settings:
 		spawn_settings = SpawnSettings.new()
 	
+	add_to_group("resource_spawner")
+	
 	# Setup spawn timer
 	spawn_timer = Timer.new()
 	add_child(spawn_timer)

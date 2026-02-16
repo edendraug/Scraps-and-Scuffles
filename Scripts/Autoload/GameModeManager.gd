@@ -22,6 +22,7 @@ func _ready() -> void:
 	# Load default settings if none provided
 	if not match_settings:
 		match_settings = MatchSettings.new()
+	add_to_group("game_mode_manager")
 
 func _process(delta: float) -> void:
 	if not match_active or not current_mode:
@@ -64,6 +65,9 @@ func start_match():
 	match_started.emit()
 
 func end_match(winner_id: int = -1):
+	if not match_active:
+		return
+	
 	match_active = false
 	
 	print("=== MATCH ENDED ===")
@@ -107,8 +111,8 @@ func load_game_mode(mode_type: MatchSettings.GameModeType):
 			push_warning("Keep Away mode not implemented yet!")
 			return
 		MatchSettings.GameModeType.TAG:
-			#TODO: Implement Tag
-			push_warning("Tag mode not implemented yet!")
+			current_mode = TagMode.new()
+			current_mode.name = "TagMode"
 			return
 	
 	if current_mode:

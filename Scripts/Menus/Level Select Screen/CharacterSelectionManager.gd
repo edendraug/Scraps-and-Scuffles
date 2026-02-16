@@ -27,14 +27,42 @@ func _ready():
 	# TEMPORARY: Force join player 0 if not already joined
 	if not GameSettings.is_player_joined(0):
 		GameSettings.join_player(0, -1)
-	
-	# Create cursor for Player 0 (already joined by default)
-	if GameSettings.is_player_joined(0):
-		create_cursor_for_player(0)
 		
 	# Listen for new players joining
 	GameSettings.player_joined.connect(_on_player_joined)
 	GameSettings.player_left.connect(_on_player_left)
+	
+	# Check for returning players with pre-selected characters
+	check_returning_players()
+
+func check_returning_players():
+	var has_returning_players = false
+	
+	for player_id in GameSettings.get_joined_player_ids():
+		var character = GameSettings.get_player_character(player_id)
+		
+		if character:
+			# This player already has a character - find the display
+			has_returning_players = true
+			
+			var character_display = find_character_display_by_data(character)
+			if character_display:
+				# Register this selection (but don't create cursor)
+				player_selections[player_id] = character_display
+				print("CharacterSelectionManager: Player ", player_id, " already has character: ", character.character_name)
+			else:
+				print("WARNING: Could not find CharacterDisplay for returning player's character: ", character.character_name)
+		else:
+			# This player needs to select - create cursor
+			create_cursor_for_player(player_id)
+	if has_returning_players:
+		check_if_all_ready()
+
+func find_character_display_by_data(character_data: CharacterData) -> CharacterDisplay:
+	for display in character_displays:
+		if display.character_data == character_data:
+			return display
+	return null
 
 func _process(delta: float) -> void:
 	# Check for deslection input (hold B)
@@ -124,9 +152,21 @@ func deselect_player_character(player_id: int):
 	# Remove from selections
 	player_selections.erase(player_id)
 	
-	# Reactive cursor
+	# Reactivate cursor
+	print("Deselecting Player ", player_id, " - has cursor: ", player_cursors.has(player_id))
 	if player_cursors.has(player_id):
+		print("  Reactiving exisiting cursor")
 		player_cursors[player_id].activate_cursor()
+	else:
+		# Cursor was never created (returning player) - create it now
+		print("  Creating new cursor for returning player")
+		create_cursor_for_player(player_id)
+		
+		# Verify it was created
+		if player_cursors.has(player_id):
+			print("  ✓ Cursor created successfully")
+		else:
+			print("  ✗ ERROR: Cursor creation failed!")
 	
 	player_deselected_character.emit(player_id)
 	print("Player ", player_id, " deselected character")

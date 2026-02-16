@@ -1,0 +1,114 @@
+[gd_scene load_steps=4 format=3 uid="uid://deew8x2ubx17u"]
+
+[ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="1_ytrdr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_74vw4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sdtl"]
+size = Vector2(40, 40)
+
+[node name="TestingGrounds" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-543, -327)
+zoom = Vector2(0.665, 0.665)
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Environment"]
+
+[node name="ColorRect" type="ColorRect" parent="Environment/StaticBody2D"]
+offset_left = -658.0
+offset_right = 698.0
+offset_bottom = 497.0
+color = Color(0.442911, 0.442911, 0.442911, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_74vw4")
+
+[node name="Wall" type="Node2D" parent="Environment"]
+position = Vector2(-379, -545)
+scale = Vector2(0.400001, 9.68)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Environment/Wall"]
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Wall/StaticBody2D2"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Wall/StaticBody2D2"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_6sdtl")
+
+[node name="Wall2" type="Node2D" parent="Environment"]
+position = Vector2(-580, -545)
+rotation = -0.029299
+scale = Vector2(0.400001, 9.68)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Environment/Wall2"]
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Wall2/StaticBody2D2"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Wall2/StaticBody2D2"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_6sdtl")
+
+[node name="Wall3" type="Node2D" parent="Environment"]
+position = Vector2(-757, -545)
+rotation = -0.0744958
+scale = Vector2(0.400001, 9.68)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Environment/Wall3"]
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Wall3/StaticBody2D2"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Wall3/StaticBody2D2"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_6sdtl")
+
+[node name="Wall4" type="Node2D" parent="Environment"]
+position = Vector2(-959, -545)
+rotation = -0.148369
+scale = Vector2(0.400001, 9.68)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Environment/Wall4"]
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Wall4/StaticBody2D2"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Wall4/StaticBody2D2"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_6sdtl")
+
+[node name="Wall5" type="Node2D" parent="Environment"]
+position = Vector2(-1187, -545)
+rotation = -0.327274
+scale = Vector2(0.400001, 9.68)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Environment/Wall5"]
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Wall5/StaticBody2D2"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Wall5/StaticBody2D2"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_6sdtl")
+
+[node name="Player" parent="." instance=ExtResource("1_ytrdr")]
+position = Vector2(-221, -135)
+player_id = 0
+
+[node name="Player2" parent="." instance=ExtResource("1_ytrdr")]
+position = Vector2(-15, -135)
+player_id = 1

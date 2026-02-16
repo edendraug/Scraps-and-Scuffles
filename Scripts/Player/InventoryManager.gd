@@ -100,6 +100,11 @@ func remove_resources(wood: int, stone: int, energy: int) -> bool:
 func add_resources_by_name(resource_name: String, amount: int = 1) -> void:
 	if resource_lookup.has(resource_name):
 		add_resource(resource_lookup[resource_name], amount)
+
+# Add resources by string name (useful for debug/testing)
+func remove_resources_by_name(resource_name: String, amount: int = 1) -> void:
+	if resource_lookup.has(resource_name):
+		remove_resource(resource_lookup[resource_name], amount)
 #endregion
 
 #region === DEBUG UI ===

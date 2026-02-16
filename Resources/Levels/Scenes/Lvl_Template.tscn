@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dus2dlcsh6p5r"]
+[gd_scene load_steps=7 format=3 uid="uid://dus2dlcsh6p5r"]
 
 [ext_resource type="Script" uid="uid://b2gp0xbaoe60w" path="res://Scripts/Levels/LevelManager.gd" id="1_k6bnn"]
 [ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="2_4ljll"]
 [ext_resource type="Script" uid="uid://d4m0ndliqtr4r" path="res://Scripts/LevelCamera.gd" id="2_j61mu"]
 [ext_resource type="Script" uid="uid://ckpdwhfho1d0j" path="res://Scripts/Menus/PauseMenu.gd" id="3_4ljll"]
+[ext_resource type="Script" uid="uid://dxoljo6e5781n" path="res://Scripts/Dev/DebugMenu.gd" id="5_o41cb"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h0q4w"]
 
@@ -43,6 +44,7 @@ metadata/_custom_type_script = "uid://d4m0ndliqtr4r"
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("resume_button", "quit_to_level_select_button", "quit_to_main_menu_button", "dim_overlay")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,3 +116,7 @@ text = "QUIT TO LOBBY"
 [node name="QuitToMainMenuButton" type="Button" parent="CanvasLayer/PauseMenu/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "<"
+
+[node name="DebugMenu" type="CanvasLayer" parent="."]
+script = ExtResource("5_o41cb")
+metadata/_custom_type_script = "uid://dxoljo6e5781n"

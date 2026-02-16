@@ -1,15 +1,15 @@
 extends CharacterBody2D
 
-@export_category("Player Management")
+@export_group("Player Management")
 @export var player_id := 0 ##Which player number this is.
 @export var max_health := 6
 var current_health: int
 
-@export_category("DebugUI")
+@export_group("DebugUI")
 @onready var current_state_label: Label = $DebugUI/CurrentState
 @onready var misc_label: Label = $DebugUI/MiscLabel
 
-@export_category("Components")
+@export_group("Components")
 @export var sprite_manager : Node2D
 @export var collider : CollisionShape2D
 @export var hit_manager: Node2D
@@ -17,7 +17,7 @@ var current_health: int
 @export var shader: Shader
 
 
-@export_category(" Horizontal Movement")
+@export_group(" Horizontal Movement")
 @export var walk_speed := 350.0 ##Base walking speed
 @export var run_speed := 575.0 ##Speed when run button is held
 @export var acceleration := 3000.0 ##How fast player can accelerate
@@ -26,7 +26,7 @@ var current_health: int
 var last_direction := 1 #1 = right, -1 = left
 var input_dir : Vector2
 
-@export_category("Jumping")
+@export_group("Jumping")
 @export var gravity := 2000.0 ##Base amount of gravity.
 var target_gravity := gravity
 var applied_gravity
@@ -38,7 +38,9 @@ var applied_gravity
 @export var coyote_time := 0.2 ##Amount of time (in seconds) player has to jump after they have left the ground.
 var coyote_timer := 0.0
 
-@export_category("Wall Sliding/Jumping")
+@export_group("Wall Sliding and Jumping")
+@export var wall_angle_margin := 0.75
+@export var cling_threshold := 0.3
 @export var wall_jump_velocity := 800.0 ##Jump power when attached to a wall
 @export var wall_jump_angle := 70.0 ##The angle of the jump from a wall. 0 is the wall normal's direction.
 @export var wall_slide_gravity_multiplier := 0.25 ##Artifically reduces gravity while player is attached to a wall. Lower number = slower slide
@@ -50,7 +52,7 @@ enum State {IDLE, MOVE, JUMP, FALL, SLIDE, HIT, LOOK_UP, CROUCH}
 var current_state := State.IDLE
 var is_building := false
 
-@export_category("Combat Stuff")
+@export_group("Combat Stuff")
 @export var hit_force: float = 1000.0
 var can_hit : bool = true
 @export var hitting : bool = false
@@ -70,7 +72,8 @@ var look_dir: int = 1:
 		look_dir = value
 		look_dir_changed.emit(look_dir)
 	get: return look_dir
-signal player_just_hit
+#signal player_just_hit
+signal player_hit
 
 func _ready() -> void:
 	InputManager.register_player(player_id)
@@ -90,10 +93,10 @@ func _process(delta: float) -> void:
 	update_dev_labels()
 
 func update_states():
-	if not is_on_floor() and not is_on_wall():
+	if not is_on_floor() and not hit_manager.is_on_wall():
 		if velocity.y < 0:
 			current_state = State.JUMP
-	elif not is_on_floor() and is_on_wall():
+	elif not is_on_floor() and hit_manager.is_on_wall():
 		current_state = State.SLIDE
 	
 	match current_state:
@@ -113,7 +116,7 @@ func update_states():
 		State.SLIDE:
 			if is_on_floor():
 				current_state = State.IDLE
-			if not is_on_floor() and not is_on_wall():
+			if not is_on_floor() and not hit_manager.is_on_wall():
 				if velocity.y < 0:
 					current_state = State.JUMP
 				if velocity.y > 0 and wall_coyote_timer <= 0:
@@ -176,7 +179,8 @@ func apply_gravity(delta: float) -> void:
 	velocity.y += gravity * gravity_scale * delta
 	
 	if current_state == State.SLIDE and not InputManager.is_action_pressed(player_id, "look_down"):
-		velocity.y = min(velocity.y, max_wall_slide_speed)
+		if is_holding_wall():
+			velocity.y = min(velocity.y, max_wall_slide_speed)
 
 func handle_movement(delta) -> void:
 	var target_speed := 0.0
@@ -231,25 +235,27 @@ func jump(is_pressed: bool, is_sliding: bool) -> void:
 func attack():
 	if !hitting:
 		hitting = true
-		player_just_hit.emit()
+		#player_just_hit.emit()
 		attack_cooldown_timer.start()
 		for i in hittable_objects:
-			if i.get_parent().has_method("take_damage"):
-				i.get_parent().take_damage(1, self.global_position)
-			elif i.has_method("take_damage"):
-				i.take_damage(1, self.global_position)
+			#if i.get_parent().has_method("take_damage"):
+				#i.get_parent().take_damage(1, self.global_position)
+			if i.has_method("take_damage"):
+				i.take_damage(1, player_id, self.global_position)
 
-func take_damage(amount: int, hit_pos: Vector2, force: float = hit_force) -> void:
-	var force_dir := (global_position - hit_pos).normalized()
-	
-	if !stunned and !invincible:
-		velocity = force_dir * force
-		if current_health > 0:
-			current_health -= amount
-		else: 
-			current_health = 0
-			stun()
-		print(name, ": I got hit!",)
+#func take_damage(amount: int, hit_pos: Vector2, force: float = hit_force) -> void:
+	#var force_dir := (global_position - hit_pos).normalized()
+	#
+	#if !stunned and !invincible:
+		#velocity = force_dir * force
+		#if current_health > 0:
+			#current_health -= amount
+		#else: 
+			#current_health = 0
+			#stun()
+		#print(name, ": I got hit!",)
+		#player_hit.emit()
+		
 
 func stun():
 	update_shader(Color.WHITE)
@@ -279,9 +285,9 @@ func update_coyote_time(delta: float) -> void:
 	else:
 		coyote_timer -= delta
 	
-	if is_on_wall() and not is_on_floor():
+	if hit_manager.is_on_wall() and not is_on_floor():
 		wall_coyote_timer = wall_coyote_time
-	elif not is_on_wall() and not is_on_floor():
+	elif not hit_manager.is_on_wall() and not is_on_floor():
 		wall_coyote_timer -= delta
 
 func update_animations():
@@ -291,6 +297,21 @@ func update_animations():
 func update_shader(color):
 	sprite_manager.rendered_sprite.material = sprite_manager.rendered_sprite.material.duplicate()
 	sprite_manager.rendered_sprite.material.set_shader_parameter("line_color", color)
+
+func is_holding_wall() -> bool:
+	if !hit_manager.is_on_wall:
+		return false
+	if input_dir.x == 0:
+		return false
+	
+	var wall_normal = hit_manager.get_wall_normal()
+	
+	var input_normalized = Vector2(input_dir.x, 0).normalized()
+	
+	# Direction INTO the wall
+	var into_wall = -wall_normal
+	var alignment = input_normalized.dot(into_wall)
+	return alignment > cling_threshold
 #endregion
 
 #region === SIGNALS ===

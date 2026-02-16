@@ -27,7 +27,6 @@ rise_duration = 5.0
 units_per_point = 2.0
 exit_portal = NodePath("Area2D")
 camera = NodePath("MatchEndCamera")
-use_debug_mode = true
 debug_character_data = Array[ExtResource("4_waujt")]([ExtResource("5_xaulu"), ExtResource("5_xaulu"), ExtResource("4_n06vg"), ExtResource("7_xaulu")])
 debug_scores = Array[int]([300, 75, 50, 25])
 metadata/_custom_type_script = "uid://d3cpghlca8b17"

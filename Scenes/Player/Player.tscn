@@ -13,14 +13,17 @@
 [ext_resource type="Texture2D" uid="uid://6j4dajib6wt" path="res://Assets/Sprites/Characters/Template Character.png" id="9_ji083"]
 [ext_resource type="Material" uid="uid://bcu7e883nkidc" path="res://Assets/Shaders/sprite_outline_material.tres" id="10_i5acl"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvlcm"]
-size = Vector2(34, 71)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i5acl"]
+radius = 17.0
+height = 53.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7bmxk"]
-size = Vector2(78, 29)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_epg6k"]
+radius = 13.0
+height = 64.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dl0ux"]
-size = Vector2(54, 104)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0u84n"]
+radius = 25.0
+height = 92.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0kmp4"]
 shader = ExtResource("8_i5acl")
@@ -722,14 +725,15 @@ nodes/states/position = Vector2(-360, 140)
 node_connections = [&"hit", 0, &"states", &"hit", 1, &"hit_direction", &"move_time_scale", 0, &"Animation 2", &"output", 0, &"hit", &"states", 0, &"look_direction", &"states", 1, &"move_time_scale", &"states", 2, &"jump_velocity", &"states", 3, &"Animation 3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r6gjv"]
-radius = 25.0
+radius = 21.0
 height = 90.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite_manager", "collider", "hit_manager", "building_placer", "stun_timer", "invincibility_timer", "attack_cooldown_timer") groups=["Players"]]
 z_index = 1
 collision_layer = 8
-collision_mask = 5
+collision_mask = 13
 floor_constant_speed = true
+floor_block_on_wall = false
 floor_max_angle = 0.872665
 floor_snap_length = 10.0
 script = ExtResource("1_r6gjv")
@@ -738,63 +742,57 @@ sprite_manager = NodePath("SpriteManager")
 collider = NodePath("Collider")
 hit_manager = NodePath("HitManager")
 building_placer = NodePath("BuildingPlacer")
+wall_angle_margin = 0.25
 stun_timer = NodePath("Timers/StunTimer")
 invincibility_timer = NodePath("Timers/InvincibilityTimer")
 attack_cooldown_timer = NodePath("Timers/AttackCooldownTimer")
 
-[node name="HitManager" type="Node2D" parent="." node_paths=PackedStringArray("player", "hurtbox", "hitbox_left", "hitbox_right", "hitbox_up", "hitbox_down", "misc_label")]
+[node name="HitManager" type="Node2D" parent="." node_paths=PackedStringArray("player", "hurtbox", "hitbox_horizontal", "hitbox_vertical", "wall_raycast", "misc_label")]
 modulate = Color(1, 1, 1, 0.376471)
 position = Vector2(0, 49)
 script = ExtResource("2_r6gjv")
 player = NodePath("..")
 hurtbox = NodePath("Hurtbox")
-hitbox_left = NodePath("HitBoxLeft")
-hitbox_right = NodePath("HitBoxRight")
-hitbox_up = NodePath("HitBoxUp")
-hitbox_down = NodePath("HitBoxDown")
+hitbox_horizontal = NodePath("HitBoxHorizontal")
+hitbox_vertical = NodePath("HitBoxVertical")
+wall_raycast = NodePath("WallRaycast")
 misc_label = NodePath("../DebugUI/MiscLabel")
 
-[node name="HitBoxLeft" type="Area2D" parent="HitManager"]
+[node name="HitBoxHorizontal" type="Area2D" parent="HitManager"]
 collision_layer = 8
-collision_mask = 14
+collision_mask = 12
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitManager/HitBoxLeft"]
-position = Vector2(-27, -50.5)
-shape = SubResource("RectangleShape2D_rvlcm")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitManager/HitBoxHorizontal"]
+position = Vector2(25, -50.5)
+shape = SubResource("CapsuleShape2D_i5acl")
 debug_color = Color(0.212326, 0.634725, 0.237243, 0.42)
 
-[node name="HitBoxRight" type="Area2D" parent="HitManager"]
+[node name="HitBoxVertical" type="Area2D" parent="HitManager"]
+position = Vector2(0, -53)
 collision_layer = 8
-collision_mask = 14
+collision_mask = 12
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitManager/HitBoxRight"]
-position = Vector2(27, -50.5)
-shape = SubResource("RectangleShape2D_rvlcm")
-debug_color = Color(0.212326, 0.634725, 0.237243, 0.42)
-
-[node name="HitBoxUp" type="Area2D" parent="HitManager"]
-collision_layer = 8
-collision_mask = 14
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitManager/HitBoxUp"]
-position = Vector2(0, -101.5)
-shape = SubResource("RectangleShape2D_7bmxk")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitManager/HitBoxVertical"]
+position = Vector2(0, -48)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_epg6k")
 debug_color = Color(0.6399, 0.523577, 0.0962156, 0.42)
 
-[node name="HitBoxDown" type="Area2D" parent="HitManager"]
-collision_layer = 8
-collision_mask = 14
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitManager/HitBoxDown"]
-shape = SubResource("RectangleShape2D_7bmxk")
-debug_color = Color(0.855386, 0.329567, 0.43098, 0.42)
-
 [node name="Hurtbox" type="Area2D" parent="HitManager"]
-collision_mask = 2
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitManager/Hurtbox"]
 position = Vector2(0, -53)
-shape = SubResource("RectangleShape2D_dl0ux")
+shape = SubResource("CapsuleShape2D_0u84n")
+
+[node name="WallRaycast" type="RayCast2D" parent="HitManager"]
+modulate = Color(0.853081, 0, 0.136395, 1)
+position = Vector2(0, -46)
+target_position = Vector2(30, 0)
+collision_mask = 5
 
 [node name="InventoryManager" type="Node2D" parent="." node_paths=PackedStringArray("wood_label", "stone_label", "energy_label")]
 script = ExtResource("3_fk5o5")
@@ -882,7 +880,6 @@ theme_override_font_sizes/font_size = 16
 text = "State: Idle"
 
 [node name="MiscLabel" type="Label" parent="DebugUI"]
-visible = false
 layout_mode = 0
 offset_left = -32.0
 offset_top = -146.0
@@ -892,7 +889,6 @@ theme_override_font_sizes/font_size = 16
 text = "Misc"
 
 [node name="ColorRect" type="ColorRect" parent="DebugUI"]
-visible = false
 layout_mode = 0
 offset_left = -51.0
 offset_right = -11.0
@@ -901,7 +897,6 @@ scale = Vector2(3.08, 2.36)
 color = Color(0, 0, 0, 0.305882)
 
 [node name="LabelsContainer" type="VBoxContainer" parent="DebugUI"]
-visible = false
 layout_mode = 0
 offset_left = -36.0
 offset_top = 5.0
@@ -941,15 +936,10 @@ wait_time = 0.35
 one_shot = true
 
 [connection signal="look_dir_changed" from="." to="HitManager" method="_on_player_look_dir_changed"]
-[connection signal="player_just_hit" from="." to="SpriteManager" method="_on_player_just_hit"]
-[connection signal="area_shape_entered" from="HitManager/HitBoxLeft" to="HitManager" method="_on_left_area_entered"]
-[connection signal="area_shape_exited" from="HitManager/HitBoxLeft" to="HitManager" method="_on_left_area_exited"]
-[connection signal="area_shape_entered" from="HitManager/HitBoxRight" to="HitManager" method="_on_right_area_entered"]
-[connection signal="area_shape_exited" from="HitManager/HitBoxRight" to="HitManager" method="_on_right_area_exited"]
-[connection signal="area_shape_entered" from="HitManager/HitBoxUp" to="HitManager" method="_on_up_area_entered"]
-[connection signal="area_shape_exited" from="HitManager/HitBoxUp" to="HitManager" method="_on_up_area_exited"]
-[connection signal="area_shape_entered" from="HitManager/HitBoxDown" to="HitManager" method="_on_down_area_entered"]
-[connection signal="area_shape_exited" from="HitManager/HitBoxDown" to="HitManager" method="_on_down_area_exited"]
+[connection signal="area_shape_entered" from="HitManager/HitBoxHorizontal" to="HitManager" method="_on_horizontal_area_entered"]
+[connection signal="area_shape_exited" from="HitManager/HitBoxHorizontal" to="HitManager" method="_on_horizontal_area_exited"]
+[connection signal="area_shape_entered" from="HitManager/HitBoxVertical" to="HitManager" method="_on_vertical_area_entered"]
+[connection signal="area_shape_exited" from="HitManager/HitBoxVertical" to="HitManager" method="_on_vertical_area_exited"]
 [connection signal="timeout" from="Timers/StunTimer" to="." method="_on_stun_timer_timeout"]
 [connection signal="timeout" from="Timers/InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="Timers/AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]

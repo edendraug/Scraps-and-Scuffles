@@ -79,6 +79,9 @@ func _on_quit_to_level_select_pressed():
 	get_tree().paused = false
 	is_paused = false
 	
+	# Stop match systems
+	cleanup_match_systems()
+	
 	# DON'T clear player data - preserve their character selections
 	print("Returning to Level Select Lobby - preserving player data:")
 	for player_id in GameSettings.get_joined_player_ids():
@@ -104,3 +107,19 @@ func _on_quit_to_main_menu_pressed():
 	
 	print("Returning to Main Menu")
 	get_tree().change_scene_to_file(main_menu_path)
+
+func cleanup_match_systems():
+	print("Cleaning up match systems...")
+	
+	# Stop GameModeManager
+	if GameModeManager:
+		GameModeManager.match_active = false
+		if GameModeManager.current_mode:
+			GameModeManager.current_mode.cleanup()
+			GameModeManager.current_mode.queue_free()
+			GameModeManager.current_mode = null
+		print("  GameModeManager stopped")
+	
+	if NaturalResourceSpawner:
+		NaturalResourceSpawner.stop_spawning()
+		print("  NaturalResourceSpawner stopped")

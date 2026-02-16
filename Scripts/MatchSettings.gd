@@ -23,6 +23,11 @@ var hill_warning_time: float = 5.0 # Flash before relocating
 var points_per_tick: int = 1
 @export var tick_interval: float = 0.75
 
+# Tag specific
+@export var tag_drain_rate: float = 1.0 # points per second while tagged
+@export var tag_immunity_duration: float = 2.0 # Immunity after being tagged
+@export var tag_grace_period: float = 5.0 # Grace before first tag
+
 func reset_to_defaults():
 	game_mode = GameModeType.KING_OF_THE_HILL
 	score_target = 100
@@ -31,6 +36,9 @@ func reset_to_defaults():
 	use_time_limit = true
 	hill_radius = 80.0
 	hill_relocate_interval = 45.0
+	tag_drain_rate = 1.0
+	tag_immunity_duration = 2.0
+	tag_grace_period = 5.0
 
 func get_time_limit_seconds() -> float:
 	return time_limit_minutes * 60.0

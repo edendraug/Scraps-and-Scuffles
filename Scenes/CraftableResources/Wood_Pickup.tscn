@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ba43kighewjt" path="res://Scripts/ResourcePickup.gd" id="1_yxcxt"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6rqk7"]
-radius = 16.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxcxt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1maeg"]
 radius = 30.0167
@@ -17,7 +16,8 @@ script = ExtResource("1_yxcxt")
 scale = Vector2(2, 2)
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_6rqk7")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yxcxt")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 8

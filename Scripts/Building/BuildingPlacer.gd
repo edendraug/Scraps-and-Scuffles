@@ -13,6 +13,7 @@ var inventory_manager # Regerence to player's inventory
 @export var radial_menu: Node2D # Reference to RadialBuildMenu UI
 
 #Placement state
+var can_place: bool = false
 var is_menu_open: bool = false
 var is_placing: bool = false
 var selected_building: BuildingData = null
@@ -32,7 +33,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if is_placing and ghost_instance:
 		update_ghost_position()
-	handle_input()
+	if can_place:
+		handle_input()
 
 
 func handle_input() -> void:

@@ -24,6 +24,9 @@ func _ready():
 	GameSettings.player_joined.connect(_on_player_joined)
 	GameSettings.player_left.connect(_on_player_left)
 	
+	if character_selection_manager:
+		character_selection_manager.all_players_ready.connect(_on_all_players_ready)
+	
 	# Wait for scene to be fully loaded
 	await get_tree().process_frame
 	
@@ -44,8 +47,6 @@ func _ready():
 			# Respawn returning players with their characters
 			respawn_returning_players()
 	
-	if character_selection_manager:
-		character_selection_manager.all_players_ready.connect(_on_all_players_ready)
 	# Player 0 should already be joined from main menu
 	# Other players can join here
 
