@@ -4,6 +4,9 @@ extends Node2D
 @export var germination_time: float = 4.5
 @export var growth_time: float = 1.5
 
+#@export var wait_duration: float = 3.0
+var wait_timer: float = 0.0
+
 var target_position: Vector2
 var building_data: BuildingData
 var has_landed: bool = false
@@ -27,8 +30,11 @@ func _process(delta):
 	if has_landed:
 		return
 	
-	# Fall downward
-	global_position.y += fall_speed * delta
+	wait_timer += delta
+	
+	if wait_timer > NaturalResourceSpawner.bounds_wait_time:
+		# Fall downward
+		global_position.y += fall_speed * delta
 	
 	# Check if reached target
 	if global_position.y >= target_position.y:
@@ -37,12 +43,19 @@ func _process(delta):
 func land():
 	has_landed = true
 	global_position = target_position
+	
 	sprite.play("germinate", 0.0)
 	await get_tree().create_timer(germination_time / 3).timeout
 	sprite.play("germinate")
+
 	
 	# Wait a moment, then grow tree
 	await get_tree().create_timer(germination_time / 2).timeout
+	
+	if find_child("OffscreenMarker"):
+		var offscreen_marker = find_child("OffscreenMarker")
+		offscreen_marker.enabled = false
+		offscreen_marker.queue_free()
 	grow_tree()
 
 func grow_tree():
@@ -50,14 +63,8 @@ func grow_tree():
 		queue_free()
 		return
 	
-	# Get random variant
-	var tree_scene = building_data.get_random_building_scene()
-	if not tree_scene:
-		queue_free()
-		return
-	
 	# Spawn the actual tree
-	var tree = tree_scene.instantiate()
+	var tree = building_data.building_scene.instantiate()
 	get_tree().current_scene.add_child(tree)
 	tree.global_position = global_position
 	

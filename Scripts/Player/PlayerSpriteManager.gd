@@ -7,8 +7,12 @@ extends Node2D
 @onready var sub_viewport: SubViewport = $SubViewport
 @onready var rendered_sprite: Sprite2D = $RenderedSprite
 
-func _ready() -> void:	
+func _ready() -> void:
+	if player:
+		player.animate_hit.connect(_on_animate_hit)
 	rendered_sprite.texture = sub_viewport.get_texture()
+	if player.character_data:
+		set_sprite_sheet(player.character_data.sprite_sheet)
 
 func _process(delta: float) -> void:
 	update_animations()
@@ -51,5 +55,5 @@ func set_sprite_sheet(new_sprite_sheet: Texture2D):
 	
 	print ("PlayerSpriteManager: Sprite sheet updated to ", new_sprite_sheet.resource_path)
 
-func _on_player_just_hit() -> void:
+func _on_animate_hit() -> void:
 	anim_tree.set("parameters/hit/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)

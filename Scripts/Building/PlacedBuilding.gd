@@ -25,7 +25,7 @@ var initialized : bool = false
 
 func _ready() -> void:
 	# Initialize health if building_data is already set in editor/inspector
-	if building_data:
+	if building_data and not initialized:
 		if not Engine.is_editor_hint():
 			initialize(building_data)
 		else:
@@ -44,6 +44,9 @@ func initialize(data: BuildingData):
 	building_sprite = find_sprite()
 	if particle_emitter and data.particle_texture:
 		particle_emitter.texture = data.particle_texture
+	
+	if building_sprite and not data.building_variants.is_empty():
+		building_sprite.frame_coords = data.get_random_building_variant()
 	
 	add_to_group("Buildings")
 	
@@ -89,6 +92,10 @@ func damage_feedback():
 	# Emit particles
 	if particle_emitter:
 		particle_emitter.emitting = true
+	
+	var tween = building_sprite.create_tween().set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(building_sprite, "skew", randf_range(-.05, .05), 0.1)
+	tween.tween_property(building_sprite, "skew", 0.0, 0.1)
 
 func destroy():
 	# Drop resources (partial refund)

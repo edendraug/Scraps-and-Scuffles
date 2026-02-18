@@ -2,7 +2,9 @@ extends CharacterBody2D
 
 @export_group("Player Management")
 @export var player_id := 0 ##Which player number this is.
+@export var character_data : CharacterData
 @export var max_health := 6
+
 var current_health: int
 
 @export_group("DebugUI")
@@ -72,7 +74,7 @@ var look_dir: int = 1:
 		look_dir = value
 		look_dir_changed.emit(look_dir)
 	get: return look_dir
-#signal player_just_hit
+signal animate_hit
 signal player_hit
 
 func _ready() -> void:
@@ -235,27 +237,13 @@ func jump(is_pressed: bool, is_sliding: bool) -> void:
 func attack():
 	if !hitting:
 		hitting = true
-		#player_just_hit.emit()
+		animate_hit.emit()
 		attack_cooldown_timer.start()
 		for i in hittable_objects:
 			#if i.get_parent().has_method("take_damage"):
 				#i.get_parent().take_damage(1, self.global_position)
 			if i.has_method("take_damage"):
 				i.take_damage(1, player_id, self.global_position)
-
-#func take_damage(amount: int, hit_pos: Vector2, force: float = hit_force) -> void:
-	#var force_dir := (global_position - hit_pos).normalized()
-	#
-	#if !stunned and !invincible:
-		#velocity = force_dir * force
-		#if current_health > 0:
-			#current_health -= amount
-		#else: 
-			#current_health = 0
-			#stun()
-		#print(name, ": I got hit!",)
-		#player_hit.emit()
-		
 
 func stun():
 	update_shader(Color.WHITE)

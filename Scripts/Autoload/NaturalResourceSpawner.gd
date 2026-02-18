@@ -16,7 +16,7 @@ var energy_crystal_scene: PackedScene
 var active_natural_buildings: int = 0
 var spawn_timer: Timer
 var is_spawning_active: bool = false
-
+var bounds_wait_time: float = 3.0
 func _ready():
 	# Load default settings if none provided
 	if not spawn_settings:
@@ -72,13 +72,13 @@ func spawn_natural_building_instant():
 	if not building_data or not building_data.building_scene:
 		return
 	
-	# Get random variant scene
-	var building_scene = building_data.get_random_building_scene()
-	if not building_scene:
-		return
+	## Get random variant scene
+	#var building_scene = building_data.get_random_building_scene()
+	#if not building_scene:
+		#return
 	
 	# Directly instantiate the building at the position
-	var building = building_scene.instantiate()
+	var building = building_data.building_scene.instantiate()
 	get_tree().current_scene.add_child(building)
 	building.global_position = spawn_pos
 	
@@ -133,14 +133,13 @@ func spawn_rock(target_pos: Vector2):
 		return
 	
 	var rock = rock_scene.instantiate()
+	# Pass target and building data
+	if rock.has_method("initialize_rock"):
+		rock.initialize_rock(target_pos, stone_building_data)
 	get_tree().current_scene.add_child(rock)
 	
 	# Start at top of screen at target X position
 	rock.global_position = Vector2(target_pos.x, spawn_settings.min_y - 50)
-	
-		# Pass target and building data
-	if rock.has_method("initialize_rock"):
-		rock.initialize_rock(target_pos, stone_building_data)
 	
 	active_natural_buildings += 1
 

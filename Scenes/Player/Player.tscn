@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://bp0jj0vlhahwu"]
+[gd_scene load_steps=49 format=3 uid="uid://bp0jj0vlhahwu"]
 
 [ext_resource type="Script" uid="uid://c2rbhusoktwh6" path="res://Scripts/Player/PlayerController.gd" id="1_r6gjv"]
 [ext_resource type="Script" uid="uid://dygu5co2onkff" path="res://Scripts/Player/PlayerHitManager.gd" id="2_r6gjv"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cm5xk86fi1j2i" path="res://Scenes/UI/RadialBuildMenu.tscn" id="8_ji083"]
 [ext_resource type="Texture2D" uid="uid://6j4dajib6wt" path="res://Assets/Sprites/Characters/Template Character.png" id="9_ji083"]
 [ext_resource type="Material" uid="uid://bcu7e883nkidc" path="res://Assets/Shaders/sprite_outline_material.tres" id="10_i5acl"]
+[ext_resource type="Script" uid="uid://cnsmsjgwotbln" path="res://Scripts/UI/OffscreenMarker.gd" id="13_epg6k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i5acl"]
 radius = 17.0
@@ -865,6 +866,7 @@ radial_menu = NodePath("../RadialBuildMenu")
 [node name="RadialBuildMenu" parent="." instance=ExtResource("8_ji083")]
 
 [node name="DebugUI" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_top = 60.0
@@ -934,6 +936,10 @@ one_shot = true
 [node name="AttackCooldownTimer" type="Timer" parent="Timers"]
 wait_time = 0.35
 one_shot = true
+
+[node name="OffscreenMarker" type="VisibleOnScreenNotifier2D" parent="."]
+script = ExtResource("13_epg6k")
+metadata/_custom_type_script = "uid://cnsmsjgwotbln"
 
 [connection signal="look_dir_changed" from="." to="HitManager" method="_on_player_look_dir_changed"]
 [connection signal="area_shape_entered" from="HitManager/HitBoxHorizontal" to="HitManager" method="_on_horizontal_area_entered"]

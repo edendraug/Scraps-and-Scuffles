@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://bg0hawq6lmu2g"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3 uid="uid://bg0hawq6lmu2g"]
 
 [ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="1_tjee6"]
 [ext_resource type="Texture2D" uid="uid://cp47a7ohxafeo" path="res://Assets/Sprites/Characters/Template Character_Still.png" id="2_2rn4t"]
+[ext_resource type="Texture2D" uid="uid://uels7jik2cry" path="res://Assets/Sprites/Characters/Temp_Char_Icon.png" id="3_2rn4t"]
 [ext_resource type="Script" uid="uid://c8i63gapd0xv6" path="res://Resources/Characters/CharacterData.gd" id="3_gw0w2"]
 [ext_resource type="Texture2D" uid="uid://6j4dajib6wt" path="res://Assets/Sprites/Characters/Template Character.png" id="4_oe2nf"]
 
@@ -11,4 +12,5 @@ character_name = "Test_Char"
 character_scene = ExtResource("1_tjee6")
 sprite_sheet = ExtResource("4_oe2nf")
 icon_sprite = ExtResource("2_2rn4t")
+portrait = ExtResource("3_2rn4t")
 metadata/_custom_type_script = "uid://c8i63gapd0xv6"

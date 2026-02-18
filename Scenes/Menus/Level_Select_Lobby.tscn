@@ -20,6 +20,7 @@ script = ExtResource("1_t320a")
 camera = NodePath("LobbyCameraController")
 character_selection_manager = NodePath("CharacterSelectionManager")
 grace_period_duration = 1.0
+winner_reveal_delay = 0.2
 metadata/_custom_type_script = "uid://lfnton1swx0l"
 
 [node name="CharacterSelectionManager" type="Node" parent="."]

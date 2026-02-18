@@ -20,6 +20,7 @@ var rock_sprite: Sprite2D
 # Track last hit to avoid repeated damage
 var last_hit_object: Node = null
 var hit_cooldown: float = 0.0
+var wait_timer: float = 0.0
 
 func _ready():
 	super._ready()
@@ -31,26 +32,37 @@ func _ready():
 			child.disabled = true
 
 func initialize_rock(target: Vector2, data: BuildingData):
+	if particle_emitter and data.particle_texture:
+		particle_emitter.texture = data.particle_texture
+	
 	target_position = target
 	building_data = data
 	
-	# Pick random rock variant and setup sprite
-	var rock_scene = building_data.get_random_building_scene()
-	if rock_scene:
-		var temp_instance = rock_scene.instantiate()
-		
-		# Load the sprite in the variant
-		for child in temp_instance.get_children():
-			if child is Sprite2D:
-				rock_sprite = child.duplicate()
-				add_child(rock_sprite)
-				break
-		
-		temp_instance.queue_free()
-		
-		# Start falling
-		velocity = Vector2(0, fall_speed)
-		is_falling = true
+	# Instantiate the rock scene
+	var rock_instance = data.building_scene.instantiate()
+	# Grab its sprite and re-parent it to this node
+	for child in rock_instance.get_children():
+		if child is Sprite2D:
+			rock_sprite = child.duplicate()
+			add_child(rock_sprite)
+			break
+	
+	rock_instance.queue_free()
+	
+	# Apply random variant frame
+	if rock_sprite and not data.building_variants.is_empty():
+		rock_sprite.frame_coords = data.get_random_building_variant()
+	
+	rock_sprite.frame_coords.x -= 3
+	print("frame_coords(", rock_sprite.frame_coords, ")")
+	
+	building_sprite = rock_sprite
+	
+	# Start falling
+	velocity = Vector2(0, fall_speed)
+	is_falling = true
+	
+	initialized = true
 
 func _physics_process(delta):
 	if not is_falling:
@@ -64,15 +76,18 @@ func _physics_process(delta):
 	
 	if hit_cooldown < 0:
 		last_hit_object = null
-
-	# Apply gravity
-	velocity.y += gravity * delta
+	
+	if is_falling:
+		wait_timer += delta
 	
 	# Store old position for collision detection
 	var old_pos = global_position
 	
-	# Move manually (we're a StaticBody2D, can't use move_and_slide)
-	global_position += velocity * delta
+	if wait_timer > NaturalResourceSpawner.bounds_wait_time:
+		# Apply gravity
+		velocity.y += gravity * delta
+		# Move manually (we're a StaticBody2D, can't use move_and_slide)
+		global_position += velocity * delta
 	
 	if not physics_enabled:
 		# Check if we've been interuupted by player or building
@@ -152,7 +167,8 @@ func enable_physics():
 	collision_layer = 1 # Be on layer 1
 
 func land_at_target(x_offset: float = 0):
-	is_falling= false
+	print("frame_coords before landing: ", rock_sprite.frame_coords)
+	is_falling = false
 	rock_sprite.frame_coords.x += 3
 	
 	#Snap to target position
@@ -176,6 +192,12 @@ func land_at_target(x_offset: float = 0):
 			setup_shader()
 	
 	tree_exited.connect(_on_rock_destroyed)
+	
+	await get_tree().create_timer(2.0).timeout
+	if find_child("OffscreenMarker"):
+		var offscreen_marker = find_child("OffscreenMarker")
+		offscreen_marker.enabled = false
+		offscreen_marker.queue_free()
 
 func _on_rock_destroyed():
 	# Handled by NaturalResourceSpawner

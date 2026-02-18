@@ -8,6 +8,7 @@ script = ExtResource("1_4ae3p")
 building_name = "Large Rock"
 building_type = 1
 building_variants = Array[PackedScene]([])
+example = []
 particle_texture = ExtResource("1_04nd8")
 outline_color = Color(0, 0, 0, 0)
 is_natural_building = true

@@ -1,9 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://deew8x2ubx17u"]
+[gd_scene load_steps=4 format=3 uid="uid://deew8x2ubx17u"]
 
 [ext_resource type="PackedScene" uid="uid://bp0jj0vlhahwu" path="res://Scenes/Player/Player.tscn" id="1_ytrdr"]
-[ext_resource type="Texture2D" uid="uid://bc045nx5a8yng" path="res://Assets/Sprites/Characters/Robot_Still.png" id="2_74vw4"]
-[ext_resource type="Resource" uid="uid://bg0hawq6lmu2g" path="res://Resources/Characters/Test_Char.tres" id="2_a44ff"]
-[ext_resource type="Script" uid="uid://cnsmsjgwotbln" path="res://Scripts/UI/OffscreenMarker.gd" id="3_6sdtl"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_74vw4"]
 
@@ -11,6 +8,10 @@
 size = Vector2(40, 40)
 
 [node name="TestingGrounds" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-543, -327)
+zoom = Vector2(0.665, 0.665)
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -107,22 +108,47 @@ shape = SubResource("RectangleShape2D_6sdtl")
 [node name="Player" parent="." instance=ExtResource("1_ytrdr")]
 position = Vector2(-221, -135)
 player_id = 0
-character_data = ExtResource("2_a44ff")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(4, 0)
-zoom = Vector2(0.665, 0.665)
+max_health = 6
+walk_speed = 350.0
+run_speed = 575.0
+acceleration = 3000.0
+air_acceleration = 1100.0
+friction = 3000.0
+gravity = 2000.0
+fall_gravity_multiplier = 1.6
+jump_release_gravity_multiplier = 2.2
+jump_velocity = -1000.0
+jump_cut_multiplier = 0.4
+coyote_time = 0.2
+cling_threshold = 0.3
+wall_jump_velocity = 800.0
+wall_jump_angle = 70.0
+wall_slide_gravity_multiplier = 0.25
+max_wall_slide_speed = 120.0
+wall_coyote_time = 0.12
+hit_force = 1000.0
+hitting = false
 
 [node name="Player2" parent="." instance=ExtResource("1_ytrdr")]
 position = Vector2(-15, -135)
 player_id = 1
-character_data = ExtResource("2_a44ff")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1578, -247)
-scale = Vector2(2, 2)
-texture = ExtResource("2_74vw4")
-
-[node name="OffscreenMarker" type="VisibleOnScreenNotifier2D" parent="Sprite2D"]
-script = ExtResource("3_6sdtl")
-metadata/_custom_type_script = "uid://cnsmsjgwotbln"
+max_health = 6
+walk_speed = 350.0
+run_speed = 575.0
+acceleration = 3000.0
+air_acceleration = 1100.0
+friction = 3000.0
+gravity = 2000.0
+fall_gravity_multiplier = 1.6
+jump_release_gravity_multiplier = 2.2
+jump_velocity = -1000.0
+jump_cut_multiplier = 0.4
+coyote_time = 0.2
+cling_threshold = 0.3
+wall_jump_velocity = 800.0
+wall_jump_angle = 70.0
+wall_slide_gravity_multiplier = 0.25
+max_wall_slide_speed = 120.0
+wall_coyote_time = 0.12
+hit_force = 1000.0
+hitting = false

@@ -31,6 +31,11 @@ func setup():
 	initial_grace_timer = initial_grace_period
 	tag_immunity_timer = 0.0
 	
+	# Connect to player hit signals
+	for player in active_players:
+		if player.hit_manager.has_signal("player_hit_player"):
+			player.hit_manager.player_hit_player.connect(_on_player_hit_player)
+	
 	print("All players start with ", match_settings.score_target, " points")
 	print("Grace period: ", initial_grace_period, " seconds before tagging begins")
 
@@ -52,9 +57,6 @@ func update_mode(delta: float):
 	if tagged_player_id != -1:
 		drain_tagged_player_points(delta)
 		update_tag_indicator_position()
-	
-	# Check for hits/tags
-	#check_for_tag_transfers()
 
 func drain_tagged_player_points(delta: float):
 	if tagged_player_id == -1:
@@ -70,6 +72,24 @@ func drain_tagged_player_points(delta: float):
 	if player_scores[tagged_player_id] <= 0:
 		player_scores[tagged_player_id] = 0
 		end_game_with_tagged_out()
+
+func _on_player_hit_player(attacker_id: int, victim_id: int):
+	# Skip if grace period is active
+	if initial_grace_timer > 0.0:
+		return
+	
+	# Skip if attacker has immunity
+	if attacker_id == tagged_player_id and tag_immunity_timer > 0.0:
+		return
+	
+	if tagged_player_id == -1:
+		tag_player(victim_id)
+		return
+	
+	# Transfer tag - tagged player hits someone else
+	if attacker_id == tagged_player_id:
+		transfer_tag(attacker_id, victim_id)
+
 
 #func check_for_tag_transfers():
 	## Only check if grace period is over
@@ -132,21 +152,30 @@ func transfer_tag(from_player_id: int, to_player_id: int):
 	update_tag_indicator_position()
 
 func create_tag_indicator():
+	print("Creating tag indicator for player ", tagged_player_id)
 	# Create a visual indicator above the tagged player
 	if tag_indicator:
 		tag_indicator.queue_free()
 	
 	tag_indicator = Node2D.new()
 	tag_indicator.name = "TagIndicator"
-	get_tree().current_scene.add_child(tag_indicator)
+	
+	# Add to the first player's parent(Level/World)
+	if tagged_player_id < active_players.size() and active_players[tagged_player_id]:
+		var player = active_players[tagged_player_id]
+		player.get_parent().add_child(tag_indicator)
+	
+	print("Tag indicator added to scene tree: ", tag_indicator.is_inside_tree())
 	
 	# Create a simple sprite/icon
 	var sprite = Sprite2D.new()
 	sprite.texture = preload("res://icon.svg") # TODO Replaced with actual icon
 	sprite.scale = Vector2(0.3, 0.3)
-	sprite.position = Vector2(0, -60) # Above players head
+	sprite.position = Vector2(0, -90) # Above players head
 	sprite.modulate = Color(1.0, 0.3, 0.3) # Red tint for now
 	tag_indicator.add_child(sprite)
+	
+	print("Sprite added, indicator position: ", tag_indicator.global_position)
 	
 	var tween = tag_indicator.create_tween()
 	tween.set_loops()
@@ -154,6 +183,7 @@ func create_tag_indicator():
 	tween.tween_property(sprite, "scale", Vector2(0.3, 0.3), 0.5)
 	
 	update_tag_indicator_position()
+	print("Final indicator position: ", tag_indicator.global_position)
 
 func update_tag_indicator_position():
 	# Move indicator to follow tagged player

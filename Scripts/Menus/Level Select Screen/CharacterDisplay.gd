@@ -73,12 +73,14 @@ func select_character(player_id: int) -> bool:
 		# Assign player_id
 		if "player_id" in player_character:
 			player_character.player_id = player_id
-	
-		# Swap sprite sheet
-		if player_character.has_node("SpriteManager"):
-			var sprite_manager = player_character.get_node("SpriteManager")
-			if sprite_manager.has_method("set_sprite_sheet"):
-				sprite_manager.set_sprite_sheet(character_data.sprite_sheet)
+		
+		if player_character:
+			player_character.character_data = character_data
+			# Swap sprite sheet
+			if player_character.has_node("SpriteManager"):
+				var sprite_manager = player_character.get_node("SpriteManager")
+				if sprite_manager.has_method("set_sprite_sheet"):
+					sprite_manager.set_sprite_sheet(player_character.character_data.sprite_sheet)
 			
 	
 		# Enable player controls initially

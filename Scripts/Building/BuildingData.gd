@@ -12,7 +12,7 @@ enum BuildingType {
 @export var building_name: String = "Building"
 @export var building_type: BuildingType = BuildingType.WOOD
 @export var building_scene: PackedScene # The actual building prefab (default variant)
-@export var building_variants: Array[PackedScene] = [] # Multiple scene variant
+@export var building_variants: Array[Vector2i] = [] # Sprite sheet frame coords for variant frames
 @export var menu_icon: Texture2D
 @export var particle_texture: Texture2D
 @export var outline_color: Color
@@ -59,15 +59,10 @@ func can_afford(inventory: Dictionary) -> bool:
 	
 	return wood_ok and stone_ok and energy_ok
 
-func get_random_building_scene() -> PackedScene:
+func get_random_building_variant() -> Vector2i:
 	if building_variants.is_empty():
-		return building_scene # Default to building_scene (No variants)
-	
-	# Pool includes defualt + all_variants
-	var all_variants = [building_scene] + building_variants
-	
-	# Random pick
-	return all_variants[randi() % all_variants.size()]
+		return Vector2i(0,0) # Default to first frame
+	return building_variants[randi() % building_variants.size()]
 
 # Get the actual occupied cells based on pattern
 # Returns array of Vector2i offset from center
